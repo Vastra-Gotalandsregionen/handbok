@@ -1,6 +1,7 @@
 package se.vgregion.ifeedpoc.controller.web;
 
 import com.liferay.portal.util.PortalUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import se.vgregion.ifeedpoc.model.Document;
 import se.vgregion.ifeedpoc.model.Ifeed;
 import se.vgregion.ifeedpoc.model.IfeedList;
@@ -24,7 +25,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.portlet.bind.annotation.RenderMapping;
 import org.springframework.web.portlet.bind.annotation.ResourceMapping;
 
-import javax.inject.Inject;
 import javax.portlet.*;
 import javax.servlet.http.HttpServletResponse;
 import java.io.InputStream;
@@ -38,10 +38,7 @@ public class PortletController {
 
     private static final ObjectMapper JSON_MAPPER = new ObjectMapper();
 
-    @Inject
-    private UserService userService;
-
-    @Inject
+    @Autowired
     private IfeedService ifeedService;
 
     public PortletController() {
@@ -149,32 +146,6 @@ public class PortletController {
         response.setCharacterEncoding("UTF-8");
 
         JSON_MAPPER.writeValue(response.getPortletOutputStream(), new IfeedList());
-    }
-
-    @ResourceMapping("userList")
-    public void userList(@RequestParam int startIndex, @RequestParam int limit, ResourceResponse response) throws Exception {
-        LOG.debug("Got list request for users with startIndex {} and limit {}", startIndex, limit);
-
-        UserList users = this.userService.getPortalUserList(startIndex, limit);
-
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-
-        //Automatic JSON serialization doesn't work yet in Portlet MVC
-        //See: https://jira.spring.io/browse/SPR-7344
-        JSON_MAPPER.writeValue(response.getPortletOutputStream(), users);
-    }
-
-    @ResourceMapping("userDetail")
-    public void userDetail(@RequestParam long userId, ResourceResponse response) throws Exception {
-        LOG.debug("Got detail request for user with id {}", userId);
-
-        UserDetail userDetail = this.userService.getPortalUserDetail(userId);
-
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-
-        JSON_MAPPER.writeValue(response.getPortletOutputStream(), userDetail);
     }
 
     private String getPortletId(PortletRequest request) {

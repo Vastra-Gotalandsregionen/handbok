@@ -5,8 +5,6 @@ import {HttpModule} from '@angular/http';
 
 import {AppComponent} from './app.component';
 import {AppRoutingModule} from "./app-routing.module";
-import {View2Component} from "./view2/view2.component";
-import {View1Component} from "./view1/view1.component";
 import {CommonModule} from "@angular/common";
 import {IfeedComponent} from "./ifeed/ifeed.component";
 import {IfeedService} from "./service/ifeed.service";
@@ -18,8 +16,6 @@ import {AdminGuard} from "./service/admin-guard.service";
     declarations: [
         AppComponent,
         UserComponent,
-        View1Component,
-        View2Component,
         IfeedComponent,
         AdminComponent
     ],
