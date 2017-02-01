@@ -1,0 +1,21 @@
+<span id="preferencesButtonWrapper" *ngIf="hasPreferencesPermission">
+    <a routerLink="/admin" class="btn btn-primary"><i class="icon-edit"></i></a>
+</span>
+
+<h3>
+    <span *ngIf="getCurrentIfeedName() == null">Välj kategori</span> {{getCurrentIfeedName()}} <span
+        *ngIf="getCurrentDocumentTitle() != null">-> {{getCurrentDocumentTitle()}}</span>
+</h3>
+<div class="clearfix">
+    <div class="column left-column">
+        <nav>
+            <a *ngFor="let ifeed of ifeeds" routerLink="/user/ifeed/{{ifeed.id}}" routerLinkActive="active">
+                {{ifeed.name}}
+            </a>
+        </nav>
+    </div>
+
+    <div class="column right-column">
+        <router-outlet></router-outlet>
+    </div>
+</div>

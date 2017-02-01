@@ -1,0 +1,23 @@
+.column {
+    float: left;
+}
+
+.left-column {
+    width: 140px;
+}
+
+.right-column {
+    width: calc(100% - 140px);
+}
+
+nav a {
+    display: block;
+}
+
+a.active {
+    font-weight: bold;
+}
+
+#preferencesButtonWrapper {
+    float: right;
+}

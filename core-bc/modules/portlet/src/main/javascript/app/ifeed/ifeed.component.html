@@ -1,0 +1,18 @@
+<ul *ngIf="!showingDocument">
+    <li *ngFor="let document of documents" >
+        <a routerLink="/user/ifeed/{{id}}" [queryParams]="{'urlSafeUrl': document.urlSafeUrl, 'ifeedIdHmac': document.ifeedIdHmac}" >{{document.title}}</a>
+    </li>
+</ul>
+
+<div *ngIf="documents === null || documents.length === 0">
+    Läser in...
+</div>
+
+<div *ngIf="showingDocument">
+    <span><a routerLink="/user/ifeed/{{id}}" ><i class="icon-arrow-left"></i> Tillbaka</a></span>
+    <span><a href="{{documentBaseUrl + encodeURI(currentDocument.urlSafeUrl) + '/' + currentDocument.ifeedIdHmac}}"><i class="icon-external-link"></i> Öppna helsida</a></span>
+</div>
+
+<div *ngIf="showingDocument">
+    <iframe [src]="getDocumentUrl()" style="height: 900px; width: 900px;"></iframe>
+</div>
