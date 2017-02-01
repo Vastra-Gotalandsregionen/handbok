@@ -17,6 +17,10 @@
             <mime-type>text/html</mime-type>
             <portlet-mode>view</portlet-mode>
         </supports>
+        <supports>
+            <mime-type>text/html</mime-type>
+            <portlet-mode>edit</portlet-mode>
+        </supports>
         <portlet-info>
             <title>Ämneshandböcker</title>
         </portlet-info>

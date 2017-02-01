@@ -5,6 +5,7 @@ import {Router, ActivatedRoute} from "@angular/router";
 import 'rxjs/add/operator/map';
 import {DomSanitizer, SafeUrl} from "@angular/platform-browser";
 import {IfeedService} from "../service/ifeed.service";
+import {Document} from "../model/document.model";
 
 @Component({
     selector: 'ifeed',
@@ -153,13 +154,4 @@ export class IfeedComponent implements OnInit, OnChanges {
         this.ifeedService.currentDocumentTitle = null;
         this.ref.detectChanges();
     }
-}
-
-export class Document { // todo Refactor to separate file
-    id: string;
-    url: string;
-    url_t: string;
-    title: string;
-    ifeedIdHmac: string;
-    urlSafeUrl: string;
 }

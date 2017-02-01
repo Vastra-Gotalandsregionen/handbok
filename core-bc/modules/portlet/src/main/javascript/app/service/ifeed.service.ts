@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Ifeed} from "../view/user/user.component";
+import {Ifeed} from "../model/ifeed.model";
 
 @Injectable()
 export class IfeedService {
@@ -10,6 +10,7 @@ export class IfeedService {
     ajaxUrl: string;
     hasPreferencesPermission: boolean;
     ifeeds: [Ifeed] = null;
+    bookName: string;
 
     setCurrentIfeedId(id: number): void {
         console.log('setCurrentIfeedId: ' + id);
@@ -21,6 +22,7 @@ export class IfeedService {
 
     private updateIfeedName() {
         if (this.currentIfeedId === null || this.ifeeds === null) {
+            this.currentIfeedName = null;
             return;
         }
 

@@ -1,31 +1,32 @@
 package se.vgregion.ifeedpoc.controller.web;
 
-import com.liferay.portal.util.PortalUtil;
-import org.springframework.beans.factory.annotation.Autowired;
-import se.vgregion.ifeedpoc.model.Document;
-import se.vgregion.ifeedpoc.model.Ifeed;
-import se.vgregion.ifeedpoc.model.IfeedList;
-import se.vgregion.ifeedpoc.model.UserDetail;
-import se.vgregion.ifeedpoc.model.UserList;
-import se.vgregion.ifeedpoc.service.HmacUtil;
-import se.vgregion.ifeedpoc.service.IfeedService;
-import se.vgregion.ifeedpoc.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.model.User;
 import com.liferay.portal.theme.PortletDisplay;
 import com.liferay.portal.theme.ThemeDisplay;
+import com.liferay.portal.util.PortalUtil;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.portlet.bind.annotation.RenderMapping;
 import org.springframework.web.portlet.bind.annotation.ResourceMapping;
+import se.vgregion.ifeedpoc.model.Document;
+import se.vgregion.ifeedpoc.model.Ifeed;
+import se.vgregion.ifeedpoc.model.IfeedList;
+import se.vgregion.ifeedpoc.service.HmacUtil;
+import se.vgregion.ifeedpoc.service.IfeedService;
 
-import javax.portlet.*;
+import javax.portlet.PortletRequest;
+import javax.portlet.RenderRequest;
+import javax.portlet.RenderResponse;
+import javax.portlet.ResourceResponse;
+import javax.portlet.ResourceURL;
 import javax.servlet.http.HttpServletResponse;
 import java.io.InputStream;
 import java.net.URL;
@@ -63,7 +64,6 @@ public class PortletController {
         model.addAttribute("portletId", getPortletId(request));
         model.addAttribute("portletAppContextPath", request.getContextPath() + "/");
 
-
         PortletDisplay portletDisplay = themeDisplay.getPortletDisplay();
 
         boolean hasPreferencesPermission = themeDisplay.getPermissionChecker()
@@ -71,6 +71,9 @@ public class PortletController {
                         portletDisplay.getResourcePK(), "PREFERENCES");
 
         model.addAttribute("hasPreferencesPermission", hasPreferencesPermission);
+
+        String bookName = request.getPreferences().getValue("bookName", null);
+        model.addAttribute("bookName", bookName);
 
         return "index";
     }
@@ -96,14 +99,11 @@ public class PortletController {
             document.setIfeedIdHmac(HmacUtil.calculateRFC2104HMAC(document.getUrl()));
         }
 
-        URL url = new URL(foundIfeed.getFeedId());
         System.out.println("flag1");
-//        InputStream inputStream = url.openStream();
         System.out.println("flag2");
 
 
         JSON_MAPPER.writeValue(response.getPortletOutputStream(), documentList);
-//        IOUtils.copy(inputStream, response.getPortletOutputStream());
         System.out.println("flag3");
     }
 

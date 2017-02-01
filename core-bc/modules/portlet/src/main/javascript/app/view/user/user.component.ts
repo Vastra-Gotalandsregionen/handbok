@@ -4,6 +4,7 @@ import { Observable }     from 'rxjs';
 import {Router, ActivatedRoute} from "@angular/router";
 import 'rxjs/add/operator/map';
 import {IfeedService} from "../../service/ifeed.service";
+import {Ifeed} from "../../model/ifeed.model";
 
 @Component({
     templateUrl: './user.component.html',
@@ -27,8 +28,8 @@ export class UserComponent implements OnInit {
         this.ifeedService.currentDocumentTitle = null;
 
         this.hasPreferencesPermission = this.ifeedService.hasPreferencesPermission;
-        console.log('user ngOnInit: ' + this.ifeedService.ajaxUrl);
-        let observableResponse:Observable<Response> = this.http.get(this.ifeedService.ajaxUrl + "/ifeed");
+        console.log('user ngOnInit: ' + this.ifeedService.ajaxUrl) + ', bookName=' + this.ifeedService.bookName;
+        let observableResponse:Observable<Response> = this.http.get(this.ifeedService.ajaxUrl + "/ifeed/" + this.ifeedService.bookName);
         observableResponse
             .map(response => response.json())
             .subscribe(
@@ -53,11 +54,4 @@ export class UserComponent implements OnInit {
         return this.ifeedService.currentDocumentTitle;
     }
 
-}
-
-export class Ifeed { // todo Refactor out to separate file
-    id: number;
-    ifeedId: string;
-    name: string;
-    url: string;
 }

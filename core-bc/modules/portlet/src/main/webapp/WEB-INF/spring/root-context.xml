@@ -8,7 +8,7 @@
     <import resource="dbContext.xml"/>
     <context:component-scan base-package="se.vgregion.ifeedpoc.service"/>
 
-    <beans:repositories base-package="se.vgregion.ifeedpoc.service" />
+    <beans:repositories base-package="se.vgregion.ifeedpoc.repository" />
 
     <bean id="viewResolver"
           class="org.springframework.web.servlet.view.InternalResourceViewResolver">

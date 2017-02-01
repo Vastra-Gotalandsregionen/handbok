@@ -7,3 +7,35 @@ Admin
 <div class="content">
     <button (click)="post()">Posta</button>
 </div>
+
+<h3>
+    Redigera ifeeds för <em [innerText]="bookName"></em>
+</h3>
+
+<table *ngIf="ifeedList != null">
+    <thead>
+    <tr>
+        <td>Namn</td>
+        <td>Ifeed-ID</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let ifeed of ifeedList.ifeeds">
+        <td><input [(ngModel)]="ifeed.name" type="text"></td>
+        <td><input [(ngModel)]="ifeed.feedId" type="text"></td>
+        <td><button class="btn btn-danger" (click)="deleteIfeed(ifeed)"><i class="icon-trash"></i> </button> </td>
+    </tr>
+    </tbody>
+</table>
+
+<div>
+    <div class="btn-group">
+        <button class="btn btn-primary" (click)="addIfeed()"><i class="icon-plus"></i></button>
+    </div>
+</div>
+
+<div>
+    <div class="btn-group">
+        <button class="btn {{saveButtonClass}}" (click)="save()">{{saveButtonText}}</button>
+    </div>
+</div>

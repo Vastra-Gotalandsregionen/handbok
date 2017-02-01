@@ -6,7 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "vgr_ifeed_poc_ifeed")
+@Table(name = "vgr_handbok_ifeed")
 public class Ifeed {
 
     @Id
@@ -14,6 +14,7 @@ public class Ifeed {
     private Long id;
 
     private String name;
+
     private String feedId;
 
     public Ifeed() {

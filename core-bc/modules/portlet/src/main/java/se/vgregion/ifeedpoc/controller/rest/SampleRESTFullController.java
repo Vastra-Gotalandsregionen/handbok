@@ -1,6 +1,5 @@
 package se.vgregion.ifeedpoc.controller.rest;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.security.permission.PermissionChecker;
 import com.liferay.portal.security.permission.PermissionThreadLocal;
@@ -13,7 +12,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,9 +21,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import se.vgregion.ifeedpoc.model.Document;
 import se.vgregion.ifeedpoc.model.Ifeed;
 import se.vgregion.ifeedpoc.model.IfeedList;
+import se.vgregion.ifeedpoc.service.DocumentFetcherService;
 import se.vgregion.ifeedpoc.service.HmacUtil;
-import se.vgregion.ifeedpoc.service.IfeedListRepository;
-import se.vgregion.ifeedpoc.service.IfeedRepository;
+import se.vgregion.ifeedpoc.repository.IfeedListRepository;
+import se.vgregion.ifeedpoc.repository.IfeedRepository;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
@@ -34,12 +33,11 @@ import java.net.URL;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SignatureException;
+import java.util.List;
 
 @Controller
 @Transactional
 public class SampleRESTFullController {
-
-    private static final ObjectMapper JSON_MAPPER = new ObjectMapper();
 
     @Autowired
     private IfeedListRepository ifeedListRepository;
@@ -47,25 +45,31 @@ public class SampleRESTFullController {
     @Autowired
     private IfeedRepository ifeedRepository;
 
+    @Autowired
+    private DocumentFetcherService documentFetcherService;
+
     @RequestMapping(value = "/ifeed", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public IfeedList helloSample(HttpServletRequest request) throws SystemException {
+    public List<IfeedList> getAllIfeedLists(HttpServletRequest request) throws SystemException {
 
         PermissionChecker permissionChecker = PermissionThreadLocal.getPermissionChecker();
 
-        return new IfeedList();
+        return ifeedListRepository.findAll();
     }
 
-    @RequestMapping(value = "/ifeed/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/ifeed/{name}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public IfeedList getIfeedList(@PathVariable("id") Long id) throws SystemException {
+    public ResponseEntity<IfeedList> getIfeedList(@PathVariable("name") String name) throws SystemException {
 
-//        IfeedList ifeedList = new IfeedList();
-//        ifeedList.getIfeeds().add(new Ifeed("theName", "theUrl://example.com"));
-//        return ifeedList;
-        return ifeedListRepository.findOne(id);
+        IfeedList ifeedList = ifeedListRepository.findByName(name);
+
+        if (ifeedList == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(ifeedList);
     }
 
     @RequestMapping(value = "/ifeed/{id}/document", method = RequestMethod.GET)
@@ -73,27 +77,13 @@ public class SampleRESTFullController {
     @ResponseBody
     public Document[] getDocuments(@PathVariable("id") Long id) throws SystemException, IOException, NoSuchAlgorithmException, SignatureException, InvalidKeyException {
 
-//        IfeedList ifeedList = new IfeedList();
-//        ifeedList.getIfeeds().add(new Ifeed("theName", "theUrl://example.com"));
-//        return ifeedList;
-        Ifeed match = null;
-        for (Ifeed ifeed : new IfeedList().getIfeeds()) {
-            if (ifeed.getId().equals(id)) {
-                match = ifeed;
-            }
-        }
+        Ifeed ifeed = ifeedRepository.findOne(id);
 
-//        String feedId = ifeedRepository.findOne(id).getFeedId();
-
-        String url = String.format("http://ifeed.vgregion.se/iFeed-web/documentlists/%s/metadata.json?by=&dir=asc", match.getFeedId());
-
-        Document[] documentList = JSON_MAPPER.readValue(new URL(url), Document[].class);
+        Document[] documentList = documentFetcherService.fetchDocuments(ifeed.getFeedId());
 
         for (Document document : documentList) {
             document.setIfeedIdHmac(HmacUtil.calculateRFC2104HMAC(document.getUrl()));
             document.setUrlSafeUrl(Base64.encodeBase64URLSafeString(document.getUrl().getBytes("UTF-8")));
-//            document.setUrlSafeUrl(Base64.getUrlEncoder().encodeToString(document.getUrl().getBytes("UTF-8")));
-//            document.setUrlSafeUrl(Base64.getUrlEncoder().encodeToString(document.getUrl().getBytes("UTF-8")));
         }
 
         return documentList;
@@ -105,14 +95,10 @@ public class SampleRESTFullController {
     public ResponseEntity getDocument(@PathVariable("urlSafeUrl") String urlSafeUrl,
                                       @PathVariable("urlHmac") String urlHmac) throws NoSuchAlgorithmException, SignatureException, InvalidKeyException, IOException {
 
-//        String documentUrl = new String(Base64.getUrlDecoder().decode(urlSafeUrl), "UTF-8");
         String documentUrl = new String(Base64.decodeBase64(urlSafeUrl), "UTF-8");
 
         if (!HmacUtil.calculateRFC2104HMAC(documentUrl).equals(urlHmac)) {
-//            HttpServletResponse httpServletResponse = PortalUtil.getHttpServletResponse(response);
-
             return ResponseEntity.badRequest().contentType(MediaType.TEXT_PLAIN).build();
-
         }
 
         URL url = new URL(documentUrl);
@@ -121,24 +107,22 @@ public class SampleRESTFullController {
         InputStream inputStream = url.openStream();
         System.out.println("flag2");
 
-
-        System.out.println("flag3");
-
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.valueOf("application/pdf"));
 
         ResponseEntity responseEntity = new ResponseEntity(new InputStreamResource(inputStream), headers, HttpStatus.OK);
+
+        System.out.println("flag3");
 
         return responseEntity;
     }
 
     @RequestMapping(value = "/ifeed", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
-    public void putIfeedList(@RequestBody IfeedList ifeedList) throws SystemException {
-        ifeedListRepository.saveAndFlush(ifeedList);
+    @ResponseBody
+    public IfeedList putIfeedList(@RequestBody IfeedList ifeedList) throws SystemException {
+        return ifeedListRepository.saveAndFlush(ifeedList);
     }
-
-
 
 }
 

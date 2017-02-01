@@ -19,6 +19,7 @@ export class AppComponent implements OnInit {
         console.log("AppComponent constructor....");
         ifeedService.ajaxUrl = elm.nativeElement.attributes['ajax-url'].value;
         ifeedService.hasPreferencesPermission = elm.nativeElement.attributes['has-preferences-permission'].value === 'true';
+        ifeedService.bookName = elm.nativeElement.attributes['book-name'].value;
     }
 
     ngOnInit(): void {

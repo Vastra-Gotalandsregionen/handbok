@@ -1,0 +1,4 @@
+.btn-group button.transition {
+    transition: all 2s;
+    background-image: none;
+}
