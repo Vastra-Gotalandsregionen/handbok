@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+	<!--
+		This is the Service-composite Maven POM. Template version:
+		1.9 Generation time : 2017-02-01 09:32:10 CET
+	-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>se.vgregion.handbok</groupId>
+		<artifactId>handbok-core-bc</artifactId>
+		<version>1.0-SNAPSHOT</version>
+      <relativePath>../../pom.xml</relativePath>
+    </parent>
+	<groupId>se.vgregion.handbok</groupId>
+	<artifactId>handbok-core-bc-composite-svc</artifactId>
+	<packaging>jar</packaging>
+	<name>${project.artifactId}</name>
+
+	<dependencies>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>handbok-core-bc-composite-types</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>${spring.fw.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${spring.fw.version}</version>
+		</dependency>
+	</dependencies>
+</project>
