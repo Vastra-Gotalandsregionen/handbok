@@ -8,7 +8,8 @@
         http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
     <context:component-scan base-package="se.vgregion.ifeedpoc.controller.rest"/>
-    <context:component-scan base-package="se.vgregion.ifeedpoc.spring"/>
+
+    <bean class="se.vgregion.ifeedpoc.spring.SwaggerConfiguration"/>
 
     <mvc:annotation-driven />
 

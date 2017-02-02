@@ -12,10 +12,6 @@ table td, table th {
     margin-bottom: 0;
 }
 
-section {
-    margin: 12px 0 24px 0;
-}
-
 .handle:hover {
     cursor: pointer;
 }

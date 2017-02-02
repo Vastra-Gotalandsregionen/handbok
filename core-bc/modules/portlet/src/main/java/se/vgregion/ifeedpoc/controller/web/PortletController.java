@@ -1,8 +1,12 @@
 package se.vgregion.ifeedpoc.controller.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.model.User;
+import com.liferay.portal.model.UserGroupRole;
+import com.liferay.portal.service.UserGroupRoleLocalServiceUtil;
 import com.liferay.portal.theme.PortletDisplay;
 import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portal.util.PortalUtil;
@@ -30,6 +34,7 @@ import javax.portlet.ResourceURL;
 import javax.servlet.http.HttpServletResponse;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.List;
 
 @Component
 @RequestMapping("view")
@@ -46,11 +51,10 @@ public class PortletController {
     }
 
     @RenderMapping
-    public String view(RenderRequest request, RenderResponse response, ModelMap model) {
+    public String view(RenderRequest request, RenderResponse response, ModelMap model)
+            throws SystemException, PortalException {
         User user = (User) request.getAttribute(WebKeys.USER);
         String userScreenName = user != null ? user.getScreenName() : "anonymous";
-
-        ResourceURL baseResourceUrl = response.createResourceURL();
 
         ThemeDisplay themeDisplay = (ThemeDisplay) request.getAttribute(WebKeys.THEME_DISPLAY);
 
@@ -64,16 +68,21 @@ public class PortletController {
         model.addAttribute("portletId", getPortletId(request));
         model.addAttribute("portletAppContextPath", request.getContextPath() + "/");
 
-        PortletDisplay portletDisplay = themeDisplay.getPortletDisplay();
-
-        boolean hasPreferencesPermission = themeDisplay.getPermissionChecker()
-                .hasPermission(themeDisplay.getLayout().getGroupId(), portletDisplay.getId(),
-                        portletDisplay.getResourcePK(), "PREFERENCES");
-
-        model.addAttribute("hasPreferencesPermission", hasPreferencesPermission);
-
         String bookName = request.getPreferences().getValue("bookName", null);
         model.addAttribute("bookName", bookName);
+
+        List<UserGroupRole> userGroupRoles = UserGroupRoleLocalServiceUtil.getUserGroupRoles(themeDisplay.getUserId(),
+                themeDisplay.getLayout().getGroupId());
+
+        boolean hasPreferencesPermission = false;
+        for (UserGroupRole role : userGroupRoles) {
+            if (role.getRole().getName().equals(bookName)) {
+                hasPreferencesPermission = true;
+                break;
+            }
+        }
+
+        model.addAttribute("hasPreferencesPermission", hasPreferencesPermission);
 
         return "index";
     }

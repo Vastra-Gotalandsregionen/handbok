@@ -13,6 +13,7 @@ import {AdminComponent} from "./view/admin/admin.component";
 import {AdminGuard} from "./service/admin-guard.service";
 import {DragulaModule} from "ng2-dragula";
 import {TooltipModule} from "ngx-tooltip";
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
     declarations: [
@@ -28,6 +29,7 @@ import {TooltipModule} from "ngx-tooltip";
         DragulaModule,
         FormsModule,
         HttpModule,
+        NgbModule.forRoot(),
         TooltipModule
     ],
     providers: [

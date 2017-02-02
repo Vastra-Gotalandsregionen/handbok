@@ -1,37 +1,43 @@
-<div>
-    <a routerLink="/" class="btn btn-primary"><i class="icon-arrow-left"></i> Tillbaka</a>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4>
+            Redigera ifeeds för <em [innerText]="bookName"></em>
+        </h4>
+    </div>
+
+    <div class="panel-body">
+        <div>
+            <a routerLink="/" class="btn btn-primary"><i class="icon-arrow-left"></i> Tillbaka</a>
+        </div>
+
+        <table id="ifeedAdminTable" *ngIf="ifeedList != null">
+            <thead>
+            <tr>
+                <th>Namn</th>
+                <th>Ifeed-ID</th>
+                <th><span tooltip="Dra och släpp för att sortera">Sortera</span> </th>
+            </tr>
+            </thead>
+            <tbody [dragula]="ifeed-rows">
+            <tr *ngFor="let ifeed of ifeedList.ifeeds">
+                <td><input [(ngModel)]="ifeed.name" type="text"></td>
+                <td><input [(ngModel)]="ifeed.feedId" type="text"></td>
+                <td class="center"><i class="icon-move handle"></i> </td>
+                <td><button class="btn btn-danger" (click)="deleteIfeed(ifeed)"><i class="icon-trash"></i> </button> </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <section>
+            <div class="btn-group">
+                <button class="btn btn-primary" (click)="addIfeed()"><i class="icon-plus"></i> Lägg till rad</button>
+            </div>
+        </section>
+
+        <section>
+            <div class="btn-group">
+                <button class="btn {{saveButtonClass}}" (click)="save()">{{saveButtonText}}</button>
+            </div>
+        </section>
+    </div>
 </div>
-
-<h3>
-    Redigera ifeeds för <em [innerText]="bookName"></em>
-</h3>
-
-<table id="ifeedAdminTable" *ngIf="ifeedList != null">
-    <thead>
-    <tr>
-        <th>Namn</th>
-        <th>Ifeed-ID</th>
-        <th><span tooltip="Dra och släpp för att sortera">Sortera</span> </th>
-    </tr>
-    </thead>
-    <tbody [dragula]="ifeed-rows">
-    <tr *ngFor="let ifeed of ifeedList.ifeeds">
-        <td><input [(ngModel)]="ifeed.name" type="text"></td>
-        <td><input [(ngModel)]="ifeed.feedId" type="text"></td>
-        <td class="center"><i class="icon-move handle"></i> </td>
-        <td><button class="btn btn-danger" (click)="deleteIfeed(ifeed)"><i class="icon-trash"></i> </button> </td>
-    </tr>
-    </tbody>
-</table>
-
-<section>
-    <div class="btn-group">
-        <button class="btn btn-primary" (click)="addIfeed()"><i class="icon-plus"></i> Lägg till rad</button>
-    </div>
-</section>
-
-<section>
-    <div class="btn-group">
-        <button class="btn {{saveButtonClass}}" (click)="save()">{{saveButtonText}}</button>
-    </div>
-</section>

@@ -1,21 +1,30 @@
-<span id="preferencesButtonWrapper" *ngIf="hasPreferencesPermission">
-    <a routerLink="/admin" class="btn btn-primary"><i class="icon-cog"></i> Administrera</a>
-</span>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <span id="preferencesButtonWrapper" *ngIf="hasPreferencesPermission">
+            <a routerLink="/admin"><i class="icon-cog"></i> Administrera</a>
+        </span>
 
-<h3>
-    <span *ngIf="getCurrentIfeedName() == null">Välj kategori</span> {{getCurrentIfeedName()}} <span
-        *ngIf="getCurrentDocumentTitle() != null">-> {{getCurrentDocumentTitle()}}</span>
-</h3>
-<div class="clearfix">
-    <div class="column left-column">
-        <nav>
-            <a *ngFor="let ifeed of ifeeds" routerLink="/user/ifeed/{{ifeed.id}}" routerLinkActive="active">
-                {{ifeed.name}}
-            </a>
-        </nav>
+        <h4 class="panel-title">
+            {{getBookName()}}&nbsp;&nbsp;<i class="icon-caret-right"></i>&nbsp;&nbsp;<span *ngIf="getCurrentIfeedName() == null">Välj kategori</span> {{getCurrentIfeedName()}} <span
+                *ngIf="getCurrentDocumentTitle() != null">&nbsp;&nbsp;<i class="icon-caret-right"></i>&nbsp;&nbsp;{{getCurrentDocumentTitle()}}</span>
+        </h4>
     </div>
 
-    <div class="column right-column">
-        <router-outlet></router-outlet>
+    <div class="panel-body">
+        <div class="clearfix">
+            <div class="column left-column">
+                <ul class="nav nav-pills nav-stacked">
+                    <li *ngFor="let ifeed of ifeeds">
+                        <a routerLink="/user/ifeed/{{ifeed.id}}" routerLinkActive="active">
+                            {{ifeed.name}}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="column right-column">
+                <router-outlet></router-outlet>
+            </div>
+        </div>
     </div>
 </div>

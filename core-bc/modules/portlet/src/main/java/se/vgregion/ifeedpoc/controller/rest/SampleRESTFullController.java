@@ -27,9 +27,9 @@ import se.vgregion.ifeedpoc.repository.IfeedListRepository;
 import se.vgregion.ifeedpoc.repository.IfeedRepository;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SignatureException;
@@ -103,18 +103,14 @@ public class SampleRESTFullController {
             return ResponseEntity.badRequest().contentType(MediaType.TEXT_PLAIN).build();
         }
 
-        URL url = new URL(documentUrl);
+        byte[] bytes = documentFetcherService.fetchDocument(documentUrl);
 
-        System.out.println("flag1");
-        InputStream inputStream = url.openStream();
-        System.out.println("flag2");
+        InputStream inputStream = new ByteArrayInputStream(bytes);
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.valueOf("application/pdf"));
 
         ResponseEntity responseEntity = new ResponseEntity(new InputStreamResource(inputStream), headers, HttpStatus.OK);
-
-        System.out.println("flag3");
 
         return responseEntity;
     }

@@ -9,6 +9,7 @@ import {Document} from "../model/document.model";
 
 @Component({
     selector: 'ifeed',
+    styleUrls: ['./ifeed.component.css'],
     templateUrl: './ifeed.component.html'
 })
 export class IfeedComponent implements OnInit, OnChanges {

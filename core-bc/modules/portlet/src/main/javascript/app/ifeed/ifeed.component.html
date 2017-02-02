@@ -1,4 +1,4 @@
-<ul *ngIf="!showingDocument">
+<ul *ngIf="!showingDocument" class="nav nav-pills nav-stacked">
     <li *ngFor="let document of documents" >
         <a routerLink="/user/ifeed/{{id}}" [queryParams]="{'urlSafeUrl': document.urlSafeUrl, 'ifeedIdHmac': document.ifeedIdHmac}" >{{document.title}}</a>
     </li>
@@ -8,11 +8,11 @@
     Läser in...
 </div>
 
-<div *ngIf="showingDocument">
-    <span><a routerLink="/user/ifeed/{{id}}" ><i class="icon-arrow-left"></i> Tillbaka</a></span>
-    <span><a href="{{documentBaseUrl + encodeURI(currentDocument.urlSafeUrl) + '/' + currentDocument.ifeedIdHmac}}"><i class="icon-external-link"></i> Öppna helsida</a></span>
+<div *ngIf="showingDocument" class="button-row">
+    <span><a class="btn btn-primary" routerLink="/user/ifeed/{{id}}" ><i class="icon-arrow-left"></i> Tillbaka</a></span>
+    <span><a class="btn btn-primary" href="{{documentBaseUrl + encodeURI(currentDocument.urlSafeUrl) + '/' + currentDocument.ifeedIdHmac}}"><i class="icon-external-link"></i> Öppna helsida</a></span>
 </div>
 
 <div *ngIf="showingDocument">
-    <iframe [src]="getDocumentUrl()" style="height: 900px; width: 900px;"></iframe>
+    <iframe [src]="getDocumentUrl()"></iframe>
 </div>

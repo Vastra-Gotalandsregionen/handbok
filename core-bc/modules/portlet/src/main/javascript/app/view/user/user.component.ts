@@ -28,7 +28,6 @@ export class UserComponent implements OnInit {
         this.ifeedService.currentDocumentTitle = null;
 
         this.hasPreferencesPermission = this.ifeedService.hasPreferencesPermission;
-        console.log('user ngOnInit: ' + this.ifeedService.ajaxUrl) + ', bookName=' + this.ifeedService.bookName;
         let observableResponse:Observable<Response> = this.http.get(this.ifeedService.ajaxUrl + "/ifeed/" + this.ifeedService.bookName);
         observableResponse
             .map(response => response.json())
@@ -52,6 +51,10 @@ export class UserComponent implements OnInit {
 
     getCurrentDocumentTitle(): string {
         return this.ifeedService.currentDocumentTitle;
+    }
+
+    getBookName(): string {
+        return this.ifeedService.bookName;
     }
 
 }

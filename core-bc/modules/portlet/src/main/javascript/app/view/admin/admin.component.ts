@@ -9,7 +9,10 @@ import {DragulaService} from "ng2-dragula";
 
 @Component({
     templateUrl: './admin.component.html',
-    styleUrls: ['./admin.component.css', '../../../../../../node_modules/dragula/dist/dragula.min.css']
+    styleUrls: [
+        './admin.component.css',
+        '../../../../../../node_modules/dragula/dist/dragula.min.css'
+    ]
 })
 export class AdminComponent implements OnInit, OnDestroy {
 
