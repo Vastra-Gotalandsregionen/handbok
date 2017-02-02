@@ -1,8 +1,8 @@
 package se.vgregion.ifeedpoc.model;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -10,12 +10,14 @@ import javax.persistence.Table;
 public class Ifeed {
 
     @Id
-    @GeneratedValue
-    private Long id;
+    private String id;
 
     private String name;
 
     private String feedId;
+
+    @ManyToOne
+    private IfeedList ifeedList;
 
     public Ifeed() {
     }
@@ -25,17 +27,17 @@ public class Ifeed {
         this.feedId = feedId;
     }
 
-    public Ifeed(Long id, String name, String feedId) {
+    public Ifeed(String id, String name, String feedId) {
         this.id = id;
         this.name = name;
         this.feedId = feedId;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -53,5 +55,13 @@ public class Ifeed {
 
     public void setFeedId(String feedId) {
         this.feedId = feedId;
+    }
+
+    public IfeedList getIfeedList() {
+        return ifeedList;
+    }
+
+    public void setIfeedList(IfeedList ifeedList) {
+        this.ifeedList = ifeedList;
     }
 }

@@ -2,3 +2,37 @@
     transition: all 2s;
     background-image: none;
 }
+
+table td, table th {
+    padding: 4px 8px;
+}
+
+#ifeedAdminTable input {
+    margin: 0;
+    margin-bottom: 0;
+}
+
+section {
+    margin: 12px 0 24px 0;
+}
+
+.handle:hover {
+    cursor: pointer;
+}
+
+table th {
+    text-align: left;
+    height: 32px;
+}
+
+table td.center {
+    text-align: center;
+}
+
+tooltip-content {
+    position: absolute;
+}
+
+td i[class^="icon"] {
+    font-size: 1.2em;
+}

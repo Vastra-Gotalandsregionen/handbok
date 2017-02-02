@@ -33,7 +33,9 @@ import java.net.URL;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SignatureException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 @Transactional
@@ -75,9 +77,9 @@ public class SampleRESTFullController {
     @RequestMapping(value = "/ifeed/{id}/document", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public Document[] getDocuments(@PathVariable("id") Long id) throws SystemException, IOException, NoSuchAlgorithmException, SignatureException, InvalidKeyException {
+    public Document[] getDocuments(@PathVariable("id") String id) throws SystemException, IOException, NoSuchAlgorithmException, SignatureException, InvalidKeyException {
 
-        Ifeed ifeed = ifeedRepository.findOne(id);
+        Ifeed ifeed = ifeedRepository.findById(id);
 
         Document[] documentList = documentFetcherService.fetchDocuments(ifeed.getFeedId());
 
@@ -121,6 +123,16 @@ public class SampleRESTFullController {
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public IfeedList putIfeedList(@RequestBody IfeedList ifeedList) throws SystemException {
+        IfeedList one = ifeedListRepository.findOne(ifeedList.getId());
+        one.setIfeeds(new ArrayList<>());
+        ifeedListRepository.saveAndFlush(one);
+
+        for (Ifeed ifeed : ifeedList.getIfeeds()) {
+            if (ifeed.getId() == null) {
+                ifeed.setId(UUID.randomUUID().toString());
+            }
+        }
+
         return ifeedListRepository.saveAndFlush(ifeedList);
     }
 

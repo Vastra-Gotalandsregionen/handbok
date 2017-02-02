@@ -1,4 +1,4 @@
-import {Component, Input, ElementRef, OnInit, Inject} from '@angular/core';
+import {Component, Input, ElementRef, OnInit, Inject, ViewEncapsulation} from '@angular/core';
 import {Http, Response} from "@angular/http";
 import { Observable }     from 'rxjs';
 import {Router} from "@angular/router";
@@ -8,7 +8,8 @@ import {IfeedService} from "./service/ifeed.service";
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
-    styleUrls: ['./app.component.css']
+    styleUrls: ['./app.component.css'],
+    encapsulation: ViewEncapsulation.None
 })
 export class AppComponent implements OnInit {
 

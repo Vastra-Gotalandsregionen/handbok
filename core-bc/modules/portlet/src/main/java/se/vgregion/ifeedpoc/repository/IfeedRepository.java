@@ -5,4 +5,5 @@ import se.vgregion.ifeedpoc.model.Ifeed;
 
 public interface IfeedRepository extends JpaRepository<Ifeed,Long> {
 
+    Ifeed findById(String id);
 }

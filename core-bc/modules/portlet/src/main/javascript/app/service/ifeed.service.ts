@@ -4,7 +4,7 @@ import {Ifeed} from "../model/ifeed.model";
 @Injectable()
 export class IfeedService {
 
-    private currentIfeedId: number = null;
+    private currentIfeedId: string = null;
     private currentIfeedName: string = null;
     currentDocumentTitle: string;
     ajaxUrl: string;
@@ -12,7 +12,7 @@ export class IfeedService {
     ifeeds: [Ifeed] = null;
     bookName: string;
 
-    setCurrentIfeedId(id: number): void {
+    setCurrentIfeedId(id: string): void {
         console.log('setCurrentIfeedId: ' + id);
 
         this.currentIfeedId = id;
@@ -36,7 +36,7 @@ export class IfeedService {
         this.currentIfeedId = this.currentIfeedId;
     }
 
-    getCurrentIfeedId(): number {
+    getCurrentIfeedId(): string {
         return this.currentIfeedId;
     }
 

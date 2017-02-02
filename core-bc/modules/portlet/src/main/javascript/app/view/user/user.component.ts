@@ -42,7 +42,7 @@ export class UserComponent implements OnInit {
             );
     }
 
-    getCurrentIfeedId(): number {
+    getCurrentIfeedId(): string {
         return this.ifeedService.getCurrentIfeedId();
     }
 

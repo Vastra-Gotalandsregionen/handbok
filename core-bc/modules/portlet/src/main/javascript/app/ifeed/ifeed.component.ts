@@ -67,7 +67,7 @@ export class IfeedComponent implements OnInit, OnChanges {
 
             if (this.id !== params['id']) {
                 this.id = params['id'] || '';
-                this.ifeedService.setCurrentIfeedId(parseInt(this.id));
+                this.ifeedService.setCurrentIfeedId(this.id);
 
                 let nameUsedForFetching = this.id;
 

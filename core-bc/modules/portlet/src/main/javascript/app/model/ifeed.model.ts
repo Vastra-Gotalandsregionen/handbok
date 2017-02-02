@@ -1,5 +1,5 @@
 export class Ifeed {
-    id: number;
+    id: string;
     ifeedId: string;
     name: string;
     url: string;

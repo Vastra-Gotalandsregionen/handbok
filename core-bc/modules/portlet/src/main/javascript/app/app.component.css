@@ -1,0 +1,8 @@
+button.btn, a.btn {
+    font-weight: bold;
+}
+
+tooltip-content {
+    font-size: 1.2em;
+    font-weight: bold;
+}

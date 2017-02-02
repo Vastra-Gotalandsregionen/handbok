@@ -11,6 +11,8 @@ import {IfeedService} from "./service/ifeed.service";
 import {UserComponent} from "./view/user/user.component";
 import {AdminComponent} from "./view/admin/admin.component";
 import {AdminGuard} from "./service/admin-guard.service";
+import {DragulaModule} from "ng2-dragula";
+import {TooltipModule} from "ngx-tooltip";
 
 @NgModule({
     declarations: [
@@ -23,8 +25,10 @@ import {AdminGuard} from "./service/admin-guard.service";
         AppRoutingModule,
         BrowserModule,
         CommonModule,
+        DragulaModule,
         FormsModule,
-        HttpModule
+        HttpModule,
+        TooltipModule
     ],
     providers: [
         IfeedService,
