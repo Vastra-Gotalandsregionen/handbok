@@ -4,6 +4,8 @@ import { Observable }     from 'rxjs';
 import {Router} from "@angular/router";
 import 'rxjs/add/operator/map';
 import {IfeedService} from "./service/ifeed.service";
+//import { Overlay, overlayConfigFactory } from 'angular2-modal';
+// import { Modal, BSModalContext } from 'angular2-modal/plugins/bootstrap';
 
 @Component({
     selector: 'app-root',
@@ -12,7 +14,8 @@ import {IfeedService} from "./service/ifeed.service";
         './app.component.css'/*,
         '../../../../node_modules/bootstrap/dist/css/bootstrap.min.css'*/
     ],
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    // providers: [Modal]
 })
 export class AppComponent implements OnInit {
 

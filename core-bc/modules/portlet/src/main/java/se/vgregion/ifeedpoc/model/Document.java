@@ -2,11 +2,15 @@ package se.vgregion.ifeedpoc.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import java.io.Serializable;
+
 /**
  * @author Patrik Björk
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Document {
+public class Document implements Serializable {
+
+    private static final long serialVersionUID = 581572780109029286L;
 
     private String id;
     private String url;

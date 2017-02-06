@@ -6,6 +6,8 @@ import 'rxjs/add/operator/map';
 import {DomSanitizer, SafeUrl} from "@angular/platform-browser";
 import {IfeedService} from "../service/ifeed.service";
 import {Document} from "../model/document.model";
+import {RestService} from "../service/RestService";
+import {ErrorHandler} from "../service/ErrorHandler";
 
 @Component({
     selector: 'ifeed',
@@ -26,7 +28,9 @@ export class IfeedComponent implements OnInit, OnChanges {
                 private http: Http,
                 private sanitizer: DomSanitizer,
                 private ref: ChangeDetectorRef,
-                private ifeedService: IfeedService) {
+                private ifeedService: IfeedService,
+                private restService: RestService,
+                private errorHandler: ErrorHandler) {
         console.log("IfeedComponent init...");
     }
 
@@ -79,12 +83,14 @@ export class IfeedComponent implements OnInit, OnChanges {
 
                 this.ref.detectChanges();
 
-                let subscribeToRequest: Observable<Response> = this.http.get(this.ifeedService.ajaxUrl + "/ifeed/" + this.encodeURIString(this.id) + "/document");
+                // let subscribeToRequest: Observable<Response> = this.http.get(this.ifeedService.ajaxUrl + "/ifeed/" + this.encodeURIString(this.id) + "/document");
+                let subscribeToRequest: Observable<Response> = this.restService.getDocumentsForIfeed(this.id);
 
                 let currentSubscription = subscribeToRequest
                     .map(response => response.json())
                     .subscribe(
                         json => {
+                            // Check if if we got the response for the current request and that the client hasn't already requested another feed.
                             if (nameUsedForFetching === this.id) {
                                 this.documents = <[Document]>json;
 
@@ -114,7 +120,8 @@ export class IfeedComponent implements OnInit, OnChanges {
                             this.currentSubscription = null;
                         },
                         err => {
-                            console.log(err)
+                            this.errorHandler.notifyError(err);
+                            // console.log(err)
                         }
                     );
 
