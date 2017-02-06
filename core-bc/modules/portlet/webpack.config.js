@@ -1,6 +1,12 @@
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 const prod = process.argv.indexOf('-p') !== -1;
+const ngcWebpack = require('ngc-webpack');
+const helpers = require('./helpers');
+// var css = require("!css-loader!sass-loader");
+// var css = require("./file.scss");
+// var css = require("!raw!sass");
+const AOT = helpers.hasNpmFlag('aot');
 
 module.exports = {
 
@@ -10,7 +16,8 @@ module.exports = {
             './node_modules/core-js/es6',
             './node_modules/core-js/es7/reflect',
             './node_modules/zone.js/dist/zone'
-        ]
+        ]/**,
+        'style': './src/main/sass/app.scss'*/
     },
     output: {
         path: './src/main/webapp',
@@ -26,7 +33,11 @@ module.exports = {
                 loaders: ['angular2-template-loader', 'awesome-typescript-loader']
             },
             {test: /\.html$/, loader: 'raw-loader'},
-            {test: /\.css$/, loader: 'raw-loader'}
+            {test: /\.css$/, loader: 'raw-loader'}/**,
+            {
+                test: /\.scss$/,
+                loaders: ["style-loader", "css-loader", "sass-loader"]
+            }*/
         ]
     },
     resolve: {
@@ -52,6 +63,11 @@ module.exports = {
             comments: false,
             mangle: true
         })*/
+        ,new ngcWebpack.NgcWebpackPlugin({
+            disabled: !AOT,
+            tsConfig: 'tsconfig.webpack.json'/**,
+             resourceOverride: helpers.root('config/resource-override.js')*/
+        })
     ]
 
 };

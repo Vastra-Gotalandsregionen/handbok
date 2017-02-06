@@ -16,13 +16,13 @@ import {ErrorHandler} from "../service/ErrorHandler";
 })
 export class IfeedComponent implements OnInit, OnChanges {
 
-    private sub: Subscription;
-    private id: string;
-    private documents: [Document] = null;
-    private documentBaseUrl: string;
-    private currentSubscription: Subscription = null;
-    private showingDocument: boolean = false;
-    private currentDocument: Document = null;
+    sub: Subscription;
+    id: string;
+    documents: [Document] = null;
+    documentBaseUrl: string;
+    currentSubscription: Subscription = null;
+    showingDocument: boolean = false;
+    currentDocument: Document = null;
 
     constructor(private route: ActivatedRoute,
                 private http: Http,
