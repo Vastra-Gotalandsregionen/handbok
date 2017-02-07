@@ -80,8 +80,8 @@ public class SampleRESTFullController {
     @ResponseBody
     public ResponseEntity<Document[]> getDocuments(@PathVariable("id") String id) throws SystemException, IOException, NoSuchAlgorithmException, SignatureException, InvalidKeyException {
 
-        return ResponseEntity.badRequest().build();
-        /*Ifeed ifeed = ifeedRepository.findById(id);
+//        return ResponseEntity.badRequest().build();
+        Ifeed ifeed = ifeedRepository.findById(id);
 
         Document[] documentList = documentFetcherService.fetchDocuments(ifeed.getFeedId());
 
@@ -90,7 +90,7 @@ public class SampleRESTFullController {
             document.setUrlSafeUrl(Base64.encodeBase64URLSafeString(document.getUrl().getBytes("UTF-8")));
         }
 
-        return documentList;*/
+        return ResponseEntity.ok(documentList);
     }
 
     @RequestMapping(value = "/document/{urlSafeUrl}/{urlHmac}", method = RequestMethod.GET)
