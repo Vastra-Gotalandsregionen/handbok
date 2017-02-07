@@ -57,12 +57,12 @@ module.exports = {
                 /**environment: JSON.stringify(process.env.APP_ENVIRONMENT || 'development')*/
                 environment: prod? '"production"': '"development"'
             }
-        })/**,
+        })/***/,
         new webpack.optimize.UglifyJsPlugin({
             compress: { warnings: true },
             comments: false,
             mangle: true
-        })*/
+        })
         ,new ngcWebpack.NgcWebpackPlugin({
             disabled: !AOT,
             tsConfig: 'tsconfig.webpack.json'/**,

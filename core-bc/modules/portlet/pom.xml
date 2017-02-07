@@ -128,8 +128,8 @@ Generation time : 2017-02-01 09:32:10 CET
                                 </goals>
                                 <phase>process-resources</phase>
                                 <configuration>
-                                    <arguments>run build:prod</arguments>
-                                    <!--<arguments>run build:prod:aot</arguments>-->
+                                    <!--<arguments>run build:prod</arguments>-->
+                                    <arguments>run build:prod:aot</arguments>
                                 </configuration>
                             </execution>
                         </executions>

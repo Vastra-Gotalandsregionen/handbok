@@ -1,8 +1,8 @@
 // import { enableProdMode } from '@angular/core';
 import {platformBrowser} from "@angular/platform-browser";
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-import { AppModuleNgFactory } from '../../../../compiled/src/main/javascript/app/app.module.ngfactory.ts';
-import {IfeedAppModule} from "./app.module";
+// import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { IfeedAppModuleNgFactory } from '../../../../compiled/src/main/javascript/app/app.module.ngfactory';
+// import {IfeedAppModule} from "./app.module";
 
 /*import 'core-js/es6/symbol';
 import 'core-js/es6/object';
@@ -27,8 +27,8 @@ if (app.environment === 'production') {
     // enableProdMode();
 }
 
-// let promise = platformBrowser().bootstrapModuleFactory(AppModuleNgFactory)
-let promise = platformBrowserDynamic().bootstrapModule(IfeedAppModule);
+let promise = platformBrowser().bootstrapModuleFactory(IfeedAppModuleNgFactory)
+// let promise = platformBrowserDynamic().bootstrapModule(IfeedAppModule);
 promise.then(() => {
     console.log('bootstrap fulfilled: ');
 }).catch((e) => {
