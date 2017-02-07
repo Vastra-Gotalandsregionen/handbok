@@ -17,15 +17,13 @@ import {RestService} from "./service/RestService";
 import {ModalModule} from "angular2-modal";
 import {Modal, BootstrapModalModule} from "angular2-modal/plugins/bootstrap";
 import {ErrorHandler} from "./service/ErrorHandler";
-import {CustomModal} from "./service/CustomModalContext";
 
 @NgModule({
     declarations: [
         AppComponent,
         UserComponent,
         IfeedComponent,
-        AdminComponent,
-        CustomModal
+        AdminComponent
     ],
     imports: [
         AppRoutingModule,
@@ -46,7 +44,7 @@ import {CustomModal} from "./service/CustomModalContext";
         RestService,
         Modal
     ],
-    entryComponents: [CustomModal],
+    // entryComponents: [CustomModal],
     bootstrap: [AppComponent]
 })
 export class IfeedAppModule {

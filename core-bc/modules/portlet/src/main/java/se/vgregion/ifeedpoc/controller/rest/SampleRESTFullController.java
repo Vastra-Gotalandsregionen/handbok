@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import se.vgregion.ifeedpoc.model.Document;
+import se.vgregion.ifeedpoc.model.DocumentResponse;
 import se.vgregion.ifeedpoc.model.Ifeed;
 import se.vgregion.ifeedpoc.model.IfeedList;
 import se.vgregion.ifeedpoc.service.DocumentFetcherService;
@@ -77,9 +78,10 @@ public class SampleRESTFullController {
     @RequestMapping(value = "/ifeed/{id}/document", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public Document[] getDocuments(@PathVariable("id") String id) throws SystemException, IOException, NoSuchAlgorithmException, SignatureException, InvalidKeyException {
+    public ResponseEntity<Document[]> getDocuments(@PathVariable("id") String id) throws SystemException, IOException, NoSuchAlgorithmException, SignatureException, InvalidKeyException {
 
-        Ifeed ifeed = ifeedRepository.findById(id);
+        return ResponseEntity.badRequest().build();
+        /*Ifeed ifeed = ifeedRepository.findById(id);
 
         Document[] documentList = documentFetcherService.fetchDocuments(ifeed.getFeedId());
 
@@ -88,7 +90,7 @@ public class SampleRESTFullController {
             document.setUrlSafeUrl(Base64.encodeBase64URLSafeString(document.getUrl().getBytes("UTF-8")));
         }
 
-        return documentList;
+        return documentList;*/
     }
 
     @RequestMapping(value = "/document/{urlSafeUrl}/{urlHmac}", method = RequestMethod.GET)
@@ -103,12 +105,12 @@ public class SampleRESTFullController {
             return ResponseEntity.badRequest().contentType(MediaType.TEXT_PLAIN).build();
         }
 
-        byte[] bytes = documentFetcherService.fetchDocument(documentUrl);
+        DocumentResponse documentResponse = documentFetcherService.fetchDocument(documentUrl);
 
-        InputStream inputStream = new ByteArrayInputStream(bytes);
+        InputStream inputStream = new ByteArrayInputStream(documentResponse.getBytes());
 
         HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.valueOf("application/pdf"));
+        headers.setContentType(MediaType.valueOf(documentResponse.getContentType()));
 
         ResponseEntity responseEntity = new ResponseEntity(new InputStreamResource(inputStream), headers, HttpStatus.OK);
 
