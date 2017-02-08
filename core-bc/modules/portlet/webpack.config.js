@@ -11,7 +11,7 @@ const AOT = helpers.hasNpmFlag('aot');
 module.exports = {
 
     entry: {
-        'app': './src/main/javascript/app/index.ts',
+        'app': './src/main/javascript/app/index' + (AOT ? '.aot' : '') + '.ts',
         'polyfills': [
             './node_modules/core-js/es6',
             './node_modules/core-js/es7/reflect',
@@ -57,17 +57,24 @@ module.exports = {
                 /**environment: JSON.stringify(process.env.APP_ENVIRONMENT || 'development')*/
                 environment: prod? '"production"': '"development"'
             }
-        })/***/,
+        })
+    ]
+};
+
+if (AOT) {
+    module.exports.plugins.push(
+        new ngcWebpack.NgcWebpackPlugin({
+            tsConfig: 'tsconfig.webpack.json'
+        })
+    );
+}
+
+if (prod) {
+    module.exports.plugins.push(
         new webpack.optimize.UglifyJsPlugin({
-            compress: { warnings: true },
+            compress: { warnings: false },
             comments: false,
             mangle: true
         })
-        ,new ngcWebpack.NgcWebpackPlugin({
-            disabled: !AOT,
-            tsConfig: 'tsconfig.webpack.json'/**,
-             resourceOverride: helpers.root('config/resource-override.js')*/
-        })
-    ]
-
-};
+    );
+}
