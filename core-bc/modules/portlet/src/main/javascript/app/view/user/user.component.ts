@@ -12,8 +12,8 @@ import {Ifeed} from "../../model/ifeed.model";
 })
 export class UserComponent implements OnInit {
 
-    private hasPreferencesPermission: boolean;
-    private ifeeds: [Ifeed];
+    hasPreferencesPermission: boolean;
+    ifeeds: [Ifeed];
 
     constructor(private http: Http,
                 //elm: ElementRef,

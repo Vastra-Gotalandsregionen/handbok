@@ -16,12 +16,12 @@ import {DragulaService} from "ng2-dragula";
 })
 export class AdminComponent implements OnInit, OnDestroy {
 
-    private ifeedList: IfeedList = null;
-    private bookName: string = null;
-    private saveButtonText: string = "Spara";
-    private saveButtonClass: string = "btn-primary";
-    private movingEntry: Ifeed;
-    private previousIndex: number;
+    ifeedList: IfeedList = null;
+    bookName: string = null;
+    saveButtonText: string = "Spara";
+    saveButtonClass: string = "btn-primary";
+    movingEntry: Ifeed;
+    previousIndex: number;
 
     constructor(private http: Http, private ifeedService: IfeedService, private dragulaService: DragulaService) {
         dragulaService.setOptions('ifeed-rows', {
