@@ -1,7 +1,7 @@
 import {BrowserModule} from "@angular/platform-browser";
 import {NgModule} from "@angular/core";
 import {FormsModule} from "@angular/forms";
-import {HttpModule} from "@angular/http";
+import {HttpModule, RequestOptions, Http} from "@angular/http";
 import {AppComponent} from "./app.component";
 import {AppRoutingModule} from "./app-routing.module";
 import {CommonModule} from "@angular/common";
@@ -12,19 +12,21 @@ import {AdminComponent} from "./view/admin/admin.component";
 import {AdminGuard} from "./service/admin-guard.service";
 import {DragulaModule} from "ng2-dragula";
 import {TooltipModule} from "ngx-tooltip";
-// import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {RestService} from "./service/RestService";
-import {ModalModule} from "angular2-modal";
-import {Modal, BootstrapModalModule} from "angular2-modal/plugins/bootstrap";
+import {MaterialModule} from '@angular/material';
+import {ErrorDialogComponent} from "./component/error-dialog.component";
 import {ErrorHandler} from "./service/ErrorHandler";
+import {AuthHttp, AuthConfig} from "angular2-jwt";
+
+function authHttpServiceFactory(http: Http, options: RequestOptions) {
+    return new AuthHttp(new AuthConfig({
+        tokenName: 'jwtToken',
+        tokenGetter: (() => sessionStorage.getItem('jwtToken')),
+        globalHeaders: [{'Content-Type':'application/json'}],
+    }), http, options);
+}
 
 @NgModule({
-    declarations: [
-        AppComponent,
-        UserComponent,
-        IfeedComponent,
-        AdminComponent
-    ],
     imports: [
         AppRoutingModule,
         BrowserModule,
@@ -32,19 +34,29 @@ import {ErrorHandler} from "./service/ErrorHandler";
         DragulaModule,
         FormsModule,
         HttpModule,
-        ModalModule.forRoot(),
-        BootstrapModalModule,
-        // NgbModule.forRoot(),
+        MaterialModule.forRoot(),
         TooltipModule
+    ],
+    declarations: [
+        AppComponent,
+        UserComponent,
+        IfeedComponent,
+        AdminComponent,
+        ErrorDialogComponent
     ],
     providers: [
         AdminGuard,
         ErrorHandler,
         IfeedService,
         RestService,
-        Modal
+        ErrorDialogComponent,
+        {
+            provide: AuthHttp,
+            useFactory: authHttpServiceFactory,
+            deps: [Http, RequestOptions]
+        }
     ],
-    // entryComponents: [CustomModal],
+    entryComponents: [ErrorDialogComponent],
     bootstrap: [AppComponent]
 })
 export class IfeedAppModule {

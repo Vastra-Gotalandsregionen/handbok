@@ -1,0 +1,11 @@
+.error-dialog {
+    width: 400px;
+}
+
+.error-dialog .error-message.show {
+    visibility: visible;
+}
+
+.error-dialog .error-message.invisible {
+    visibility: hidden;
+}

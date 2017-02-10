@@ -48,8 +48,8 @@ Generation time : 2017-02-01 09:32:10 CET
                         <artifactId>frontend-maven-plugin</artifactId>
                         <version>1.0</version>
                         <configuration>
-                            <nodeVersion>v5.4.0</nodeVersion>
-                            <npmVersion>3.5.3</npmVersion>
+                            <nodeVersion>v6.9.2</nodeVersion>
+                            <npmVersion>4.1.2</npmVersion>
                             <nodeDownloadRoot>http://nodejs.org/dist/</nodeDownloadRoot>
                             <npmDownloadRoot>http://registry.npmjs.org/npm/-/</npmDownloadRoot>
                             <installDirectory>target</installDirectory>
@@ -79,6 +79,9 @@ Generation time : 2017-02-01 09:32:10 CET
                                 </goals>
                                 <phase>process-resources</phase>
                                 <configuration>
+                                    <environmentVariables>
+                                        <aot>false</aot>
+                                    </environmentVariables>
                                     <arguments>run build</arguments>
                                 </configuration>
                             </execution>
@@ -121,6 +124,16 @@ Generation time : 2017-02-01 09:32:10 CET
                                     <arguments>install</arguments>
                                 </configuration>
                             </execution>
+                            <!--<execution>
+                                <id>npm clean</id>
+                                <goals>
+                                    <goal>npm</goal>
+                                </goals>
+                                <phase>generate-resources</phase>
+                                <configuration>
+                                    <arguments>run clean</arguments>
+                                </configuration>
+                            </execution>-->
                             <execution>
                                 <id>npm run build</id>
                                 <goals>
@@ -128,8 +141,10 @@ Generation time : 2017-02-01 09:32:10 CET
                                 </goals>
                                 <phase>process-resources</phase>
                                 <configuration>
-                                    <!--<arguments>run build:prod</arguments>-->
-                                    <arguments>run build:prod:aot</arguments>
+                                    <environmentVariables>
+                                        <aot>true</aot>
+                                    </environmentVariables>
+                                    <arguments>run build:prod</arguments>
                                 </configuration>
                             </execution>
                         </executions>
@@ -263,6 +278,19 @@ Generation time : 2017-02-01 09:32:10 CET
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger-ui</artifactId>
             <version>2.4.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.auth0</groupId>
+            <artifactId>java-jwt</artifactId>
+            <version>3.1.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>2.7.5</version>
+            <scope>test</scope>
         </dependency>
 
     </dependencies>

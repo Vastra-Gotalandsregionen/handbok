@@ -19,9 +19,8 @@
 
         <mvc:interceptor >
 
-            <mvc:mapping path="/helloSample"/>
-
-            <mvc:mapping path="/helloSample/sampleId/*"/>
+            <mvc:mapping path="/ifeed"/>
+            <mvc:mapping path="/ifeed/**"/>
 
             <bean class="se.vgregion.ifeedpoc.controller.rest.interceptor.SecureRequestHandlerInterceptor"></bean>
 
@@ -32,34 +31,14 @@
     <bean id="contentNegotiationManager" class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean" factory-bean="contentNegotiationManager">
         <property name="mediaTypes">
             <map>
-                <entry key="html" value="text/html"/>
+                <!--<entry key="html" value="text/html"/>-->
                 <entry key="json" value="application/json"/>
             </map>
         </property>
     </bean>
 
-    <bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
-        <property name="contentNegotiationManager" ref="contentNegotiationManager"/>
-        <property name="viewResolvers">
-            <list>
-                <bean class="org.springframework.web.servlet.view.UrlBasedViewResolver">
-                    <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
-                    <property name="prefix" value="/WEB-INF/jsp/"/>
-                    <property name="suffix" value=".jsp"/>
-                </bean>
-            </list>
-        </property>
-
-        <property name="defaultViews">
-            <list>
-                <bean class="org.springframework.web.servlet.view.json.MappingJackson2JsonView">
-                    <property name="prefixJson" value="true"/>
-                </bean>
-            </list>
-        </property>
-    </bean>
-
-    <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+    <!--<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">-->
         <property name="messageConverters">
             <list>
                 <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
@@ -74,10 +53,5 @@
 
     <mvc:resources mapping="swagger-ui.html" location="classpath:/META-INF/resources/"/>
     <mvc:resources mapping="/webjars/**" location="classpath:/META-INF/resources/webjars/"/>
-
-    <!--<bean class="springfox.documentation.spring.web.plugins.Docket" >
-
-        <constructor-arg ref="docket"/>
-    </bean>-->
 
 </beans>

@@ -1,7 +1,6 @@
 package se.vgregion.ifeedpoc.spring;
 
 import org.ehcache.config.builders.CacheConfigurationBuilder;
-import org.ehcache.config.builders.CacheManagerBuilder;
 import org.ehcache.core.config.DefaultConfiguration;
 import org.ehcache.expiry.Duration;
 import org.ehcache.expiry.Expirations;
@@ -16,20 +15,12 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.jcache.JCacheCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 import javax.annotation.PreDestroy;
 import javax.cache.Cache;
 import java.io.File;
-import java.io.IOException;
-import java.net.URL;
-import java.util.Collection;
 import java.util.concurrent.TimeUnit;
-
-import static org.ehcache.config.builders.CacheConfigurationBuilder.newCacheConfigurationBuilder;
-import static org.ehcache.config.builders.CacheManagerBuilder.newCacheManagerBuilder;
-import static org.ehcache.config.builders.ResourcePoolsBuilder.heap;
 
 /**
  * @author Patrik Björk
@@ -37,7 +28,6 @@ import static org.ehcache.config.builders.ResourcePoolsBuilder.heap;
 @Configuration
 @EnableCaching
 @EnableScheduling
-@PropertySource("classpath:application.properties")
 public class AppConfig {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AppConfig.class);
@@ -54,13 +44,8 @@ public class AppConfig {
     @Bean
     public CacheManager cacheManager() throws IllegalAccessException, ClassNotFoundException, InstantiationException {
         EhcacheCachingProvider ehcacheCachingProvider = new EhcacheCachingProvider();
-//        javax.cache.CacheManager cacheManager = ehcacheCachingProvider.getCacheManager();
-
-//        CacheManagerBuilder builder = CacheManagerBuilder.persistence("java.io.temp").builder(newCacheManagerBuilder());
-//        org.ehcache.CacheManager cacheManager2 = builder.build();
 
         File rootDirectory = new File(System.getProperty("java.io.tmpdir"), "handbok_ehcache");
-//        File rootDirectory = new File("/tmp/ehcache");
         File lockFile = new File(rootDirectory, ".lock");
         boolean delete = lockFile.delete();
 
@@ -71,12 +56,6 @@ public class AppConfig {
         DefaultConfiguration configuration = new DefaultConfiguration(ehcacheCachingProvider.getDefaultClassLoader(),
                 new DefaultPersistenceConfiguration(rootDirectory));
         javax.cache.CacheManager cacheManager = ehcacheCachingProvider.getCacheManager(ehcacheCachingProvider.getDefaultURI(), configuration);
-//        ResourcePoolsBuilder resourcePoolsBuilder =
-//                heap(100L)
-//                .disk(10L, MemoryUnit.MB);
-
-//        CacheConfiguration cacheConfiguration = new BaseCacheConfiguration();
-
 
         XmlConfiguration xmlConfiguration = new XmlConfiguration(getClass().getClassLoader()
                 .getResource("ehcache.xml"));

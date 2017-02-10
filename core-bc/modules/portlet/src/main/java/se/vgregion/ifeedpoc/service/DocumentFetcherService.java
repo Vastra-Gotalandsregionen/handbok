@@ -2,7 +2,6 @@ package se.vgregion.ifeedpoc.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -13,8 +12,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
+import java.net.SocketTimeoutException;
 import java.net.URL;
-import java.net.URLConnection;
 
 /**
  * @author Patrik Björk
@@ -23,6 +22,7 @@ import java.net.URLConnection;
 public class DocumentFetcherService {
 
     private static final ObjectMapper JSON_MAPPER = new ObjectMapper();
+    private static final int TIMEOUT = 30000;
 
     @Cacheable(cacheNames = "default")
     public Document[] fetchDocuments(String feedId) throws IOException {
@@ -31,8 +31,8 @@ public class DocumentFetcherService {
 
         HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
 
-        urlConnection.setConnectTimeout(10000);
-        urlConnection.setReadTimeout(10000);
+        urlConnection.setConnectTimeout(TIMEOUT);
+        urlConnection.setReadTimeout(TIMEOUT);
 
         InputStream inputStream = urlConnection.getInputStream();
 
@@ -60,23 +60,26 @@ public class DocumentFetcherService {
 
         return new DocumentResponse(random.getBytes(), "text/plan");*/
 
-        URL url = new URL(documentUrl);
+        try {
+            URL url = new URL(documentUrl);
 
-        HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
 
-        urlConnection.setConnectTimeout(10000);
-        urlConnection.setReadTimeout(10000);
+            urlConnection.setConnectTimeout(TIMEOUT);
+            urlConnection.setReadTimeout(TIMEOUT);
 
-        String contentType = urlConnection.getHeaderField("content-type");
+            String contentType = urlConnection.getHeaderField("content-type");
 
-        InputStream inputStream = urlConnection.getInputStream();
-//        InputStream inputStream = url.openStream();
+            InputStream inputStream = urlConnection.getInputStream();
 
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
-        IOUtils.copy(inputStream, baos);
+            IOUtils.copy(inputStream, baos);
 
-        return new DocumentResponse(baos.toByteArray(), contentType);
+            return new DocumentResponse(baos.toByteArray(), contentType);
+        } catch (SocketTimeoutException e) {
+            throw new IOException("Document with URL=" + documentUrl + " couldn't be fetched within reasonable time.");
+        }
     }
 
     @CachePut(cacheNames = "default")

@@ -1,17 +1,20 @@
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+var path = require('path');
 const prod = process.argv.indexOf('-p') !== -1;
+const aot = process.env.aot === "true";
 const ngcWebpack = require('ngc-webpack');
 const helpers = require('./helpers');
 // var css = require("!css-loader!sass-loader");
 // var css = require("./file.scss");
 // var css = require("!raw!sass");
-const AOT = helpers.hasNpmFlag('aot');
-
+// const aot = helpers.hasNpmFlag('aot');
+console.log('aot:' + aot);
+// console.log('path:' + path.resolve(__dirname, 'src/main/javascript/app/index.aot.ts'));
 module.exports = {
 
     entry: {
-        'app': './src/main/javascript/app/index' + (AOT ? '.aot' : '') + '.ts',
+        'app': './src/main/javascript/app/index' + (aot ? '.aot' : '') + '.ts',
         'polyfills': [
             './node_modules/core-js/es6',
             './node_modules/core-js/es7/reflect',
@@ -28,12 +31,12 @@ module.exports = {
         loaders: [
             /**{test: /\.component.ts$/, loader: 'ts-loader!angular2-template-loader'},
             {test: /\.ts$/, exclude: /\.component.ts$/, loader: 'ts-loader'},*/
+            /** { test: /.*\.aot/, loader: 'ignore-loader' },*/
             {
-                test: /\.ts$/,
-                loaders: ['angular2-template-loader', 'awesome-typescript-loader']
+                test: /.*\.ts$/, loaders: ['angular2-template-loader', 'awesome-typescript-loader']
             },
             {test: /\.html$/, loader: 'raw-loader'},
-            {test: /\.css$/, loader: 'raw-loader'}/**,
+            {test: /\.css$/, loader: 'raw-loader'},/**,
             {
                 test: /\.scss$/,
                 loaders: ["style-loader", "css-loader", "sass-loader"]
@@ -61,7 +64,7 @@ module.exports = {
     ]
 };
 
-if (AOT) {
+if (aot) {
     module.exports.plugins.push(
         new ngcWebpack.NgcWebpackPlugin({
             tsConfig: 'tsconfig.webpack.json'

@@ -34,6 +34,11 @@ ul.nav.nav-stacked>li>a:not(.active):hover {
     background-color: #fcffdf;
 }
 
+.padding-top-bottom {
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+
 .panel-heading .panel-title {
     margin-top: 0;
     margin-bottom: 0;

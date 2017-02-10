@@ -1,7 +1,7 @@
-import {Component, Input, ElementRef, OnInit, OnChanges, SimpleChanges, ChangeDetectorRef} from '@angular/core';
-import {Http, Response} from "@angular/http";
+import {Component, OnInit, OnChanges, SimpleChanges, ChangeDetectorRef} from '@angular/core';
+import {Response} from "@angular/http";
 import {Observable, Subscription}     from 'rxjs';
-import {Router, ActivatedRoute} from "@angular/router";
+import {ActivatedRoute} from "@angular/router";
 import 'rxjs/add/operator/map';
 import {DomSanitizer, SafeUrl} from "@angular/platform-browser";
 import {IfeedService} from "../service/ifeed.service";
@@ -25,7 +25,6 @@ export class IfeedComponent implements OnInit, OnChanges {
     currentDocument: Document = null;
 
     constructor(private route: ActivatedRoute,
-                private http: Http,
                 private sanitizer: DomSanitizer,
                 private ref: ChangeDetectorRef,
                 private ifeedService: IfeedService,
@@ -83,7 +82,6 @@ export class IfeedComponent implements OnInit, OnChanges {
 
                 this.ref.detectChanges();
 
-                // let subscribeToRequest: Observable<Response> = this.http.get(this.ifeedService.ajaxUrl + "/ifeed/" + this.encodeURIString(this.id) + "/document");
                 let subscribeToRequest: Observable<Response> = this.restService.getDocumentsForIfeed(this.id);
 
                 let currentSubscription = subscribeToRequest
@@ -121,7 +119,6 @@ export class IfeedComponent implements OnInit, OnChanges {
                         },
                         err => {
                             this.errorHandler.notifyError(err);
-                            // console.log(err)
                         }
                     );
 

@@ -4,12 +4,15 @@ import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.security.permission.PermissionChecker;
 import com.liferay.portal.security.permission.PermissionThreadLocal;
 import org.apache.commons.codec.binary.Base64;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -42,6 +45,8 @@ import java.util.UUID;
 @Transactional
 public class SampleRESTFullController {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(SampleRESTFullController.class);
+
     @Autowired
     private IfeedListRepository ifeedListRepository;
 
@@ -50,6 +55,33 @@ public class SampleRESTFullController {
 
     @Autowired
     private DocumentFetcherService documentFetcherService;
+
+    @Scheduled(fixedDelay = 60_000, initialDelay = 60_000)
+    public void renewCache() throws IOException, SignatureException, NoSuchAlgorithmException, InvalidKeyException, SystemException {
+        List<IfeedList> all = ifeedListRepository.findAll();
+
+        for (IfeedList ifeedList : all) {
+            List<Ifeed> ifeeds = ifeedList.getIfeeds();
+
+            for (Ifeed ifeed : ifeeds) {
+                Document[] documents;
+                try {
+                    documents = documentFetcherService.fetchDocumentsPutCache(ifeed.getFeedId());
+                } catch (Exception e) {
+                    LOGGER.warn("Failed to fetch documents with ifeedId=" + ifeed.getFeedId() + ".", e.getMessage());
+                    continue;
+                }
+
+                for (Document document : documents) {
+                    try {
+                        documentFetcherService.fetchDocumentPutCache(document.getUrl());
+                    } catch (Exception e) {
+                        LOGGER.warn("Failed to fetch document with url=" + document.getUrl() + ".", e.getMessage());
+                    }
+                }
+            }
+        }
+    }
 
     @RequestMapping(value = "/ifeed", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)

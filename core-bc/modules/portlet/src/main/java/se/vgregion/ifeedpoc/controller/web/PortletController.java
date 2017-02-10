@@ -25,12 +25,12 @@ import se.vgregion.ifeedpoc.model.Ifeed;
 import se.vgregion.ifeedpoc.model.IfeedList;
 import se.vgregion.ifeedpoc.service.HmacUtil;
 import se.vgregion.ifeedpoc.service.IfeedService;
+import se.vgregion.ifeedpoc.service.JwtUtil;
 
 import javax.portlet.PortletRequest;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
 import javax.portlet.ResourceResponse;
-import javax.portlet.ResourceURL;
 import javax.servlet.http.HttpServletResponse;
 import java.io.InputStream;
 import java.net.URL;
@@ -58,9 +58,9 @@ public class PortletController {
 
         ThemeDisplay themeDisplay = (ThemeDisplay) request.getAttribute(WebKeys.THEME_DISPLAY);
 
-        String ajaxUrl = themeDisplay.getPortletDisplay().getURLPortlet();
-        ajaxUrl = ajaxUrl.replace("null", "");
-        ajaxUrl += "/api";
+        String urlPortlet = themeDisplay.getPortletDisplay().getURLPortlet(); // E.g. /handbok-portletnull
+        String ajaxUrl = urlPortlet.replace("null", "") + "/api";
+
 
         model.addAttribute("ajaxURL", ajaxUrl);
         model.addAttribute("standalone", false);
@@ -83,6 +83,9 @@ public class PortletController {
         }
 
         model.addAttribute("hasPreferencesPermission", hasPreferencesPermission);
+
+        String jwtToken = JwtUtil.createToken(hasPreferencesPermission, user.getUserId());
+        model.addAttribute("jwtToken", jwtToken);
 
         return "index";
     }

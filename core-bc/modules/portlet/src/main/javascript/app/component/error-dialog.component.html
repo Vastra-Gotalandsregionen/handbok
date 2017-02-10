@@ -1,0 +1,15 @@
+<div class="error-dialog">
+    <h4>Oj då, ett fel har inträffat</h4>
+
+    <div>
+        <a href="" (click)="toggleDetails(); false;">Detaljer</a>
+    </div>
+
+    <div class="error-message {{showDetails ? 'show' : 'invisible'}} padding-top-bottom">
+        {{err}}
+    </div>
+
+    <div class="btn-group">
+        <button class="btn btn-primary" (click)="dialogRef.close()">Stäng</button>
+    </div>
+</div>

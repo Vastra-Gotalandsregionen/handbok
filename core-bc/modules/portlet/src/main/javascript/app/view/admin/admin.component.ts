@@ -1,11 +1,12 @@
-import {Component, Input, ElementRef, OnInit, Inject, OnDestroy} from '@angular/core';
-import {Http, Response, RequestOptions, Headers} from "@angular/http";
-import {Observable}     from 'rxjs';
-import 'rxjs/add/operator/map';
+import {Component, OnInit, OnDestroy} from "@angular/core";
+import {RequestOptions, Headers} from "@angular/http";
+import "rxjs/add/operator/map";
 import {IfeedService} from "../../service/ifeed.service";
 import {IfeedList} from "../../model/ifeed-list.model";
 import {Ifeed} from "../../model/ifeed.model";
 import {DragulaService} from "ng2-dragula";
+import {ErrorHandler} from "../../service/ErrorHandler";
+import {AuthHttp} from "angular2-jwt";
 
 @Component({
     templateUrl: './admin.component.html',
@@ -23,7 +24,11 @@ export class AdminComponent implements OnInit, OnDestroy {
     movingEntry: Ifeed;
     previousIndex: number;
 
-    constructor(private http: Http, private ifeedService: IfeedService, private dragulaService: DragulaService) {
+    constructor(private http: AuthHttp,
+                private ifeedService: IfeedService,
+                private dragulaService: DragulaService,
+                private errorHandler: ErrorHandler) {
+
         dragulaService.setOptions('ifeed-rows', {
             moves: function (el: any, container: any, handle: any) {
                 return handle.className === 'handle';
@@ -47,23 +52,20 @@ export class AdminComponent implements OnInit, OnDestroy {
         });
     }
 
-    post(): void {
+    /*post(): void {
         let subscribeToRequest: Observable<Response> = this.http.post(this.ifeedService.ajaxUrl + "/ifeed...", "?data={'key':'value'}");
 
         let currentSubscription = subscribeToRequest
             .map(response => response.json())
             .subscribe(
                 json => {
-
                     console.log(json);
-
-
                 },
                 err => {
-                    console.log(err)
+                    this.errorHandler.notifyError(err);
                 }
             );
-    }
+    }*/
 
     ngOnInit(): void {
 
@@ -71,11 +73,10 @@ export class AdminComponent implements OnInit, OnDestroy {
             .map(response => response.json())
             .subscribe(
                 json => {
-                    console.log("AdminComponent: " + JSON.stringify(json));
                     this.ifeedList = <IfeedList> json;
                 },
                 err => {
-                    console.log(err)
+                    this.errorHandler.notifyError(err);
                 }
             );
 
@@ -105,7 +106,6 @@ export class AdminComponent implements OnInit, OnDestroy {
             .map(response => response.json())
             .subscribe(
                 json => {
-                    console.log("AdminComponent: " + JSON.stringify(json));
                     this.ifeedList = <IfeedList> json;
                     this.saveButtonText = "Sparat!";
                     this.saveButtonClass = "btn-success";
@@ -119,7 +119,7 @@ export class AdminComponent implements OnInit, OnDestroy {
                     }, 3000);
                 },
                 err => {
-                    console.log(err);
+                    this.errorHandler.notifyError(err);
                     this.saveButtonText = "Misslyckades";
                     this.saveButtonClass = "btn-danger";
                 }

@@ -1,10 +1,10 @@
-import {Component, Input, ElementRef, OnInit, Inject} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Http, Response} from "@angular/http";
 import { Observable }     from 'rxjs';
-import {Router, ActivatedRoute} from "@angular/router";
 import 'rxjs/add/operator/map';
 import {IfeedService} from "../../service/ifeed.service";
 import {Ifeed} from "../../model/ifeed.model";
+import {ErrorHandler} from "../../service/ErrorHandler";
 
 @Component({
     templateUrl: './user.component.html',
@@ -16,11 +16,8 @@ export class UserComponent implements OnInit {
     ifeeds: [Ifeed];
 
     constructor(private http: Http,
-                //elm: ElementRef,
-                private route: ActivatedRoute,
-                private router: Router,
-                private ifeedService: IfeedService) {
-        console.log("UserComponent constructor....");
+                private ifeedService: IfeedService,
+                private errorHandler: ErrorHandler) {
     }
 
     ngOnInit(): void {
@@ -33,11 +30,12 @@ export class UserComponent implements OnInit {
             .map(response => response.json())
             .subscribe(
                 json => {
-                    console.log('user fetched ngOnInit...' + json.ifeeds);
                     this.ifeeds = <[Ifeed]>json.ifeeds;
                     this.ifeedService.setIfeeds(<[Ifeed]>json.ifeeds);
                 },
-                err => {console.log(err)}
+                err => {
+                    this.errorHandler.notifyError(err);
+                }
             );
     }
 

@@ -7,6 +7,7 @@
 sass-cache
 bower_components
 node_modules
+compiled
 target
 typings
 *.log

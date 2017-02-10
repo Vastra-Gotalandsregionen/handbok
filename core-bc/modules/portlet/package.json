@@ -7,10 +7,11 @@
     "@angular/core": "2.4.6",
     "@angular/forms": "2.4.6",
     "@angular/http": "2.4.6",
+    "@angular/material": "^2.0.0-beta.1",
     "@angular/platform-browser": "2.4.6",
     "@angular/platform-browser-dynamic": "2.4.6",
     "@angular/router": "3.4.6",
-    "angular2-modal": "^2.0.3",
+    "angular2-jwt": "^0.1.28",
     "core-js": "^2.4.1",
     "dragula": "^3.7.2",
     "ng2-dragula": "^1.3.0",
@@ -23,6 +24,7 @@
     "angular2-template-loader": "0.6.0",
     "awesome-typescript-loader": "^3.0.0-beta.17",
     "html-webpack-plugin": "^2.24.1",
+    "ignore-loader": "^0.1.2",
     "ngc-webpack": "^1.2.0",
     "raw-loader": "^0.5.1",
     "rimraf": "~2.5.4",
@@ -45,7 +47,6 @@
     "build:watch": "webpack --progress --watch",
     "build:watch:prod": "webpack --progress --watch -p",
     "build:dev": "webpack --config config/webpack.minimal.js --progress --profile",
-    "build:pre": "$(npm bin)/tsc --rootDir src --outDir src/main/webapp/js/",
     "clean": "npm cache clean && npm run rimraf -- compiled src/main/webapp/js/*",
     "rimraf": "rimraf"
   }
