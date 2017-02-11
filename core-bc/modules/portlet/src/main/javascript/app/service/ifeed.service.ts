@@ -11,6 +11,7 @@ export class IfeedService {
     hasPreferencesPermission: boolean;
     ifeeds: [Ifeed] = null;
     bookName: string;
+    resourceUrl: string;
 
     setCurrentIfeedId(id: string): void {
         console.log('setCurrentIfeedId: ' + id);

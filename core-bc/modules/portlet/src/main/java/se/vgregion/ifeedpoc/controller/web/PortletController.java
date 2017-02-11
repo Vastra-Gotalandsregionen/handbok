@@ -30,7 +30,9 @@ import se.vgregion.ifeedpoc.service.JwtUtil;
 import javax.portlet.PortletRequest;
 import javax.portlet.RenderRequest;
 import javax.portlet.RenderResponse;
+import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
+import javax.portlet.ResourceURL;
 import javax.servlet.http.HttpServletResponse;
 import java.io.InputStream;
 import java.net.URL;
@@ -53,6 +55,7 @@ public class PortletController {
     @RenderMapping
     public String view(RenderRequest request, RenderResponse response, ModelMap model)
             throws SystemException, PortalException {
+
         User user = (User) request.getAttribute(WebKeys.USER);
         String userScreenName = user != null ? user.getScreenName() : "anonymous";
 
@@ -61,7 +64,9 @@ public class PortletController {
         String urlPortlet = themeDisplay.getPortletDisplay().getURLPortlet(); // E.g. /handbok-portletnull
         String ajaxUrl = urlPortlet.replace("null", "") + "/api";
 
+        ResourceURL resourceUrl = response.createResourceURL();
 
+        model.addAttribute("resourceUrl", resourceUrl.toString());
         model.addAttribute("ajaxURL", ajaxUrl);
         model.addAttribute("standalone", false);
         model.addAttribute("authenticatedUser", userScreenName);
@@ -71,6 +76,17 @@ public class PortletController {
         String bookName = request.getPreferences().getValue("bookName", null);
         model.addAttribute("bookName", bookName);
 
+        boolean hasPreferencesPermission = isHasPreferencesPermission(themeDisplay, bookName);
+
+        model.addAttribute("hasPreferencesPermission", hasPreferencesPermission);
+
+        String jwtToken = JwtUtil.createToken(hasPreferencesPermission, user == null ? null : user.getUserId());
+        model.addAttribute("jwtToken", jwtToken);
+
+        return "index";
+    }
+
+    private boolean isHasPreferencesPermission(ThemeDisplay themeDisplay, String bookName) throws SystemException, PortalException {
         List<UserGroupRole> userGroupRoles = UserGroupRoleLocalServiceUtil.getUserGroupRoles(themeDisplay.getUserId(),
                 themeDisplay.getLayout().getGroupId());
 
@@ -81,13 +97,25 @@ public class PortletController {
                 break;
             }
         }
+        return hasPreferencesPermission;
+    }
 
-        model.addAttribute("hasPreferencesPermission", hasPreferencesPermission);
+    @ResourceMapping("refreshToken")
+    public void refreshToken(ResourceRequest request, ResourceResponse response) throws Exception {
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
 
-        String jwtToken = JwtUtil.createToken(hasPreferencesPermission, user.getUserId());
-        model.addAttribute("jwtToken", jwtToken);
+        String bookName = request.getPreferences().getValue("bookName", null);
 
-        return "index";
+        ThemeDisplay themeDisplay = (ThemeDisplay) request.getAttribute(WebKeys.THEME_DISPLAY);
+
+        boolean hasPreferencesPermission = isHasPreferencesPermission(themeDisplay, bookName);
+
+        User user = (User) request.getAttribute(WebKeys.USER);
+
+        String jwtToken = JwtUtil.createToken(hasPreferencesPermission, user == null ? null : user.getUserId());
+
+        response.getPortletOutputStream().write(jwtToken.getBytes("UTF-8"));
     }
 
     @ResourceMapping("getIfeed")

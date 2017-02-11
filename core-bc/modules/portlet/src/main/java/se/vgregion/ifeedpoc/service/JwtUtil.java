@@ -17,13 +17,14 @@ import java.util.UUID;
 public class JwtUtil {
 
     private static final String secret = UUID.randomUUID().toString();
+    private static final int HOURS_AGE = 20;
 
-    public static String createToken(boolean isAdmin, long userId) {
+    public static String createToken(boolean isAdmin, Long userId) {
         try {
-            Date timeAhead = Date.from(Instant.now().plus(2, ChronoUnit.HOURS));
+            Date timeAhead = Date.from(Instant.now().plus(HOURS_AGE, ChronoUnit.SECONDS));
             Date now = Date.from(Instant.now());
             return JWT.create()
-                    .withSubject(String.valueOf(userId))
+                    .withSubject(userId != null ? String.valueOf(userId) : null)
                     .withClaim("isAdmin", isAdmin)
                     .withIssuedAt(now)
                     .withExpiresAt(timeAhead)

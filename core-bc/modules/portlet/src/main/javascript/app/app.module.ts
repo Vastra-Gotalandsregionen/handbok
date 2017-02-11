@@ -16,14 +16,15 @@ import {RestService} from "./service/RestService";
 import {MaterialModule} from '@angular/material';
 import {ErrorDialogComponent} from "./component/error-dialog.component";
 import {ErrorHandler} from "./service/ErrorHandler";
-import {AuthHttp, AuthConfig} from "angular2-jwt";
+import {AuthHttp, AuthConfig, JwtHelper} from "angular2-jwt";
+import {RefreshTokenAuthHttp} from "./service/RefreshTokenAuthHttp";
 
-function authHttpServiceFactory(http: Http, options: RequestOptions) {
-    return new AuthHttp(new AuthConfig({
+export function authHttpServiceFactory(http: Http, options: RequestOptions, jwtHelper: JwtHelper, ifeedService: IfeedService) {
+    return new RefreshTokenAuthHttp(new AuthConfig({
         tokenName: 'jwtToken',
         tokenGetter: (() => sessionStorage.getItem('jwtToken')),
         globalHeaders: [{'Content-Type':'application/json'}],
-    }), http, options);
+    }), http, options, jwtHelper, ifeedService);
 }
 
 @NgModule({
@@ -48,12 +49,13 @@ function authHttpServiceFactory(http: Http, options: RequestOptions) {
         AdminGuard,
         ErrorHandler,
         IfeedService,
+        JwtHelper,
         RestService,
         ErrorDialogComponent,
         {
             provide: AuthHttp,
             useFactory: authHttpServiceFactory,
-            deps: [Http, RequestOptions]
+            deps: [Http, RequestOptions, JwtHelper, IfeedService]
         }
     ],
     entryComponents: [ErrorDialogComponent],

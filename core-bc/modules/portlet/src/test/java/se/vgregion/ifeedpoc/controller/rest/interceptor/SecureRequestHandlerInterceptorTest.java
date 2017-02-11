@@ -26,7 +26,8 @@ public class SecureRequestHandlerInterceptorTest {
         // Given
         SecureRequestHandlerInterceptor interceptor = new SecureRequestHandlerInterceptor() {
             @Override
-            protected HttpServletRequest setCredentials(HttpServletRequest request, HttpSession session, long userId, String authType) throws Exception {
+            protected HttpServletRequest setCredentials(HttpServletRequest request, HttpSession session, Long userId,
+                                                        String authType) throws Exception {
                 return null;
             }
         };

@@ -52,8 +52,12 @@ public class SecureRequestHandlerInterceptor extends HandlerInterceptorAdapter {
                     response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
                     return false;
                 } else {
-                    setCredentials(request, request.getSession(), Long.parseLong(jwt.getSubject()),
-                            HttpServletRequest.FORM_AUTH);
+                    String subject = jwt.getSubject();
+
+                    if (subject != null) {
+                        setCredentials(request, request.getSession(), Long.parseLong(subject),
+                                HttpServletRequest.FORM_AUTH);
+                    }
 
                     Boolean isAdmin = jwt.getClaim("isAdmin").asBoolean();
 
@@ -74,7 +78,7 @@ public class SecureRequestHandlerInterceptor extends HandlerInterceptorAdapter {
     }
 
     protected HttpServletRequest setCredentials(
-            HttpServletRequest request, HttpSession session, long userId,
+            HttpServletRequest request, HttpSession session, Long userId,
             String authType)
             throws Exception {
 

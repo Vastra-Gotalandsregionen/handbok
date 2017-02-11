@@ -16,6 +16,7 @@ export class AppComponent implements OnInit {
     constructor(elm: ElementRef,
                 private ifeedService: IfeedService) {
         ifeedService.ajaxUrl = elm.nativeElement.attributes['ajax-url'].value;
+        ifeedService.resourceUrl = elm.nativeElement.attributes['resource-url'].value;
         ifeedService.hasPreferencesPermission = elm.nativeElement.attributes['has-preferences-permission'].value === 'true';
         ifeedService.bookName = elm.nativeElement.attributes['book-name'].value;
 
