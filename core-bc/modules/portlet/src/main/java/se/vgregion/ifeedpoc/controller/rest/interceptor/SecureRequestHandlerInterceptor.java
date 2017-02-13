@@ -96,28 +96,6 @@ public class SecureRequestHandlerInterceptor extends HandlerInterceptorAdapter {
         return request;
     }
 
-
-    private String generateNonce(long companyId, String remoteAddress) {
-
-        String companyKey = null;
-
-        try {
-            Company company = CompanyLocalServiceUtil.getCompanyById(companyId);
-
-            companyKey = company.getKey();
-        } catch (Exception e) {
-            throw new RuntimeException("Invalid companyId " + companyId, e);
-        }
-
-        long timestamp = System.currentTimeMillis();
-
-        String nonce = DigesterUtil.digestHex(
-                Digester.MD5, remoteAddress, String.valueOf(timestamp), companyKey);
-
-        return nonce;
-    }
-
-
     protected void initThreadLocals(HttpServletRequest request)
             throws Exception {
 
