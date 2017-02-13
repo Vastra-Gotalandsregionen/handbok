@@ -5,7 +5,7 @@
 </ul>
 
 <div *ngIf="documents === null || documents.length === 0">
-    Läser in...
+    Läser in... <span class="loading-indicator"><i class="icon icon-spinner"></i></span>
 </div>
 
 <div *ngIf="showingDocument" class="button-row">

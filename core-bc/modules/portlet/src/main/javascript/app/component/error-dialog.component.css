@@ -1,5 +1,5 @@
 .error-dialog {
-    width: 400px;
+    max-width: 400px;
 }
 
 .error-dialog .error-message.show {

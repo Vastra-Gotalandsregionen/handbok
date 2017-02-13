@@ -10,3 +10,14 @@ iframe {
     height: 900px;
     width: 100%;
 }
+
+.icon-spinner {
+    animation: rotate .8s infinite;
+    animation-timing-function: cubic-bezier(0.495, 0.405, 0.495, 0.635);
+    display: inline-block;
+}
+
+@keyframes rotate {
+    from {transform:rotate(0deg);}
+    to {transform:rotate(360deg);}
+}

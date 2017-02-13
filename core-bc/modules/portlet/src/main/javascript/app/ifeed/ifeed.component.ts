@@ -75,19 +75,22 @@ export class IfeedComponent implements OnInit, OnChanges {
 
                 let nameUsedForFetching = this.id;
 
-                this.documents = null;
-                this.showingDocument = false;
-                this.currentDocument = null;
-                this.ifeedService.currentDocumentTitle = null;
-
-                this.ref.detectChanges();
-
                 let subscribeToRequest: Observable<Response> = this.restService.getDocumentsForIfeed(this.id);
+
+                let timerSubscription: Subscription = Observable.timer(250).subscribe(undefined, undefined, () => {
+                    this.documents = null;
+                    this.showingDocument = false;
+                    this.ifeedService.currentDocumentTitle = null;
+                    this.documents = null;
+                    this.ref.detectChanges();
+                });
 
                 let currentSubscription = subscribeToRequest
                     .map(response => response.json())
                     .subscribe(
                         json => {
+                            timerSubscription.unsubscribe();
+
                             // Check if if we got the response for the current request and that the client hasn't already requested another feed.
                             if (nameUsedForFetching === this.id) {
                                 this.documents = <[Document]>json;
@@ -118,7 +121,14 @@ export class IfeedComponent implements OnInit, OnChanges {
                             this.currentSubscription = null;
                         },
                         err => {
+                            timerSubscription.unsubscribe();
+
                             this.errorHandler.notifyError(err);
+
+                            this.documents = null;
+                            this.showingDocument = false;
+                            this.currentDocument = null;
+                            this.ifeedService.currentDocumentTitle = null;
                         }
                     );
 
