@@ -17,11 +17,11 @@ import java.util.UUID;
 public class JwtUtil {
 
     private static final String secret = UUID.randomUUID().toString();
-    private static final int HOURS_AGE = 20;
+    private static final int MINUTES_AGE = 5;
 
     public static String createToken(boolean isAdmin, Long userId) {
         try {
-            Date timeAhead = Date.from(Instant.now().plus(HOURS_AGE, ChronoUnit.SECONDS));
+            Date timeAhead = Date.from(Instant.now().plus(MINUTES_AGE, ChronoUnit.MINUTES));
             Date now = Date.from(Instant.now());
             return JWT.create()
                     .withSubject(userId != null ? String.valueOf(userId) : null)

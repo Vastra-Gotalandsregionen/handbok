@@ -1,6 +1,8 @@
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var path = require('path');
+var CompressionPlugin = require("compression-webpack-plugin");
+
 const prod = process.argv.indexOf('-p') !== -1;
 const aot = process.env.aot === "true";
 const ngcWebpack = require('ngc-webpack');
@@ -60,6 +62,13 @@ module.exports = {
                 /**environment: JSON.stringify(process.env.APP_ENVIRONMENT || 'development')*/
                 environment: prod? '"production"': '"development"'
             }
+        }),
+        new CompressionPlugin({
+            asset: "[path].gz[query]",
+            algorithm: "gzip",
+            test: /\.js$|\.html$/,
+            threshold: 10240,
+            minRatio: 0.8
         })
     ]
 };

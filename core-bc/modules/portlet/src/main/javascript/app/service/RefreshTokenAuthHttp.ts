@@ -18,71 +18,29 @@ export class RefreshTokenAuthHttp extends AuthHttp {
         this.baseHttp = http;
     }
 
-    putWithSuper(url: string, body: any, options?: RequestOptionsArgs): Observable<Response> {
-        return super.put(url, body, options);
-    }
-
     put(url: string, body: any, options?: RequestOptionsArgs): Observable<Response> {
-        let self = this;
-        return Observable.create((observer: Observer<Response>) => {
-            try {
-                let token: string = <string> self.authConfig.getConfig().tokenGetter();
-                let decodeToken = self.jwtHelper.decodeToken(token);
+        let token: string = <string> this.authConfig.getConfig().tokenGetter();
+        let decodeToken = this.jwtHelper.decodeToken(token);
 
-                if (self.isExpired(decodeToken)) {
-                    // Expired -> renew
-                    console.log('JWT has expired. Renew...');
-                    self.renewJwtAndMakePut(self, url, body, options, observer);
-                } else {
-                    console.log('Using still valid JWT');
-                    self.makeThePut(self, url, body, options, observer);
-                }
-
-            } catch (e) {
-                console.log(e);
-                self.renewJwtAndMakePut(self, url, body, options, observer);
-            }
-        });
+        if (this.isExpired(decodeToken)) {
+            // Expired -> renew
+            console.log('JWT has expired. Renew...');
+            return this.baseHttp.get(this.ifeedService.resourceUrl + "&p_p_resource_id=refreshToken")
+                .map((response: Response) => response.text())
+                .flatMap(jwtToken => {
+                    sessionStorage.setItem("jwtToken", jwtToken);
+                    // Continue with the request which was the purpose of the originating call
+                    // self.makeThePut(self, url, body, options, observer);
+                    return super.put(url, body, options);
+                })
+        } else {
+            console.log('Using still valid JWT');
+            return super.put(url, body, options);
+        }
     }
 
     private isExpired(decodeToken: any) {
         return decodeToken.exp - new Date().getTime() / 1000 < 0;
-    }
-
-    private renewJwtAndMakePut(self: RefreshTokenAuthHttp,
-                               url: string,
-                               body: any,
-                               options: RequestOptionsArgs,
-                               observer: Observer<Response>) {
-        self.baseHttp.get(self.ifeedService.resourceUrl + "&p_p_resource_id=refreshToken")
-            .map((response: Response) => response.text())
-            .subscribe(
-                (json: string) => {
-                    console.log('Setting new JWT...');
-                    sessionStorage.setItem("jwtToken", json);
-                    // Continue with the request which was the purpose of the originating call
-                    self.makeThePut(self, url, body, options, observer);
-                },
-                (err: Error) => {
-                    observer.error(err);
-                    observer.complete();
-                }
-            );
-    }
-
-    private makeThePut(self: RefreshTokenAuthHttp,
-                       url: string,
-                       body: any,
-                       options: RequestOptionsArgs,
-                       observer: Observer<Response>) {
-        let observableResponse: Observable<Response> = self.putWithSuper(url, body, options);
-        observableResponse.subscribe(response => {
-            observer.next(response);
-            observer.complete();
-        }, (err: Error) => {
-            observer.error(err);
-            observer.complete();
-        });
     }
 
     get(url: string, options?: RequestOptionsArgs): Observable<Response> {
