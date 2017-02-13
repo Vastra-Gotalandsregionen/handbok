@@ -31,7 +31,7 @@ export class AdminComponent implements OnInit, OnDestroy {
 
         dragulaService.setOptions('ifeed-rows', {
             moves: function (el: any, container: any, handle: any) {
-                return handle.className === 'handle';
+                return handle.className .indexOf('handle') > -1;
             }
         });
 

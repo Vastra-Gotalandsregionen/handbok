@@ -18,7 +18,7 @@
                 <th><span tooltip="Dra och släpp för att sortera">Sortera</span> </th>
             </tr>
             </thead>
-            <tbody [dragula]="ifeed-rows">
+            <tbody [dragula]="'ifeed-rows'">
             <tr *ngFor="let ifeed of ifeedList.ifeeds">
                 <td><input [(ngModel)]="ifeed.name" type="text"></td>
                 <td><input [(ngModel)]="ifeed.feedId" type="text"></td>
