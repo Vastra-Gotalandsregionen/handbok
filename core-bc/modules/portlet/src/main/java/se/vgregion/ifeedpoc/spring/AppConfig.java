@@ -15,6 +15,7 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.jcache.JCacheCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 import javax.annotation.PreDestroy;
@@ -28,6 +29,7 @@ import java.util.concurrent.TimeUnit;
 @Configuration
 @EnableCaching
 @EnableScheduling
+@PropertySource(value = "classpath:application.properties")
 public class AppConfig {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(AppConfig.class);
