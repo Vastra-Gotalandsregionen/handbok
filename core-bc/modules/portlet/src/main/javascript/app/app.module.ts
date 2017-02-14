@@ -5,7 +5,7 @@ import {HttpModule, RequestOptions, Http} from "@angular/http";
 import {AppComponent} from "./app.component";
 import {AppRoutingModule} from "./app-routing.module";
 import {CommonModule} from "@angular/common";
-import {IfeedComponent} from "./ifeed/ifeed.component";
+import {IfeedComponent} from "./view/user/ifeed/ifeed.component";
 import {IfeedService} from "./service/ifeed.service";
 import {UserComponent} from "./view/user/user.component";
 import {AdminComponent} from "./view/admin/admin.component";
@@ -14,10 +14,11 @@ import {DragulaModule} from "ng2-dragula";
 import {TooltipModule} from "ngx-tooltip";
 import {RestService} from "./service/RestService";
 import {MaterialModule} from '@angular/material';
-import {ErrorDialogComponent} from "./component/error-dialog.component";
+import {ErrorDialogComponent} from "./component/error-dialog/error-dialog.component";
 import {ErrorHandler} from "./service/ErrorHandler";
 import {AuthHttp, AuthConfig, JwtHelper} from "angular2-jwt";
 import {RefreshTokenAuthHttp} from "./service/RefreshTokenAuthHttp";
+import {LoadingIndicatorComponent} from "./component/loading-indicator/loading-indicator.component";
 
 export function authHttpServiceFactory(http: Http, options: RequestOptions, jwtHelper: JwtHelper, ifeedService: IfeedService) {
     return new RefreshTokenAuthHttp(new AuthConfig({
@@ -43,7 +44,8 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions, jwtH
         UserComponent,
         IfeedComponent,
         AdminComponent,
-        ErrorDialogComponent
+        ErrorDialogComponent,
+        LoadingIndicatorComponent
     ],
     providers: [
         AdminGuard,

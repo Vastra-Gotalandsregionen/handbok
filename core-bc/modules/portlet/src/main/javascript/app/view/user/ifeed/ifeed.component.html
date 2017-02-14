@@ -4,9 +4,7 @@
     </li>
 </ul>
 
-<div *ngIf="documents === null || documents.length === 0">
-    Läser in... <span class="loading-indicator"><i class="icon icon-spinner"></i></span>
-</div>
+<loading-indicator *ngIf="documents === null || documents.length === 0"></loading-indicator>
 
 <div *ngIf="showingDocument" class="button-row">
     <span><a class="btn btn-primary" routerLink="/user/ifeed/{{id}}" ><i class="icon-arrow-left"></i> Tillbaka</a></span>

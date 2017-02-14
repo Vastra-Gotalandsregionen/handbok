@@ -1,6 +1,6 @@
 import {NgModule}             from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {IfeedComponent} from "./ifeed/ifeed.component";
+import {IfeedComponent} from "./view/user/ifeed/ifeed.component";
 import {UserComponent} from "./view/user/user.component";
 import {AdminComponent} from "./view/admin/admin.component";
 import {AdminGuard} from "./service/admin-guard.service";

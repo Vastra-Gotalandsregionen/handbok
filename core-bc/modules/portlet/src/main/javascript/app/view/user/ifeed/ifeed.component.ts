@@ -4,10 +4,10 @@ import {Observable, Subscription}     from 'rxjs';
 import {ActivatedRoute} from "@angular/router";
 import 'rxjs/add/operator/map';
 import {DomSanitizer, SafeUrl} from "@angular/platform-browser";
-import {IfeedService} from "../service/ifeed.service";
-import {Document} from "../model/document.model";
-import {RestService} from "../service/RestService";
-import {ErrorHandler} from "../service/ErrorHandler";
+import {IfeedService} from "../../../service/ifeed.service";
+import {Document} from "../../../model/document.model";
+import {RestService} from "../../../service/RestService";
+import {ErrorHandler} from "../../../service/ErrorHandler";
 
 @Component({
     selector: 'ifeed',

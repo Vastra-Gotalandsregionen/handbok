@@ -1,0 +1,12 @@
+.button-row {
+    margin-bottom: 8px;
+}
+
+.button-row .btn {
+    margin-right: 8px;
+}
+
+iframe {
+    height: 900px;
+    width: 100%;
+}
