@@ -7,5 +7,5 @@ import {Component, Input} from "@angular/core";
 })
 export class LoadingIndicatorComponent {
 
-    // @Input() show: boolean;
+    @Input('only-spinner') onlySpinner: boolean;
 }

@@ -25,6 +25,8 @@ import se.vgregion.ifeedpoc.model.Document;
 import se.vgregion.ifeedpoc.model.DocumentResponse;
 import se.vgregion.ifeedpoc.model.Ifeed;
 import se.vgregion.ifeedpoc.model.IfeedList;
+import se.vgregion.ifeedpoc.model.PortletSelectedIfeedList;
+import se.vgregion.ifeedpoc.repository.PortletSelectedIfeedListRepository;
 import se.vgregion.ifeedpoc.service.DocumentFetcherService;
 import se.vgregion.ifeedpoc.service.HmacUtil;
 import se.vgregion.ifeedpoc.repository.IfeedListRepository;
@@ -43,15 +45,18 @@ import java.util.UUID;
 
 @Controller
 @Transactional
-public class SampleRESTFullController {
+public class ViewRestController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(SampleRESTFullController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ViewRestController.class);
 
     @Autowired
     private IfeedListRepository ifeedListRepository;
 
     @Autowired
     private IfeedRepository ifeedRepository;
+
+    @Autowired
+    private PortletSelectedIfeedListRepository portletSelectedIfeedListRepository;
 
     @Autowired
     private DocumentFetcherService documentFetcherService;
@@ -93,14 +98,25 @@ public class SampleRESTFullController {
         return ifeedListRepository.findAll();
     }
 
-    @RequestMapping(value = "/ifeed/{name}", method = RequestMethod.GET)
+    @RequestMapping(value = "/ifeed/{nameOrId}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public ResponseEntity<IfeedList> getIfeedList(@PathVariable("name") String name) throws SystemException {
+    public ResponseEntity<IfeedList> getIfeedList(@PathVariable("nameOrId") String nameOrId) throws SystemException {
 
-        IfeedList ifeedList = ifeedListRepository.findByName(name);
+        IfeedList ifeedList = ifeedListRepository.findByName(nameOrId);
 
         if (ifeedList == null) {
+            try {
+                long id = Long.parseLong(nameOrId);
+                ifeedList = ifeedListRepository.findOne(id);
+
+                if (ifeedList != null) {
+                    return ResponseEntity.ok(ifeedList);
+                }
+            } catch (NumberFormatException e) {
+                // Not an id = ok
+            }
+
             return ResponseEntity.notFound().build();
         }
 
@@ -144,9 +160,7 @@ public class SampleRESTFullController {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.valueOf(documentResponse.getContentType()));
 
-        ResponseEntity responseEntity = new ResponseEntity(new InputStreamResource(inputStream), headers, HttpStatus.OK);
-
-        return responseEntity;
+        return new ResponseEntity(new InputStreamResource(inputStream), headers, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/ifeed", method = RequestMethod.PUT)
@@ -165,6 +179,43 @@ public class SampleRESTFullController {
 
         return ifeedListRepository.saveAndFlush(ifeedList);
     }
+
+    @RequestMapping(value = "/edit/saveIfeedList", method = RequestMethod.PUT)
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public IfeedList saveIfeedList(@RequestBody IfeedList ifeedList) throws SystemException {
+        return ifeedListRepository.saveAndFlush(ifeedList);
+    }
+
+    @RequestMapping(value = "/edit/saveAllIfeedLists", method = RequestMethod.PUT)
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public IfeedList[] saveAllIfeedLists(@RequestBody List<IfeedList> ifeedLists) throws SystemException {
+
+        List<IfeedList> all = ifeedListRepository.findAll();
+        for (IfeedList currentlyPersisted : all) {
+            if (!ifeedLists.contains(currentlyPersisted)) {
+                ifeedListRepository.delete(currentlyPersisted);
+            }
+        }
+
+        IfeedList[] toReturn = new IfeedList[ifeedLists.size()];
+
+        int count = 0;
+        for (IfeedList list : ifeedLists) {
+            toReturn[count++] = ifeedListRepository.saveAndFlush(list);
+        }
+        return toReturn;
+    }
+
+    @RequestMapping(value = "/edit/saveSelectedIfeedList", method = RequestMethod.PUT)
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public PortletSelectedIfeedList saveSelectedIfeedList(@RequestBody PortletSelectedIfeedList portletSelectedIfeedList) throws SystemException {
+        return portletSelectedIfeedListRepository.saveAndFlush(portletSelectedIfeedList);
+    }
+
+
 
 }
 

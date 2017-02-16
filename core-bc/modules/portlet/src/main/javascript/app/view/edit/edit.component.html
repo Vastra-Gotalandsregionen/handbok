@@ -1,0 +1,92 @@
+<div>Portlet Resource PK: {{getPortletResourcePk()}}</div>
+
+<div class="separated-section">
+    <section>
+        <h4>Globala inställningar för alla handböcker</h4>
+
+        <table>
+            <tr *ngFor="let ifeedList of ifeedLists">
+                <td>{{ifeedList.id}}</td>
+                <td>
+                    <!--<md-input-container class="example-full-width">-->
+                    <input placeholder="Namn" [(ngModel)]="ifeedList.name" type="text"/>
+                    <!--</md-input-container>-->
+                </td>
+                <td>
+                    <button class="btn btn-danger" (click)="deleteIfeedList(ifeedList)"><i class="icon-trash"></i>
+                    </button>
+                </td>
+            </tr>
+        </table>
+    </section>
+
+    <section>
+        <div class="btn-group">
+            <button class="btn btn-primary" (click)="addIfeedList()"><i class="icon-plus"></i> Lägg till handbok
+            </button>
+        </div>
+    </section>
+    <section>
+        <div class="btn-group">
+            <feedback-button [clickFunction]="saveAllIfeedLists" [clickFunctionArgs]="[]" [functionObject]="this"
+                             [callback]="loadIfeedLists">
+                <i class="icon icon-save"></i>&nbsp;Spara
+            </feedback-button>
+        </div>
+    </section>
+</div>
+
+<div class="separated-section">
+
+    <section>
+        <h4>Ange ämneshandbok för denna portlet-instans</h4>
+
+        <div>
+            <md-select placeholder="Handbok" [(ngModel)]="selectedIfeedListId">
+                <md-option *ngFor="let ifeedList of ifeedLists" [(value)]="ifeedList.id">
+                    {{ifeedList.name}}
+                </md-option>
+            </md-select>
+
+            <feedback-button [clickFunction]="saveSelectedIfeedList" [clickFunctionArgs]="[]" [functionObject]="this"
+                             [callback]="ngOnInit">
+                <i class="icon icon-save"></i>&nbsp;Spara
+            </feedback-button>
+        </div>
+    </section>
+</div>
+
+<div class="separated-section">
+    <section>
+        <h4>Användare med admin-behörighet för <em>{{ifeedList ? ifeedList.name : ""}}</em></h4>
+
+        <table id="editTable" *ngIf="userIds != null">
+            <tr *ngFor="let entry of userIds">
+                <td>
+                    <input [(ngModel)]="entry.userId" type="text" placeholder="VGR-ID">
+                </td>
+                <td>
+                    <button class="btn btn-danger" (click)="deleteUser(entry)"><i class="icon-trash"></i></button>
+                </td>
+            </tr>
+        </table>
+
+    </section>
+
+    <section>
+        <div class="btn-group">
+            <button class="btn btn-primary" (click)="addUserId()"><i class="icon-plus"></i> Lägg till användare
+            </button>
+        </div>
+    </section>
+
+    <section>
+        <div class="btn-group">
+            <button class="btn {{saveButtonClass}}" (click)="save()">
+                <i class="icon icon-save"></i>&nbsp;
+                {{saveButtonText}}
+            </button>
+        </div>
+    </section>
+
+</div>

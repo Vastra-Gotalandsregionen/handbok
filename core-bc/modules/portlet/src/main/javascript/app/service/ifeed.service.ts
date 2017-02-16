@@ -8,10 +8,13 @@ export class IfeedService {
     private currentIfeedName: string = null;
     currentDocumentTitle: string;
     ajaxUrl: string;
-    hasPreferencesPermission: boolean;
+    hasAdminPermission: boolean;
     ifeeds: [Ifeed] = null;
     bookName: string;
     resourceUrl: string;
+    bookId: number;
+    hasEditPermission: boolean;
+    portletResourcePk: string;
 
     setCurrentIfeedId(id: string): void {
         console.log('setCurrentIfeedId: ' + id);

@@ -4,6 +4,8 @@ import {IfeedComponent} from "./view/user/ifeed/ifeed.component";
 import {UserComponent} from "./view/user/user.component";
 import {AdminComponent} from "./view/admin/admin.component";
 import {AdminGuard} from "./service/admin-guard.service";
+import {EditComponent} from "./view/edit/edit.component";
+import {EditGuard} from "./service/edit-guard.service";
 
 const routes: Routes = [
     {
@@ -18,6 +20,11 @@ const routes: Routes = [
         path: 'admin',
         component: AdminComponent,
         canActivate: [AdminGuard]
+    },
+    {
+        path: 'edit',
+        component: EditComponent,
+        canActivate: [EditGuard]
     },
     {path: '**', component: UserComponent}
 

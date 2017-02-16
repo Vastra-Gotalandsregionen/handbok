@@ -21,7 +21,7 @@ public class SecureRequestHandlerInterceptorTest {
 
         // Prepare
         boolean isAdmin = true;
-        String jwtToken = JwtUtil.createToken(isAdmin, 12345L);
+        String jwtToken = JwtUtil.createToken(12345L, "admin");
 
         // Given
         SecureRequestHandlerInterceptor interceptor = new SecureRequestHandlerInterceptor() {

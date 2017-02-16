@@ -1,0 +1,4 @@
+<button (click)="click()" class="btn {{clazz}}">
+    <ng-content *ngIf="!showOnlyLoadingIndicator"></ng-content>
+    <loading-indicator *ngIf="showOnlyLoadingIndicator" only-spinner="true"></loading-indicator>
+</button>

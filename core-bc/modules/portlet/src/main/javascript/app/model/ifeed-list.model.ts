@@ -3,4 +3,5 @@ export class IfeedList {
     id: number;
     name: string;
     ifeeds: Ifeed[];
+    preferencesUserIds: string[];
 }

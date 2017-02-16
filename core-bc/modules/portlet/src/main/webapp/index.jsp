@@ -13,6 +13,6 @@
     }
 </style>
 
-<app-root ajax-url="${ajaxURL}" book-name="${bookName}" has-preferences-permission="${hasPreferencesPermission}" jwt-token="${jwtToken}" resource-url="${resourceUrl}">
+<app-root ajax-url="${ajaxURL}" book-name="${bookName}" has-admin-permission="${hasAdminPermission}" jwt-token="${jwtToken}" resource-url="${resourceUrl}">
   Läser in... <span class="loading-indicator"><i class="icon icon-spinner"></i></span>
 </app-root>

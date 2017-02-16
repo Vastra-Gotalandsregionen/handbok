@@ -5,8 +5,6 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.model.User;
-import com.liferay.portal.model.UserGroupRole;
-import com.liferay.portal.service.UserGroupRoleLocalServiceUtil;
 import com.liferay.portal.theme.PortletDisplay;
 import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portal.util.PortalUtil;
@@ -23,8 +21,9 @@ import org.springframework.web.portlet.bind.annotation.ResourceMapping;
 import se.vgregion.ifeedpoc.model.Document;
 import se.vgregion.ifeedpoc.model.Ifeed;
 import se.vgregion.ifeedpoc.model.IfeedList;
+import se.vgregion.ifeedpoc.repository.IfeedListRepository;
+import se.vgregion.ifeedpoc.repository.PortletSelectedIfeedListRepository;
 import se.vgregion.ifeedpoc.service.HmacUtil;
-import se.vgregion.ifeedpoc.service.IfeedService;
 import se.vgregion.ifeedpoc.service.JwtUtil;
 
 import javax.portlet.PortletRequest;
@@ -36,6 +35,7 @@ import javax.portlet.ResourceURL;
 import javax.servlet.http.HttpServletResponse;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.List;
 
 @Component
@@ -47,7 +47,10 @@ public class PortletController {
     private static final ObjectMapper JSON_MAPPER = new ObjectMapper();
 
     @Autowired
-    private IfeedService ifeedService;
+    private IfeedListRepository ifeedListRepository;
+
+    @Autowired
+    private PortletSelectedIfeedListRepository portletSelectedIfeedListRepository;
 
     public PortletController() {
     }
@@ -65,38 +68,40 @@ public class PortletController {
         String ajaxUrl = urlPortlet.replace("null", "") + "/api";
 
         ResourceURL resourceUrl = response.createResourceURL();
+        String resourcePK = themeDisplay.getPortletDisplay().getResourcePK();
 
         model.addAttribute("resourceUrl", resourceUrl.toString());
         model.addAttribute("ajaxURL", ajaxUrl);
-        model.addAttribute("standalone", false);
         model.addAttribute("authenticatedUser", userScreenName);
-        model.addAttribute("portletId", getPortletId(request));
+        model.addAttribute("portletResourcePk", resourcePK);
         model.addAttribute("portletAppContextPath", request.getContextPath() + "/");
 
-        String bookName = request.getPreferences().getValue("bookName", null);
+        String bookName = portletSelectedIfeedListRepository.findOne(resourcePK).getIfeedList().getName();
+
         model.addAttribute("bookName", bookName);
 
-        boolean hasPreferencesPermission = isHasPreferencesPermission(themeDisplay, bookName);
+        model.addAttribute("bookName", bookName);
 
-        model.addAttribute("hasPreferencesPermission", hasPreferencesPermission);
+        boolean hasAdminPermission = isHasAdminPermission(themeDisplay, bookName);
 
-        String jwtToken = JwtUtil.createToken(hasPreferencesPermission, user == null ? null : user.getUserId());
+        model.addAttribute("hasAdminPermission", hasAdminPermission);
+
+        String jwtToken = JwtUtil.createToken(user == null ? null : user.getUserId(), hasAdminPermission ? "admin" : "guest");
         model.addAttribute("jwtToken", jwtToken);
 
         return "index";
     }
 
-    private boolean isHasPreferencesPermission(ThemeDisplay themeDisplay, String bookName) throws SystemException, PortalException {
-        List<UserGroupRole> userGroupRoles = UserGroupRoleLocalServiceUtil.getUserGroupRoles(themeDisplay.getUserId(),
-                themeDisplay.getLayout().getGroupId());
+    private boolean isHasAdminPermission(ThemeDisplay themeDisplay, String bookName)
+            throws SystemException, PortalException {
+
+        List<String> preferencesUserIds = ifeedListRepository.findByName(bookName).getPreferencesUserIds();
 
         boolean hasPreferencesPermission = false;
-        for (UserGroupRole role : userGroupRoles) {
-            if (role.getRole().getName().equals(bookName)) {
-                hasPreferencesPermission = true;
-                break;
-            }
+        if (preferencesUserIds.contains(themeDisplay.getUser().getScreenName())) {
+            hasPreferencesPermission = true;
         }
+
         return hasPreferencesPermission;
     }
 
@@ -109,11 +114,12 @@ public class PortletController {
 
         ThemeDisplay themeDisplay = (ThemeDisplay) request.getAttribute(WebKeys.THEME_DISPLAY);
 
-        boolean hasPreferencesPermission = isHasPreferencesPermission(themeDisplay, bookName);
+        boolean hasAdminPermission = isHasAdminPermission(themeDisplay, bookName);
 
         User user = (User) request.getAttribute(WebKeys.USER);
 
-        String jwtToken = JwtUtil.createToken(hasPreferencesPermission, user == null ? null : user.getUserId());
+        String jwtToken = JwtUtil.createToken(user == null ? null : user.getUserId(),
+                hasAdminPermission ? "admin": null);
 
         response.getPortletOutputStream().write(jwtToken.getBytes("UTF-8"));
     }

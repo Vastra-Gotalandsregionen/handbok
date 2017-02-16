@@ -1,6 +1,8 @@
 package se.vgregion.ifeedpoc.model;
 
 import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -10,6 +12,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OrderColumn;
 import javax.persistence.Table;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -29,6 +32,10 @@ public class IfeedList {
     @OrderColumn
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Ifeed> ifeeds = new ArrayList<>();
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "vgr_handbok_ifeed_list_preferences_user_ids")
+    private List<String> preferencesUserIds = new ArrayList<>(Arrays.asList("patbe5"));
 
     public IfeedList() {
 //        this.ifeeds.add(new Ifeed(1L, "Avvikelser", "4410369"));
@@ -69,30 +76,26 @@ public class IfeedList {
         this.ifeeds = ifeeds;
     }
 
-    /*public class Ifeed {
+    public List<String> getPreferencesUserIds() {
+        return preferencesUserIds;
+    }
 
-        private String name;
-        private String url;
+    public void setPreferencesUserIds(List<String> preferencesUserIds) {
+        this.preferencesUserIds = preferencesUserIds;
+    }
 
-        public Ifeed(String name, String url) {
-            this.name = name;
-            this.url = url;
-        }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
-        public String getName() {
-            return name;
-        }
+        IfeedList ifeedList = (IfeedList) o;
 
-        public void setName(String name) {
-            this.name = name;
-        }
+        return id.equals(ifeedList.id);
+    }
 
-        public String getUrl() {
-            return url;
-        }
-
-        public void setUrl(String url) {
-            this.url = url;
-        }
-    }*/
+    @Override
+    public int hashCode() {
+        return id.hashCode();
+    }
 }

@@ -75,3 +75,8 @@ ul.nav.nav-stacked>li>a:not(.active):hover {
     border-top-left-radius: 3px;
     border-top-right-radius: 3px;
 }
+
+.aui table tr td input[type="text"] {
+    margin: 0;
+    margin-bottom: 0;
+}

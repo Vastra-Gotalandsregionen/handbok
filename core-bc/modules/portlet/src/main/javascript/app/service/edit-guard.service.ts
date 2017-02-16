@@ -1,15 +1,16 @@
 import { Injectable }     from '@angular/core';
 import { CanActivate }    from '@angular/router';
-import {IfeedService} from "./ifeed.service";
+import { IfeedService } from "./ifeed.service";
 
 @Injectable()
-export class AdminGuard implements CanActivate {
+export class EditGuard implements CanActivate {
 
 
     constructor(private ifeedService: IfeedService) {
     }
 
     canActivate(): boolean {
-        return this.ifeedService.hasAdminPermission;
+        console.log('EditGuard#canActivate called');
+        return this.ifeedService.hasEditPermission;
     }
 }

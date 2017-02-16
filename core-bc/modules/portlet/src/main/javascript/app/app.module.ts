@@ -19,6 +19,9 @@ import {ErrorHandler} from "./service/ErrorHandler";
 import {AuthHttp, AuthConfig, JwtHelper} from "angular2-jwt";
 import {RefreshTokenAuthHttp} from "./service/RefreshTokenAuthHttp";
 import {LoadingIndicatorComponent} from "./component/loading-indicator/loading-indicator.component";
+import {EditComponent} from "./view/edit/edit.component";
+import {EditGuard} from "./service/edit-guard.service";
+import {FeedbackButtonComponent} from "./component/feedback-button/feedback-button.component";
 
 export function authHttpServiceFactory(http: Http, options: RequestOptions, jwtHelper: JwtHelper, ifeedService: IfeedService) {
     return new RefreshTokenAuthHttp(new AuthConfig({
@@ -41,14 +44,17 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions, jwtH
     ],
     declarations: [
         AppComponent,
+        EditComponent,
         UserComponent,
         IfeedComponent,
         AdminComponent,
         ErrorDialogComponent,
+        FeedbackButtonComponent,
         LoadingIndicatorComponent
     ],
     providers: [
         AdminGuard,
+        EditGuard,
         ErrorHandler,
         IfeedService,
         JwtHelper,

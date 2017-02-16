@@ -1,6 +1,7 @@
 import {Component, ElementRef, OnInit, ViewEncapsulation} from '@angular/core';
 import 'rxjs/add/operator/map';
 import {IfeedService} from "./service/ifeed.service";
+import {Router} from "@angular/router";
 
 @Component({
     selector: 'app-root',
@@ -11,21 +12,27 @@ import {IfeedService} from "./service/ifeed.service";
     ],
     encapsulation: ViewEncapsulation.None
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
 
     constructor(elm: ElementRef,
+                router: Router,
                 private ifeedService: IfeedService) {
+
         ifeedService.ajaxUrl = elm.nativeElement.attributes['ajax-url'].value;
         ifeedService.resourceUrl = elm.nativeElement.attributes['resource-url'].value;
-        ifeedService.hasPreferencesPermission = elm.nativeElement.attributes['has-preferences-permission'].value === 'true';
+        ifeedService.hasAdminPermission = elm.nativeElement.attributes['has-admin-permission'].value === 'true';
         ifeedService.bookName = elm.nativeElement.attributes['book-name'].value;
 
         let jwtToken = elm.nativeElement.attributes['jwt-token'].value;
         sessionStorage.setItem('jwtToken', jwtToken);
+
+        let editModeAttribute = elm.nativeElement.attributes['edit-mode'];
+        if (editModeAttribute && editModeAttribute.value === "true") {
+            ifeedService.hasEditPermission = editModeAttribute.value === 'true';
+            ifeedService.portletResourcePk = elm.nativeElement.attributes['portlet-resource-pk'].value;
+
+            router.navigate(['/edit']);
+        }
+
     }
-
-    ngOnInit(): void {
-
-    }
-
 }

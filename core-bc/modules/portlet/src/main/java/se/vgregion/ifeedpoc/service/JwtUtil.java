@@ -19,13 +19,13 @@ public class JwtUtil {
     private static final String secret = UUID.randomUUID().toString();
     private static final int MINUTES_AGE = 5;
 
-    public static String createToken(boolean isAdmin, Long userId) {
+    public static String createToken(Long userId, String... roles) {
         try {
             Date timeAhead = Date.from(Instant.now().plus(MINUTES_AGE, ChronoUnit.MINUTES));
             Date now = Date.from(Instant.now());
             return JWT.create()
                     .withSubject(userId != null ? String.valueOf(userId) : null)
-                    .withClaim("isAdmin", isAdmin)
+                    .withArrayClaim("roles", roles)
                     .withIssuedAt(now)
                     .withExpiresAt(timeAhead)
                     .sign(Algorithm.HMAC256(secret));

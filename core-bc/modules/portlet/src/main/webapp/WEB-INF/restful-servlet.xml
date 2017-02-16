@@ -26,6 +26,15 @@
 
         </mvc:interceptor>
 
+        <mvc:interceptor >
+
+            <mvc:mapping path="/edit"/>
+            <mvc:mapping path="/edit/**"/>
+
+            <bean class="se.vgregion.ifeedpoc.controller.rest.interceptor.EditSecureRequestHandlerInterceptor"></bean>
+
+        </mvc:interceptor>
+
     </mvc:interceptors>
 
     <bean id="contentNegotiationManager" class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean" factory-bean="contentNegotiationManager">

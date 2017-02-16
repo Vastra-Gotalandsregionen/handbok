@@ -12,7 +12,7 @@ import {ErrorHandler} from "../../service/ErrorHandler";
 })
 export class UserComponent implements OnInit {
 
-    hasPreferencesPermission: boolean;
+    hasAdminPermission: boolean;
     ifeeds: [Ifeed];
 
     constructor(private http: Http,
@@ -24,7 +24,7 @@ export class UserComponent implements OnInit {
         this.ifeedService.setCurrentIfeedId(null);
         this.ifeedService.currentDocumentTitle = null;
 
-        this.hasPreferencesPermission = this.ifeedService.hasPreferencesPermission;
+        this.hasAdminPermission = this.ifeedService.hasAdminPermission;
         let observableResponse:Observable<Response> = this.http.get(this.ifeedService.ajaxUrl + "/ifeed/" + this.ifeedService.bookName);
         observableResponse
             .map(response => response.json())
