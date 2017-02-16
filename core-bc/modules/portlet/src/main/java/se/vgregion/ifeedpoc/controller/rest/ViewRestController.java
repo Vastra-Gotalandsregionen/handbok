@@ -61,7 +61,7 @@ public class ViewRestController {
     @Autowired
     private DocumentFetcherService documentFetcherService;
 
-    @Scheduled(fixedDelay = 60_000, initialDelay = 60_000)
+    @Scheduled(fixedDelay = 600_000, initialDelay = 60_000)
     public void renewCache() throws IOException, SignatureException, NoSuchAlgorithmException, InvalidKeyException, SystemException {
         List<IfeedList> all = ifeedListRepository.findAll();
 

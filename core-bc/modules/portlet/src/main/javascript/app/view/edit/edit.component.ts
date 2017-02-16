@@ -12,12 +12,12 @@ import {PortletSelectedIfeedList} from "../../model/portlet-selected-ifeed-list.
     styleUrls: ['./edit.component.css']
 })
 export class EditComponent implements OnInit {
-    private ifeedList: IfeedList;
-    private selectedIfeedListId: number;
-    private userIds: Array<any>;
+    ifeedList: IfeedList;
+    selectedIfeedListId: number;
+    userIds: Array<any>;
     saveButtonClass: string = "btn-primary";
     saveButtonText: string = "Spara";
-    private ifeedLists: IfeedList[];
+    ifeedLists: IfeedList[];
 
     constructor(private restService: RestService,
                 private ifeedService: IfeedService,
@@ -28,27 +28,28 @@ export class EditComponent implements OnInit {
     ngOnInit(): void {
         this.loadIfeedLists();
 
-        this.restService.getIfeedList(this.ifeedService.bookName).subscribe((ifeedList: IfeedList) => {
-            this.ifeedList = ifeedList;
-            setTimeout(() => {
-                // For some reason this must be made async
-                this.selectedIfeedListId = this.ifeedList.id;
+        if (this.ifeedService.bookName) {
+            this.restService.getIfeedList(this.ifeedService.bookName).subscribe((ifeedList: IfeedList) => {
+                this.ifeedList = ifeedList;
+                setTimeout(() => {
+                    // For some reason this must be made async. Otherwise the select component isn't updated with the correct set value.
+                    this.selectedIfeedListId = this.ifeedList.id;
+                }, 100);
+
+                // Make a local object mapping index to the object {userId: userId}. This is made to be able to iterate over
+                // and edit via ngModel.
+                let count: number = 0;
+                let userIds: Array<any> = [];
+                // Make list which can be iterated and edited
+                for (let userId of ifeedList.preferencesUserIds) {
+                    userIds[count++] = {userId: userId};
+                }
+
+                this.userIds = userIds;
+            }, error => {
+                this.errorHandler.notifyError(error);
             });
-
-            // Make a local object mapping index to the object {userId: userId}. This is made to be able to iterate over
-            // and edit via ngModel.
-            let count: number = 0;
-            let userIds: Array<any> = [];
-            // Make list which can be iterated and edited
-            for (let userId of ifeedList.preferencesUserIds) {
-                userIds[count++] = {userId: userId};
-            }
-
-            this.userIds = userIds;
-        }, error => {
-            this.errorHandler.notifyError(error);
-        });
-
+        }
     }
 
     loadIfeedLists() {

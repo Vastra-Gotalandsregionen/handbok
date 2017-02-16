@@ -8,14 +8,15 @@ import {ErrorHandler} from "../../service/ErrorHandler";
     templateUrl: './feedback-button.component.html'
 })
 export class FeedbackButtonComponent implements AfterViewInit {
-    private clazz: string = "btn btn-primary";
-    private showOnlyLoadingIndicator: boolean = false;
     @Input("buttonText") buttonText: string;
     @Input("functionObject") functionObject: any;
     @Input("clickFunction") clickFunction: () => Observable<any>;
     @Input("clickFunctionArgs") clickFunctionArgs: any[];
     @Input("callback") callback: () => void;
-    private initialInnerHtml: string;
+
+    clazz: string = "btn btn-primary";
+    showOnlyLoadingIndicator: boolean = false;
+    initialInnerHtml: string;
 
     constructor(private elementRef: ElementRef,
                 private errorHandler: ErrorHandler) {

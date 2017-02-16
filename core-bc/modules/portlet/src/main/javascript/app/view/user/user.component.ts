@@ -14,6 +14,7 @@ export class UserComponent implements OnInit {
 
     hasAdminPermission: boolean;
     ifeeds: [Ifeed];
+    needsConfiguration: boolean;
 
     constructor(private http: Http,
                 private ifeedService: IfeedService,
@@ -21,6 +22,8 @@ export class UserComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.needsConfiguration = !(this.ifeedService.bookName && this.ifeedService.bookName.length > 0);
+
         this.ifeedService.setCurrentIfeedId(null);
         this.ifeedService.currentDocumentTitle = null;
 

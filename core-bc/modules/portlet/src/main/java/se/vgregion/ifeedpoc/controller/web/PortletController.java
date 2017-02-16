@@ -21,6 +21,7 @@ import org.springframework.web.portlet.bind.annotation.ResourceMapping;
 import se.vgregion.ifeedpoc.model.Document;
 import se.vgregion.ifeedpoc.model.Ifeed;
 import se.vgregion.ifeedpoc.model.IfeedList;
+import se.vgregion.ifeedpoc.model.PortletSelectedIfeedList;
 import se.vgregion.ifeedpoc.repository.IfeedListRepository;
 import se.vgregion.ifeedpoc.repository.PortletSelectedIfeedListRepository;
 import se.vgregion.ifeedpoc.service.HmacUtil;
@@ -76,18 +77,17 @@ public class PortletController {
         model.addAttribute("portletResourcePk", resourcePK);
         model.addAttribute("portletAppContextPath", request.getContextPath() + "/");
 
-        String bookName = portletSelectedIfeedListRepository.findOne(resourcePK).getIfeedList().getName();
+        PortletSelectedIfeedList selected = portletSelectedIfeedListRepository.findOne(resourcePK);
 
-        model.addAttribute("bookName", bookName);
+        if (selected != null) {
+            String bookName = selected.getIfeedList().getName();
+            model.addAttribute("bookName", bookName);
 
-        model.addAttribute("bookName", bookName);
-
-        boolean hasAdminPermission = isHasAdminPermission(themeDisplay, bookName);
-
-        model.addAttribute("hasAdminPermission", hasAdminPermission);
-
-        String jwtToken = JwtUtil.createToken(user == null ? null : user.getUserId(), hasAdminPermission ? "admin" : "guest");
-        model.addAttribute("jwtToken", jwtToken);
+            boolean hasAdminPermission = isHasAdminPermission(themeDisplay, bookName);
+            model.addAttribute("hasAdminPermission", hasAdminPermission);
+            String jwtToken = JwtUtil.createToken(user == null ? null : user.getUserId(), hasAdminPermission ? "admin" : "guest");
+            model.addAttribute("jwtToken", jwtToken);
+        }
 
         return "index";
     }

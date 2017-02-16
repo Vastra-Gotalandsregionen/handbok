@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.portlet.bind.annotation.ActionMapping;
 import org.springframework.web.portlet.bind.annotation.RenderMapping;
 import se.vgregion.ifeedpoc.model.IfeedList;
+import se.vgregion.ifeedpoc.model.PortletSelectedIfeedList;
 import se.vgregion.ifeedpoc.repository.IfeedListRepository;
 import se.vgregion.ifeedpoc.repository.PortletSelectedIfeedListRepository;
 import se.vgregion.ifeedpoc.service.JwtUtil;
@@ -62,7 +63,11 @@ public class EditController {
         String jwtToken = JwtUtil.createToken(user == null ? null : user.getUserId(), "edit");
         model.addAttribute("jwtToken", jwtToken);
 
-        model.addAttribute("bookName", portletSelectedIfeedListRepository.findOne(resourcePK).getIfeedList().getName());
+        PortletSelectedIfeedList selected = portletSelectedIfeedListRepository.findOne(resourcePK);
+
+        if (selected != null) {
+            model.addAttribute("bookName", selected.getIfeedList().getName());
+        }
 
         model.addAttribute("editMode", true);
 

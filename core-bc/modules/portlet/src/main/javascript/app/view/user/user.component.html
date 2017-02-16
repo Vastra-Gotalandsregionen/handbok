@@ -1,4 +1,5 @@
 <div class="panel panel-default">
+
     <div class="panel-heading">
         <span id="preferencesButtonWrapper" *ngIf="hasAdminPermission">
             <a routerLink="/admin"><i class="icon-cog"></i> Administrera</a>
@@ -11,6 +12,7 @@
     </div>
 
     <div class="panel-body">
+
         <div class="clearfix">
             <div class="column left-column">
                 <ul class="nav nav-pills nav-stacked">
@@ -23,6 +25,8 @@
             </div>
 
             <div class="column right-column">
+                <div *ngIf="needsConfiguration">Denna portlet behöver konfigureras för en handbok i inställningar.</div>
+
                 <router-outlet></router-outlet>
             </div>
         </div>

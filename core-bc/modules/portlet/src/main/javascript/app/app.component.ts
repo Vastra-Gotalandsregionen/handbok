@@ -18,6 +18,8 @@ export class AppComponent {
                 router: Router,
                 private ifeedService: IfeedService) {
 
+        ifeedService.bookName = elm.nativeElement.attributes['book-name'].value;
+
         ifeedService.ajaxUrl = elm.nativeElement.attributes['ajax-url'].value;
         ifeedService.resourceUrl = elm.nativeElement.attributes['resource-url'].value;
         ifeedService.hasAdminPermission = elm.nativeElement.attributes['has-admin-permission'].value === 'true';

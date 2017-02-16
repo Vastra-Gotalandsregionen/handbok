@@ -35,7 +35,7 @@ public class IfeedList {
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "vgr_handbok_ifeed_list_preferences_user_ids")
-    private List<String> preferencesUserIds = new ArrayList<>(Arrays.asList("patbe5"));
+    private List<String> preferencesUserIds = new ArrayList<>();
 
     public IfeedList() {
 //        this.ifeeds.add(new Ifeed(1L, "Avvikelser", "4410369"));
