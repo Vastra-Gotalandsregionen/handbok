@@ -17,7 +17,7 @@ import java.util.UUID;
 public class JwtUtil {
 
     private static final String secret = UUID.randomUUID().toString();
-    private static final int MINUTES_AGE = 5;
+    private static int MINUTES_AGE = 5;
 
     public static String createToken(Long userId, String... roles) {
         try {
