@@ -3,6 +3,7 @@ package se.vgregion.ifeedpoc.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -27,6 +28,11 @@ public class DocumentFetcherService {
 
     @Value("${ifeed.documents.url}")
     private String ifeedDocumentsUrl;
+
+    @CacheEvict(cacheNames = "default")
+    public void evictCache() {
+
+    }
 
     @Cacheable(cacheNames = "default")
     public Document[] fetchDocuments(String feedId) throws IOException {

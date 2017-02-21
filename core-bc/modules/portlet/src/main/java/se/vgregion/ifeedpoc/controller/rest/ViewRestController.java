@@ -32,6 +32,7 @@ import se.vgregion.ifeedpoc.service.HmacUtil;
 import se.vgregion.ifeedpoc.repository.IfeedListRepository;
 import se.vgregion.ifeedpoc.repository.IfeedRepository;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -60,6 +61,11 @@ public class ViewRestController {
 
     @Autowired
     private DocumentFetcherService documentFetcherService;
+
+    @PostConstruct
+    public void init() {
+        documentFetcherService.evictCache();
+    }
 
     @Scheduled(fixedDelay = 600_000, initialDelay = 60_000)
     public void renewCache() throws IOException, SignatureException, NoSuchAlgorithmException, InvalidKeyException, SystemException {
