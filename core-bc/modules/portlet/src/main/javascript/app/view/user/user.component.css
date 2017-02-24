@@ -14,7 +14,7 @@
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-    min-height: 100vh;
+    min-height: 40vh;
     padding: 6px 12px;
 }
 
@@ -22,7 +22,24 @@ nav a {
     display: block;
 }
 
-
-#preferencesButtonWrapper {
+.left-float {
     float: right;
+    margin-left: 12px;
+}
+
+search-documents {
+    box-sizing: border-box;
+    display: inline-block;
+    position: relative;
+    height: 100%;
+    padding: 10px;
+    width: calc(100% - 20px);
+}
+
+.search-row {
+    height: 47px;
+}
+
+h5 {
+    margin-bottom: 0;
 }

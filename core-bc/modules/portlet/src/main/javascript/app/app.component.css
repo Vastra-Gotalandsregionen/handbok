@@ -12,7 +12,6 @@ section {
 }
 
 .portlet-body a:not(.btn) {
-    /*font-weight: bold;*/
     color: #333333;
     font-size: 16px;
     font-family: "Arial";
@@ -40,10 +39,11 @@ ul.nav.nav-stacked>li>a:not(.active):hover {
 }
 
 .panel-heading .panel-title {
-    margin-top: 0;
-    margin-bottom: 0;
-    font-size: 16px;
     color: inherit;
+    float: left;
+    font-size: 16px;
+    margin-bottom: 0;
+    margin-top: 0;
 }
 
 .panel.panel-default {
@@ -79,4 +79,12 @@ ul.nav.nav-stacked>li>a:not(.active):hover {
 .aui table tr td input[type="text"] {
     margin: 0;
     margin-bottom: 0;
+}
+
+html.aui input {
+    width: auto;
+}
+
+.aui .mat-autocomplete-panel {
+    max-width: none;
 }

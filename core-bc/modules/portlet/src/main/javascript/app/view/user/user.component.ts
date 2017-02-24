@@ -15,6 +15,8 @@ export class UserComponent implements OnInit {
     hasAdminPermission: boolean;
     ifeeds: [Ifeed];
     needsConfiguration: boolean;
+    showSearch: boolean;
+    toggleSearchText: string = "Visa sök";
 
     constructor(private http: Http,
                 private ifeedService: IfeedService,
@@ -56,6 +58,16 @@ export class UserComponent implements OnInit {
 
     getBookName(): string {
         return this.ifeedService.bookName;
+    }
+
+    toggleSearch(): void {
+        this.showSearch = !this.showSearch;
+
+        if (this.showSearch === false) {
+            this.toggleSearchText = "Visa sök";
+        } else {
+            this.toggleSearchText = "Göm sök";
+        }
     }
 
 }

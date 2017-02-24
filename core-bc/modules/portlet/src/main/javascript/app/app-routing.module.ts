@@ -9,11 +9,11 @@ import {EditGuard} from "./service/edit-guard.service";
 
 const routes: Routes = [
     {
-        path: 'user', component: UserComponent,
+        path: '', component: UserComponent,
         children: [
-            {path: 'ifeed/:id', component: IfeedComponent},
-            {path: 'ifeed/:id/:urlSafeUrl/:ifeedIdHmac', component: IfeedComponent},
-            {path: '**', component: UserComponent}
+            {path: 'user/ifeed/:id', component: IfeedComponent},
+            {path: 'user/ifeed/:id/:urlSafeUrl/:ifeedIdHmac', component: IfeedComponent}/*,
+            {path: '**', component: UserComponent}*/
         ]
     },
     {

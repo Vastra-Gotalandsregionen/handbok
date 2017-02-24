@@ -1,0 +1,65 @@
+input.mat-input-element {
+    background: #ffffff;
+    border-radius: 2px;
+    color: #333;
+    font-weight: bold;
+    padding-left: 6px;
+}
+
+input::-webkit-input-placeholder {
+    text-indent: -9999px;
+}
+
+input:-moz-placeholder {
+    text-indent: -9999px;
+}
+
+input:-ms-input-placeholder {
+    text-indent: -9999px;
+}
+
+search-documents .mat-input-wrapper {
+    margin: 0;
+}
+
+label.mat-input-placeholder {
+    left: 6px;
+}
+
+label.mat-input-placeholder.mat-float {
+    font-weight: bold;
+}
+
+span.mat-input-placeholder-wrapper {
+    overflow: visible;
+}
+
+ul.search-result-list {
+    list-style: none;
+}
+
+ul.search-result-list .search-result-option-section {
+    color: #888;
+    font-style: italic;
+}
+
+search-documents md-input-container.mat-input-container {
+    bottom: 0;
+    position: absolute;
+    width: 100%;
+    width: calc(100% - 20px);
+}
+
+search-documents md-input-container.mat-input-container input.mat-input-element {
+    width: 100%;
+    background: transparent;
+}
+
+search-documents .mat-autocomplete-panel {
+    max-height: 50vh;
+}
+
+md-icon {
+    position: relative;
+    top: 6px;
+}

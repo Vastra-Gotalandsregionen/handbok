@@ -1,6 +1,6 @@
 import {BrowserModule} from "@angular/platform-browser";
 import {NgModule} from "@angular/core";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpModule, RequestOptions, Http} from "@angular/http";
 import {AppComponent} from "./app.component";
 import {AppRoutingModule} from "./app-routing.module";
@@ -22,6 +22,7 @@ import {LoadingIndicatorComponent} from "./component/loading-indicator/loading-i
 import {EditComponent} from "./view/edit/edit.component";
 import {EditGuard} from "./service/edit-guard.service";
 import {FeedbackButtonComponent} from "./component/feedback-button/feedback-button.component";
+import {SearchDocumentsComponent} from "./component/search-documents/search-documents.component";
 
 export function authHttpServiceFactory(http: Http, options: RequestOptions, jwtHelper: JwtHelper, ifeedService: IfeedService) {
     return new RefreshTokenAuthHttp(new AuthConfig({
@@ -39,8 +40,9 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions, jwtH
         DragulaModule,
         FormsModule,
         HttpModule,
-        MaterialModule.forRoot(),
-        TooltipModule
+        MaterialModule,
+        ReactiveFormsModule,
+        TooltipModule,
     ],
     declarations: [
         AppComponent,
@@ -50,7 +52,8 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions, jwtH
         AdminComponent,
         ErrorDialogComponent,
         FeedbackButtonComponent,
-        LoadingIndicatorComponent
+        LoadingIndicatorComponent,
+        SearchDocumentsComponent
     ],
     providers: [
         AdminGuard,
@@ -59,6 +62,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions, jwtH
         IfeedService,
         JwtHelper,
         RestService,
+        SearchDocumentsComponent,
         ErrorDialogComponent,
         {
             provide: AuthHttp,
@@ -66,7 +70,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions, jwtH
             deps: [Http, RequestOptions, JwtHelper, IfeedService]
         }
     ],
-    entryComponents: [ErrorDialogComponent],
+    entryComponents: [ErrorDialogComponent, SearchDocumentsComponent],
     bootstrap: [AppComponent]
 })
 export class IfeedAppModule {

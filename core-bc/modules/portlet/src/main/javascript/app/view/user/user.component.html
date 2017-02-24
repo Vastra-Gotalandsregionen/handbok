@@ -1,20 +1,30 @@
 <div class="panel panel-default">
 
-    <div class="panel-heading">
-        <span id="preferencesButtonWrapper" *ngIf="hasAdminPermission">
+    <div class="panel-heading clearfix">
+        <h4 class="panel-title">
+            {{getBookName()}}&nbsp;&nbsp;<i class="icon-caret-right"></i>&nbsp;&nbsp;<span
+                *ngIf="getCurrentIfeedName() == null">Välj kategori</span> {{getCurrentIfeedName()}} <span
+                *ngIf="getCurrentDocumentTitle() != null">&nbsp;&nbsp;<i class="icon-caret-right"></i>&nbsp;&nbsp;{{getCurrentDocumentTitle()}}</span>
+        </h4>
+
+        <span class="left-float" *ngIf="hasAdminPermission">
             <a routerLink="/admin"><i class="icon-cog"></i> Administrera</a>
         </span>
 
-        <h4 class="panel-title">
-            {{getBookName()}}&nbsp;&nbsp;<i class="icon-caret-right"></i>&nbsp;&nbsp;<span *ngIf="getCurrentIfeedName() == null">Välj kategori</span> {{getCurrentIfeedName()}} <span
-                *ngIf="getCurrentDocumentTitle() != null">&nbsp;&nbsp;<i class="icon-caret-right"></i>&nbsp;&nbsp;{{getCurrentDocumentTitle()}}</span>
-        </h4>
+        <span class="left-float">
+            <a href="" (click)="toggleSearch()" onclick="return false">{{toggleSearchText}}</a>
+        </span>
+    </div>
+
+    <div class="search-row" *ngIf="showSearch">
+        <search-documents></search-documents>
     </div>
 
     <div class="panel-body">
 
         <div class="clearfix">
             <div class="column left-column">
+                <h5>Kapitel</h5>
                 <ul class="nav nav-pills nav-stacked">
                     <li *ngFor="let ifeed of ifeeds">
                         <a routerLink="/user/ifeed/{{ifeed.id}}" routerLinkActive="active">
@@ -25,6 +35,7 @@
             </div>
 
             <div class="column right-column">
+                <h5>Dokument</h5>
                 <div *ngIf="needsConfiguration">Denna portlet behöver konfigureras för en handbok i inställningar.</div>
 
                 <router-outlet></router-outlet>

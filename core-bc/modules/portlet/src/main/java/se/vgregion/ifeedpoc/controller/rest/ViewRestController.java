@@ -19,9 +19,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import se.vgregion.ifeedpoc.model.Document;
+import se.vgregion.ifeedpoc.model.DocumentQueryResponse;
+import se.vgregion.ifeedpoc.model.DocumentQueryResponseEntry;
 import se.vgregion.ifeedpoc.model.DocumentResponse;
 import se.vgregion.ifeedpoc.model.Ifeed;
 import se.vgregion.ifeedpoc.model.IfeedList;
@@ -41,8 +44,12 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SignatureException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Controller
 @Transactional
@@ -129,13 +136,62 @@ public class ViewRestController {
         return ResponseEntity.ok(ifeedList);
     }
 
+    @RequestMapping(value = "/ifeedList/{ifeedName}/document", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public ResponseEntity<DocumentQueryResponse> queryDocumentTitles(@PathVariable("ifeedName") String ifeedListName,
+                                                                     @RequestParam("query") String query) throws SystemException {
+
+        IfeedList ifeedList = ifeedListRepository.findByName(ifeedListName);
+
+        if (ifeedList == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        List<Ifeed> ifeeds = ifeedList.getIfeeds();
+
+        DocumentQueryResponse documentQueryResponse = new DocumentQueryResponse();
+        for (Ifeed ifeed : ifeeds) {
+            try {
+                Document[] documentsArray = getDocumentsArray(ifeed.getId());
+
+                List<Document> filteredDocuments = Arrays.asList(documentsArray).stream()
+                        .filter(document -> document.getTitle().toLowerCase().contains(query.toLowerCase()))
+                        .collect(Collectors.toList());
+
+                if (filteredDocuments.size() > 0) {
+                    DocumentQueryResponseEntry entry = new DocumentQueryResponseEntry(ifeed, filteredDocuments);
+                    documentQueryResponse.getDocumentQueryResponseEntry().add(entry);
+                }
+            } catch (IOException | InvalidKeyException | NoSuchAlgorithmException | SignatureException e) {
+                LOGGER.error(e.getMessage(), e);
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            }
+        }
+
+        return ResponseEntity.ok(documentQueryResponse);
+    }
+
     @RequestMapping(value = "/ifeed/{id}/document", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public ResponseEntity<Document[]> getDocuments(@PathVariable("id") String id) throws SystemException, IOException, NoSuchAlgorithmException, SignatureException, InvalidKeyException {
+    public ResponseEntity<Document[]> getDocuments(@PathVariable("id") String id) {
 
-//        return ResponseEntity.badRequest().build();
-        Ifeed ifeed = ifeedRepository.findById(id);
+        Document[] documentList = new Document[0];
+        try {
+            documentList = getDocumentsArray(id);
+        } catch (IOException | SignatureException | NoSuchAlgorithmException | InvalidKeyException e) {
+            LOGGER.error(e.getMessage(), e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+
+        return ResponseEntity.ok(documentList);
+    }
+
+    private Document[] getDocumentsArray(@PathVariable("id") String ifeedId)
+            throws IOException, SignatureException, NoSuchAlgorithmException, InvalidKeyException {
+
+        Ifeed ifeed = ifeedRepository.findById(ifeedId);
 
         Document[] documentList = documentFetcherService.fetchDocuments(ifeed.getFeedId());
 
@@ -143,30 +199,35 @@ public class ViewRestController {
             document.setIfeedIdHmac(HmacUtil.calculateRFC2104HMAC(document.getUrl()));
             document.setUrlSafeUrl(Base64.encodeBase64URLSafeString(document.getUrl().getBytes("UTF-8")));
         }
-
-        return ResponseEntity.ok(documentList);
+        return documentList;
     }
 
     @RequestMapping(value = "/document/{urlSafeUrl}/{urlHmac}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public ResponseEntity getDocument(@PathVariable("urlSafeUrl") String urlSafeUrl,
-                                      @PathVariable("urlHmac") String urlHmac) throws NoSuchAlgorithmException, SignatureException, InvalidKeyException, IOException {
+                                      @PathVariable("urlHmac") String urlHmac) {
 
-        String documentUrl = new String(Base64.decodeBase64(urlSafeUrl), "UTF-8");
+        try {
+            String documentUrl = new String(Base64.decodeBase64(urlSafeUrl), "UTF-8");
 
-        if (!HmacUtil.calculateRFC2104HMAC(documentUrl).equals(urlHmac)) {
-            return ResponseEntity.badRequest().contentType(MediaType.TEXT_PLAIN).build();
+            if (!HmacUtil.calculateRFC2104HMAC(documentUrl).equals(urlHmac)) {
+                return ResponseEntity.badRequest().contentType(MediaType.TEXT_PLAIN).build();
+            }
+
+            DocumentResponse documentResponse = documentFetcherService.fetchDocument(documentUrl);
+
+            InputStream inputStream = new ByteArrayInputStream(documentResponse.getBytes());
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.valueOf(documentResponse.getContentType()));
+
+            return new ResponseEntity(new InputStreamResource(inputStream), headers, HttpStatus.OK);
+        } catch (IOException | SignatureException | NoSuchAlgorithmException | InvalidKeyException e) {
+            LOGGER.error(e.getMessage(), e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
 
-        DocumentResponse documentResponse = documentFetcherService.fetchDocument(documentUrl);
-
-        InputStream inputStream = new ByteArrayInputStream(documentResponse.getBytes());
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.valueOf(documentResponse.getContentType()));
-
-        return new ResponseEntity(new InputStreamResource(inputStream), headers, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/ifeed", method = RequestMethod.PUT)
@@ -220,8 +281,5 @@ public class ViewRestController {
     public PortletSelectedIfeedList saveSelectedIfeedList(@RequestBody PortletSelectedIfeedList portletSelectedIfeedList) throws SystemException {
         return portletSelectedIfeedListRepository.saveAndFlush(portletSelectedIfeedList);
     }
-
-
-
 }
 

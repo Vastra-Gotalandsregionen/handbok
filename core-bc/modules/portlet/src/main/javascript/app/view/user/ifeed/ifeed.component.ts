@@ -3,7 +3,7 @@ import {Response} from "@angular/http";
 import {Observable, Subscription}     from 'rxjs';
 import {ActivatedRoute} from "@angular/router";
 import 'rxjs/add/operator/map';
-import {DomSanitizer, SafeUrl} from "@angular/platform-browser";
+import {DomSanitizer, SafeUrl, SafeResourceUrl} from "@angular/platform-browser";
 import {IfeedService} from "../../../service/ifeed.service";
 import {Document} from "../../../model/document.model";
 import {RestService} from "../../../service/RestService";
@@ -23,6 +23,7 @@ export class IfeedComponent implements OnInit, OnChanges {
     currentSubscription: Subscription = null;
     showingDocument: boolean = false;
     currentDocument: Document = null;
+    documentUrl: SafeResourceUrl;
 
     constructor(private route: ActivatedRoute,
                 private sanitizer: DomSanitizer,
@@ -82,7 +83,6 @@ export class IfeedComponent implements OnInit, OnChanges {
                     this.showingDocument = false;
                     this.ifeedService.currentDocumentTitle = null;
                     this.documents = null;
-                    this.ref.detectChanges();
                 });
 
                 let currentSubscription = subscribeToRequest
@@ -107,13 +107,11 @@ export class IfeedComponent implements OnInit, OnChanges {
                                 }
 
                                 if (!match) {
-                                    // this.documents = null;
                                     this.showingDocument = false;
                                     this.currentDocument = null;
                                     this.ifeedService.currentDocumentTitle = null;
                                 }
 
-                                this.ref.detectChanges();
                             } else {
                                 console.log("Name has changed after request was made and request is therefore not relevant anymore.");
                             }
@@ -155,18 +153,19 @@ export class IfeedComponent implements OnInit, OnChanges {
         this.showingDocument = true;
         this.currentDocument = document;
         this.ifeedService.currentDocumentTitle = document.title;
-        this.ref.detectChanges();
+
+        let safeResourceUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.documentBaseUrl + this.encodeURI(this.currentDocument.urlSafeUrl) + '/' + this.currentDocument.ifeedIdHmac);
+
+        this.documentUrl = safeResourceUrl;
     }
 
     getDocumentUrl(): SafeUrl {
-        let safeResourceUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.documentBaseUrl + this.encodeURI(this.currentDocument.urlSafeUrl) + '/' + this.currentDocument.ifeedIdHmac);
-        return safeResourceUrl;
+        return this.documentUrl;
     }
 
     backToList(): void {
         this.showingDocument = false;
         this.currentDocument = null;
         this.ifeedService.currentDocumentTitle = null;
-        this.ref.detectChanges();
     }
 }
