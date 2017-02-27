@@ -105,9 +105,6 @@ public class ViewRestController {
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public List<IfeedList> getAllIfeedLists(HttpServletRequest request) throws SystemException {
-
-        PermissionChecker permissionChecker = PermissionThreadLocal.getPermissionChecker();
-
         return ifeedListRepository.findAll();
     }
 
@@ -205,7 +202,7 @@ public class ViewRestController {
     @RequestMapping(value = "/document/{urlSafeUrl}/{urlHmac}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public ResponseEntity getDocument(@PathVariable("urlSafeUrl") String urlSafeUrl,
+    public ResponseEntity<InputStreamResource> getDocument(@PathVariable("urlSafeUrl") String urlSafeUrl,
                                       @PathVariable("urlHmac") String urlHmac) {
 
         try {
@@ -222,7 +219,7 @@ public class ViewRestController {
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.valueOf(documentResponse.getContentType()));
 
-            return new ResponseEntity(new InputStreamResource(inputStream), headers, HttpStatus.OK);
+            return new ResponseEntity<>(new InputStreamResource(inputStream), headers, HttpStatus.OK);
         } catch (IOException | SignatureException | NoSuchAlgorithmException | InvalidKeyException e) {
             LOGGER.error(e.getMessage(), e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();

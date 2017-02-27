@@ -46,15 +46,6 @@ public class DocumentFetcherService {
         InputStream inputStream = urlConnection.getInputStream();
 
         return JSON_MAPPER.readValue(inputStream, Document[].class);
-        /*Document[] documents = new Document[1000];
-        for (int i = 0; i < documents.length; i++) {
-            Document document = new Document();
-            document.setUrl(RandomStringUtils.random(10));
-            document.setId("lsakdfj");
-            documents[i] = document;
-        }
-
-        return documents;*/
     }
 
     @CachePut(cacheNames = "default")
@@ -64,10 +55,6 @@ public class DocumentFetcherService {
 
     @Cacheable(cacheNames = "default")
     public DocumentResponse fetchDocument(String documentUrl) throws IOException {
-
-        /*String random = RandomStringUtils.random(1000000);
-
-        return new DocumentResponse(random.getBytes(), "text/plan");*/
 
         try {
             URL url = new URL(documentUrl);

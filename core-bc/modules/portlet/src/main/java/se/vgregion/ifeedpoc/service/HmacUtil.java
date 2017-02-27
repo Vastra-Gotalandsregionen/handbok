@@ -39,10 +39,4 @@ public class HmacUtil {
         return toHexString(mac.doFinal(data.getBytes()));
     }
 
-    /*public static void main(String[] args) throws Exception {
-        String hmac = calculateRFC2104HMAC("data", "key");
-
-        System.out.println(hmac);
-        assert hmac.equals("104152c5bfdca07bc633eebd46199f0255c9f49d");
-    }*/
 }
