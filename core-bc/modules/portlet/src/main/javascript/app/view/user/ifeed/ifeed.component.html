@@ -11,6 +11,10 @@
     <span><a class="btn btn-primary" href="{{documentBaseUrl + encodeURI(currentDocument.urlSafeUrl) + '/' + currentDocument.ifeedIdHmac}}"><i class="icon-external-link"></i> Öppna helsida</a></span>
 </div>
 
-<div *ngIf="showingDocument">
-    <iframe [src]="getDocumentUrl()"></iframe>
+<div *ngIf="showingDocument && !mobileBrowser">
+    <iframe [src]="getSafeDocumentUrl()"></iframe>
+</div>
+
+<div *ngIf="showingDocument && mobileBrowser">
+    <em>{{currentDocument.title}}</em> öppnas i externt program.
 </div>

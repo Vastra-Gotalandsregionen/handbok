@@ -1,5 +1,6 @@
 .column {
     float: left;
+    word-wrap: break-word;
 }
 
 .left-column {
@@ -8,6 +9,16 @@
 
 .right-column {
     width: calc(100% - 200px);
+}
+
+@media (max-width: 768px) {
+    .left-column {
+        width: 160px;
+    }
+
+    .right-column {
+        width: calc(100% - 160px);
+    }
 }
 
 .left-column, .right-column {
