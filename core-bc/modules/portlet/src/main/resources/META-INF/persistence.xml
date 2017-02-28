@@ -12,9 +12,9 @@
 	version="2.0">
 
 	<persistence-unit name="pu">
-		<class>se.vgregion.ifeedpoc.model.Ifeed</class>
-		<class>se.vgregion.ifeedpoc.model.IfeedList</class>
-		<class>se.vgregion.ifeedpoc.model.PortletSelectedIfeedList</class>
+		<class>se.vgregion.handbok.model.Ifeed</class>
+		<class>se.vgregion.handbok.model.IfeedList</class>
+		<class>se.vgregion.handbok.model.PortletSelectedIfeedList</class>
 	</persistence-unit>
 
 </persistence>

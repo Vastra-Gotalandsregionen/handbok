@@ -25,9 +25,6 @@ Generation time : 2017-02-01 09:32:10 CET
         <module>composites/svc</module>
         <module>composites/webcomp</module>
         <module>composites/schema</module>
-        <module>modules/web</module>
         <module>modules/portlet</module>
-        <module>modules/intsvc</module>
-        <module>applications/core-bc</module>
     </modules>
 </project>

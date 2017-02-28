@@ -10,12 +10,12 @@
   </service>
 
   <!--<persistence directory="java.io.temp" />-->
-  <persistence directory="/tmp/ehcache2" />
+  <persistence directory="/tmp/ehcache-handbok" />
 
   <cache-template name="cache-template">
     <listeners>
         <listener>
-          <class>se.vgregion.ifeedpoc.cache.EventLogger</class>
+          <class>se.vgregion.handbok.cache.EventLogger</class>
           <event-firing-mode>ASYNCHRONOUS</event-firing-mode>
           <event-ordering-mode>UNORDERED</event-ordering-mode>
           <events-to-fire-on>CREATED</events-to-fire-on>
@@ -31,15 +31,5 @@
       <disk persistent="true" unit="MB">100</disk>
     </resources>
   </cache-template>
-
-<!--
-  <cache alias="default2">
-    <disk-store-settings thread-pool="asdf"></disk-store-settings>
-
-    <resources>
-      <disk persistent="true" unit="MB">1</disk>
-    </resources>
-  </cache>
--->
 
 </config>

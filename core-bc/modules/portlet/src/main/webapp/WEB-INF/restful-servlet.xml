@@ -7,11 +7,11 @@
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
         http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd">
 
-    <context:component-scan base-package="se.vgregion.ifeedpoc.controller.rest"/>
+    <context:component-scan base-package="se.vgregion.handbok.controller.rest"/>
 
     <task:annotation-driven />
 
-    <bean class="se.vgregion.ifeedpoc.spring.SwaggerConfiguration"/>
+    <bean class="se.vgregion.handbok.spring.SwaggerConfiguration"/>
 
     <mvc:annotation-driven />
 
@@ -22,7 +22,7 @@
             <mvc:mapping path="/ifeed"/>
             <mvc:mapping path="/ifeed/**"/>
 
-            <bean class="se.vgregion.ifeedpoc.controller.rest.interceptor.SecureRequestHandlerInterceptor"></bean>
+            <bean class="se.vgregion.handbok.controller.rest.interceptor.SecureRequestHandlerInterceptor"></bean>
 
         </mvc:interceptor>
 
@@ -31,7 +31,7 @@
             <mvc:mapping path="/edit"/>
             <mvc:mapping path="/edit/**"/>
 
-            <bean class="se.vgregion.ifeedpoc.controller.rest.interceptor.EditSecureRequestHandlerInterceptor"></bean>
+            <bean class="se.vgregion.handbok.controller.rest.interceptor.EditSecureRequestHandlerInterceptor"></bean>
 
         </mvc:interceptor>
 
@@ -47,7 +47,6 @@
     </bean>
 
     <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
-    <!--<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">-->
         <property name="messageConverters">
             <list>
                 <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
@@ -58,7 +57,7 @@
     </bean>
 
 
-    <bean id="jacksonObjectMapper" class="se.vgregion.ifeedpoc.json.LiferayObjectMapper" />
+    <bean id="jacksonObjectMapper" class="se.vgregion.handbok.json.LiferayObjectMapper" />
 
     <mvc:resources mapping="swagger-ui.html" location="classpath:/META-INF/resources/"/>
     <mvc:resources mapping="/webjars/**" location="classpath:/META-INF/resources/webjars/"/>

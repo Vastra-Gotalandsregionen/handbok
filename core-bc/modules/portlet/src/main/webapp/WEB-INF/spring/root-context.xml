@@ -6,11 +6,11 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
 
     <import resource="dbContext.xml"/>
-    <context:component-scan base-package="se.vgregion.ifeedpoc.service"/>
+    <context:component-scan base-package="se.vgregion.handbok.service"/>
 
-    <bean class="se.vgregion.ifeedpoc.spring.AppConfig"/>
+    <bean class="se.vgregion.handbok.spring.AppConfig"/>
 
-    <beans:repositories base-package="se.vgregion.ifeedpoc.repository" />
+    <beans:repositories base-package="se.vgregion.handbok.repository" />
 
     <bean id="viewResolver"
           class="org.springframework.web.servlet.view.InternalResourceViewResolver">
