@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+          http://www.springframework.org/schema/beans/spring-beans.xsd
+          http://www.springframework.org/schema/context
+          http://www.springframework.org/schema/context/spring-context.xsd
+            http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd"
+        >
+
+    <context:annotation-config />
+
+    <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor"/>
+
+    <!-- Uses by default transaction bean with name transactionManager -->
+    <tx:annotation-driven />
+
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory" />
+    </bean>
+
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="persistenceXmlLocation" value="classpath:META-INF/persistence.xml"></property>
+        <property name="jpaVendorAdapter" ref="jpaVendor" />
+        <property name="jpaPropertyMap">
+            <map>
+                <entry key="hibernate.format_sql" value="false" />
+            </map>
+        </property>
+    </bean>
+
+    <bean id="jpaVendor" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+        <property name="database" value="HSQL" />
+        <property name="databasePlatform" value="org.hibernate.dialect.HSQLDialect" />
+        <property name="generateDdl" value="true" />
+        <property name="showSql" value="true" />
+    </bean>
+
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="org.hsqldb.jdbc.JDBCDriver"/>
+        <property name="url" value="jdbc:hsqldb:mem:testdb"/>
+        <property name="username" value="sa"/>
+        <property name="password" value=""/>
+    </bean>
+</beans>

@@ -18,6 +18,14 @@ public class Document implements Serializable {
     private String title;
     private String urlSafeUrl;
 
+    public Document() {
+    }
+
+    public Document(String title, String url) {
+        this.title = title;
+        this.url = url;
+    }
+
     private String ifeedIdHmac;
 
     public String getId() {

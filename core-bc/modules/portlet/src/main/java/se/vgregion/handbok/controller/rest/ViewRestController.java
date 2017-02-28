@@ -65,6 +65,19 @@ public class ViewRestController {
     @Autowired
     private DocumentFetcherService documentFetcherService;
 
+    public ViewRestController() {
+    }
+
+    public ViewRestController(IfeedListRepository ifeedListRepository,
+                              IfeedRepository ifeedRepository,
+                              PortletSelectedIfeedListRepository portletSelectedIfeedListRepository,
+                              DocumentFetcherService documentFetcherService) {
+        this.ifeedListRepository = ifeedListRepository;
+        this.ifeedRepository = ifeedRepository;
+        this.portletSelectedIfeedListRepository = portletSelectedIfeedListRepository;
+        this.documentFetcherService = documentFetcherService;
+    }
+
     @PostConstruct
     public void init() {
         documentFetcherService.evictCache();
@@ -100,7 +113,7 @@ public class ViewRestController {
     @RequestMapping(value = "/ifeed", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public List<IfeedList> getAllIfeedLists(HttpServletRequest request) throws SystemException {
+    public List<IfeedList> getAllIfeedLists() throws SystemException {
         return ifeedListRepository.findAll();
     }
 
@@ -168,11 +181,11 @@ public class ViewRestController {
     @RequestMapping(value = "/ifeed/{id}/document", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public ResponseEntity<Document[]> getDocuments(@PathVariable("id") String id) {
+    public ResponseEntity<Document[]> getDocuments(@PathVariable("id") String ifeedId) {
 
         Document[] documentList = new Document[0];
         try {
-            documentList = getDocumentsArray(id);
+            documentList = getDocumentsArray(ifeedId);
         } catch (IOException | SignatureException | NoSuchAlgorithmException | InvalidKeyException e) {
             LOGGER.error(e.getMessage(), e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
@@ -221,23 +234,6 @@ public class ViewRestController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
 
-    }
-
-    @RequestMapping(value = "/ifeed", method = RequestMethod.PUT)
-    @ResponseStatus(HttpStatus.OK)
-    @ResponseBody
-    public IfeedList putIfeedList(@RequestBody IfeedList ifeedList) throws SystemException {
-        IfeedList one = ifeedListRepository.findOne(ifeedList.getId());
-        one.setIfeeds(new ArrayList<>());
-        ifeedListRepository.saveAndFlush(one);
-
-        for (Ifeed ifeed : ifeedList.getIfeeds()) {
-            if (ifeed.getId() == null) {
-                ifeed.setId(UUID.randomUUID().toString());
-            }
-        }
-
-        return ifeedListRepository.saveAndFlush(ifeedList);
     }
 
     @RequestMapping(value = "/edit/saveIfeedList", method = RequestMethod.PUT)
