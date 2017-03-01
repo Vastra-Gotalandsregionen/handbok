@@ -23,6 +23,7 @@ import {EditComponent} from "./view/edit/edit.component";
 import {EditGuard} from "./service/edit-guard.service";
 import {FeedbackButtonComponent} from "./component/feedback-button/feedback-button.component";
 import {SearchDocumentsComponent} from "./component/search-documents/search-documents.component";
+import {UtilityService} from "./service/utility.service";
 
 export function authHttpServiceFactory(http: Http, options: RequestOptions, jwtHelper: JwtHelper, ifeedService: IfeedService) {
     return new RefreshTokenAuthHttp(new AuthConfig({
@@ -64,6 +65,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions, jwtH
         RestService,
         SearchDocumentsComponent,
         ErrorDialogComponent,
+        UtilityService,
         {
             provide: AuthHttp,
             useFactory: authHttpServiceFactory,

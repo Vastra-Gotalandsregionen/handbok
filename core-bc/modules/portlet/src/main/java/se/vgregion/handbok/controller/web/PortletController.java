@@ -97,9 +97,11 @@ public class PortletController {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
-        String bookName = request.getPreferences().getValue("bookName", null);
-
         ThemeDisplay themeDisplay = (ThemeDisplay) request.getAttribute(WebKeys.THEME_DISPLAY);
+
+        String resourcePK = themeDisplay.getPortletDisplay().getResourcePK();
+        PortletSelectedIfeedList selected = portletSelectedIfeedListRepository.findOne(resourcePK);
+        String bookName = selected.getIfeedList().getName();
 
         boolean hasAdminPermission = isHasAdminPermission(themeDisplay, bookName);
 

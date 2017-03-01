@@ -10,7 +10,6 @@ export class EditGuard implements CanActivate {
     }
 
     canActivate(): boolean {
-        console.log('EditGuard#canActivate called');
         return this.ifeedService.hasEditPermission;
     }
 }

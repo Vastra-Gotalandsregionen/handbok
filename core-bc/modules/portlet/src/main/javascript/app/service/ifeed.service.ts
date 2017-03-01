@@ -17,8 +17,6 @@ export class IfeedService {
     portletResourcePk: string;
 
     setCurrentIfeedId(id: string): void {
-        console.log('setCurrentIfeedId: ' + id);
-
         this.currentIfeedId = id;
 
         this.updateIfeedName();

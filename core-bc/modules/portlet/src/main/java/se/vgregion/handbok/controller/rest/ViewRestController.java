@@ -162,7 +162,18 @@ public class ViewRestController {
                 Document[] documentsArray = getDocumentsArray(ifeed.getId());
 
                 List<Document> filteredDocuments = Arrays.asList(documentsArray).stream()
-                        .filter(document -> document.getTitle().toLowerCase().contains(query.toLowerCase()))
+                        .filter(document -> {
+                            if (document.getTitle().toLowerCase().contains(query.toLowerCase())) {
+                                return true;
+                            } else if (containsStringWhichContains(document.getDcSubjectKeywords(), query)) {
+                                return true;
+                            } else if (containsStringWhichContains(document.getDcSubjectAuthorkeywords(), query)) {
+                                return true;
+                            }
+                            else {
+                                return false;
+                            }
+                        })
                         .collect(Collectors.toList());
 
                 if (filteredDocuments.size() > 0) {
@@ -176,6 +187,20 @@ public class ViewRestController {
         }
 
         return ResponseEntity.ok(documentQueryResponse);
+    }
+
+    private boolean containsStringWhichContains(String[] strings, String toFind) {
+        if (strings == null) {
+            return false;
+        }
+
+        for (String string : strings) {
+            if (string.toLowerCase().contains(toFind.toLowerCase())) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     @RequestMapping(value = "/ifeed/{id}/document", method = RequestMethod.GET)
@@ -234,6 +259,23 @@ public class ViewRestController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
 
+    }
+
+    @RequestMapping(value = "/ifeed", method = RequestMethod.PUT)
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public IfeedList putIfeedList(@RequestBody IfeedList ifeedList) throws SystemException {
+        IfeedList one = ifeedListRepository.findOne(ifeedList.getId());
+        one.setIfeeds(new ArrayList<>());
+        ifeedListRepository.saveAndFlush(one);
+
+        for (Ifeed ifeed : ifeedList.getIfeeds()) {
+            if (ifeed.getId() == null) {
+                ifeed.setId(UUID.randomUUID().toString());
+            }
+        }
+
+        return ifeedListRepository.saveAndFlush(ifeedList);
     }
 
     @RequestMapping(value = "/edit/saveIfeedList", method = RequestMethod.PUT)

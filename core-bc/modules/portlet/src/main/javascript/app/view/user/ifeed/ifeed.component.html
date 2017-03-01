@@ -1,6 +1,12 @@
-<ul *ngIf="!showingDocument" class="nav nav-pills nav-stacked">
+<ul *ngIf="!showingDocument && !mobileBrowser" class="nav nav-pills nav-stacked">
     <li *ngFor="let document of documents" >
-        <a routerLink="/user/ifeed/{{id}}" [queryParams]="{'urlSafeUrl': document.urlSafeUrl, 'ifeedIdHmac': document.ifeedIdHmac}" >{{document.title}}</a>
+        <a routerLink="/user/ifeed/{{id}}" [queryParams]="{'urlSafeUrl': document.urlSafeUrl, 'ifeedIdHmac': document.ifeedIdHmac}">{{document.title}}</a>
+    </li>
+</ul>
+
+<ul *ngIf="!showingDocument && mobileBrowser" class="nav nav-pills nav-stacked">
+    <li *ngFor="let document of documents" >
+        <a href="" (click)="openInNewPage(document, $event)">{{document.title}}</a>
     </li>
 </ul>
 

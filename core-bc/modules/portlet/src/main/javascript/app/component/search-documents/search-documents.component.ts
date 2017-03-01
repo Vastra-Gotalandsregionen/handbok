@@ -8,6 +8,7 @@ import {ErrorHandler} from "../../service/ErrorHandler";
 import {Ifeed} from "../../model/ifeed.model";
 import {Document} from "../../model/document.model";
 import {Router} from "@angular/router";
+import {UtilityService} from "../../service/utility.service";
 
 @Component({
     selector: 'search-documents',
@@ -19,11 +20,14 @@ export class SearchDocumentsComponent implements OnInit {
 
     stateCtrl: FormControl;
     searchResults: Observable<QueryResponseEntry[]>; // todo make typed
-    selectedEntry: DocumentAndIfeedEntry;// = {id: -1, value: ''};
+    selectedEntry: DocumentAndIfeedEntry;
+    documentBaseUrl: string;
+    mobileBrowser: boolean;
 
     constructor(private restService: RestService,
                 private ifeedService: IfeedService,
                 private errorHandler: ErrorHandler,
+                private utilityService: UtilityService,
                 private router: Router) {
         this.stateCtrl = new FormControl();
         this.searchResults = this.stateCtrl.valueChanges
@@ -33,6 +37,8 @@ export class SearchDocumentsComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.documentBaseUrl = this.ifeedService.ajaxUrl + "/document/";
+        this.mobileBrowser = this.utilityService.mobileAndTabletCheck();
     }
 
     onFocus(): any {
@@ -40,7 +46,6 @@ export class SearchDocumentsComponent implements OnInit {
     }
 
     onClick(): any {
-        console.log('onClick: ' + JSON.stringify(this.selectedEntry));
         this.goto(this.selectedEntry);
     }
 
@@ -49,7 +54,6 @@ export class SearchDocumentsComponent implements OnInit {
     }
 
     onKeyUp(): any {
-        console.log('onKeyUp: ' + JSON.stringify(this.selectedEntry));
         this.goto(this.selectedEntry);
     }
 
@@ -61,8 +65,18 @@ export class SearchDocumentsComponent implements OnInit {
                     ifeedIdHmac: entry.document.ifeedIdHmac
                 }
             };
-            this.router.navigate(['/user/ifeed/' + entry.ifeed.id], extras);
+
+            if (!this.mobileBrowser) {
+                this.router.navigate(['/user/ifeed/' + entry.ifeed.id], extras);
+
+            } else {
+                window.location.href = this.getDocumentUrl(entry.document);
+            }
         }
+    }
+
+    getDocumentUrl(document: Document): string {
+        return this.documentBaseUrl + encodeURIComponent(document.urlSafeUrl) + '/' + document.ifeedIdHmac;
     }
 
     displayFn(value: DocumentAndIfeedEntry): string {

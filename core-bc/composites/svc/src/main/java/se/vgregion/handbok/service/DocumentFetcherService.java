@@ -29,6 +29,13 @@ public class DocumentFetcherService {
     @Value("${ifeed.documents.url}")
     private String ifeedDocumentsUrl;
 
+    public DocumentFetcherService() {
+    }
+
+    public DocumentFetcherService(String ifeedDocumentsUrl) {
+        this.ifeedDocumentsUrl = ifeedDocumentsUrl;
+    }
+
     @CacheEvict(cacheNames = "default")
     public void evictCache() {
 

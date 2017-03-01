@@ -1,0 +1,1287 @@
+[
+   {
+      "dc.contributor.acceptedby" : [
+         "Magnus Söderbergh  ( magso ) (NU ledning/Ledning/Ledningskansliet/NU-sjukvården)"
+      ],
+      "dc.creator.freetext" : [
+         ""
+      ],
+      "public" : false,
+      "dc.creator.id" : [
+         "svami"
+      ],
+      "dc.title" : "Avvikelsehantering",
+      "dc.identifier.native" : "https://alfresco.vgregion.se/alfresco/service/vgr/storage/node/content/8040?a=false&guest=true&native=true",
+      "dc.creator.forunit" : [
+         ""
+      ],
+      "dcterms.created" : [
+         "2015-12-01T13:26:11Z"
+      ],
+      "dc.identifier" : "https://alfresco.vgregion.se/alfresco/service/vgr/storage/node/content/8040?a=false&guest=true",
+      "dc.coverage.hsacode" : [
+         ""
+      ],
+      "dc.publisher.forunit.id" : [
+         "SE2321000131-E000000008791"
+      ],
+      "dc.type.file.process" : [
+         "avvikelser",
+         "patientsäkerhet"
+      ],
+      "dc.type.record" : "Riktlinjer [Övergripande principer, riktlinjer och direktiv för hälso- och sjukvårds- samt tandvårdsverksamheten/Individinriktad patientverksamhet]",
+      "dc.contributor.acceptedby.freetext" : [
+         ""
+      ],
+      "dc.format.extent.mimetype" : "application/pdf",
+      "dc.date.validto" : "2016-01-15T00:00:00Z",
+      "dc.type.document" : "Regler/Riktlinjer/Rekommendationer",
+      "dc.identifier.checksum" : "",
+      "dc.creator.document" : [
+         "Graciela Carlson  ( graca ) (Patientsäkerhet/Vårdbehov o patientsäkerhet/Koncernstab Hälso- och sjukvård/Koncernkontoret/Regionstyrelsen)"
+      ],
+      "author" : "Mikael Svahn  ( svami ) (Informationssystem/Ekonomi och informationssystem/Ledningskansliet/NU-sjukvården)",
+      "dc.date.accepted" : 1388707200000,
+      "dc.title.filename.native" : "Avvikelsehantering.doc",
+      "dc.contributor.controlledby.unit.freetext" : [
+         ""
+      ],
+      "dc.date.availablefrom" : "2012-12-20T00:00:00Z",
+      "version" : "1484931765631",
+      "dc.type.document.structure.id" : "6",
+      "dc.date.controlled" : 1361836800000,
+      "dc.title.alternative" : [
+         ""
+      ],
+      "dc.publisher.forunit" : [
+         "NU gemensamt/Sjukhusgemensamt/Ledningskansliet/NU-sjukvården"
+      ],
+      "dc.publisher.project-assignment" : [
+         ""
+      ],
+      "dc.date.validfrom" : "2014-01-15T00:00:00Z",
+      "dc.identifier.diarie.id" : "",
+      "dc.format.extent" : [
+         ""
+      ],
+      "dc.creator.project-assignment" : "",
+      "dcterms.audience" : [
+         ""
+      ],
+      "title" : "Avvikelsehantering",
+      "dc.publisher.forunit.flat" : "NU gemensamt/Sjukhusgemensamt/Ledningskansliet/NU-sjukvården",
+      "source" : "Dokumentlager",
+      "dc.creator" : [
+         "Mikael Svahn  ( svami ) (Informationssystem/Ekonomi och informationssystem/Ledningskansliet/NU-sjukvården)"
+      ],
+      "dc.type.file" : [
+         ""
+      ],
+      "dc.source.origin" : "Barium",
+      "dc.creator.recordscreator.id" : "",
+      "dc.contributor.controlledby.freetext" : [
+         ""
+      ],
+      "dc.identifier.location" : [
+         ""
+      ],
+      "dc.format.extent.mimetype.native" : "application/msword",
+      "dc.format.extension.native" : "doc",
+      "dc.type.process.name" : [
+         ""
+      ],
+      "infotype" : [
+         "Dokument"
+      ],
+      "url_t" : "https://alfresco.vgregion.se/alfresco/service/vgr/storage/node/content/8040?a=false&guest=true",
+      "dc.type.document.id" : "",
+      "dc.language" : [
+         "swe"
+      ],
+      "dc.contributor.controlledby.role" : [
+         ""
+      ],
+      "dc.type.document.serie" : [
+         "nu/ledningssystem/patientsäkerhet"
+      ],
+      "id" : "tag:alfresco.vgregion.se,2011-06-30:b933e68f-1121-45a1-8559-8587fb8d3862",
+      "dc.subject.keywords.id" : [
+         ""
+      ],
+      "dc.type.templatename" : [
+         "VGR Grundmall"
+      ],
+      "url" : "https://alfresco.vgregion.se/alfresco/service/vgr/storage/node/content/8040?a=false&guest=true",
+      "dc.format.extension" : "pdf",
+      "dc.contributor.savedby" : "Anna Wilner",
+      "_version_" : 1557063811099262976,
+      "published" : true,
+      "dc.description" : "Syftet med riktlinjen är att stödja i arbetet med avvikelsehanteringen..",
+      "dc.contributor.controlledby" : [
+         "Anne Elfving  ( annel31 ) (Kanslienhet/UoK kansli/Utveckling och kommunikation/Ledningskansliet/NU-sjukvården)"
+      ],
+      "dc.source.documentid" : "8040",
+      "archived" : false,
+      "dc.contributor.acceptedby.id" : [
+         "magso"
+      ],
+      "dc.date.issued" : "2015-12-01T13:26:04Z",
+      "dc.publisher.id" : "annwi81",
+      "dc.type.record.id" : "950993537",
+      "creationdate" : 1448928000000,
+      "dc.contributor.savedby.id" : "annwi81",
+      "format" : [
+         "application/pdf"
+      ],
+      "dc.coverage.hsacode.id" : [
+         ""
+      ],
+      "dc.publisher" : "Anna Wilner  ( annwi81 ) (Bibliotek/Utvecklingsenhet/Ledningskansliet/NU-sjukvården)",
+      "dc.relation.replaces" : [
+         ""
+      ],
+      "dc.type.document.structure" : "Riktlinje förvaltning",
+      "dc.subject.authorkeywords" : [
+         "patientsäkerhet",
+         "riskhantering",
+         "hälso- och sjukvårdslagstiftning",
+         "felbehandling",
+         "Behandlingsfel",
+         "Systematiskt arbetsmiljöarbete",
+         "Kvalitetsarbete",
+         "Ansvarsområde"
+      ],
+      "dc.identifier.documentid" : "workspace://SpacesStore/b933e68f-1121-45a1-8559-8587fb8d3862",
+      "language" : "Svenska",
+      "dc.subject.keywords" : [
+         ""
+      ],
+      "dc.contributor.acceptedby.unit.freetext" : [
+         ""
+      ],
+      "dcterms.audience.id" : [
+         ""
+      ],
+      "dc.contributor.controlledby.id" : [
+         "annel31"
+      ],
+      "dc.identifier.version" : "8",
+      "dc.creator.document.id" : [
+         "graca"
+      ],
+      "dc.source" : "https://barium.vgregion.se/barium/link.asp?content=8040",
+      "dc.creator.function" : "Utvecklingsledare",
+      "dc.title.filename" : "Avvikelsehantering.pdf",
+      "dc.relation.isversionof" : "",
+      "dc.rights.accessrights" : [
+         "Intranät"
+      ],
+      "dc.creator.forunit.id" : [
+         ""
+      ],
+      "dc.creator.recordscreator" : "",
+      "dc.identifier.checksum.native" : "",
+      "dc.contributor.acceptedby.role" : [
+         "Chefläkare"
+      ],
+      "processingtime" : 1484931765486
+   },
+   {
+      "dc.creator.recordscreator" : "NU-sjukvården",
+      "dc.identifier.checksum.native" : "",
+      "dc.creator.forunit.id" : [
+         ""
+      ],
+      "dc.rights.accessrights" : [
+         "Intranät"
+      ],
+      "dc.relation.isversionof" : "",
+      "processingtime" : 1484932252018,
+      "dc.contributor.acceptedby.role" : [
+         ""
+      ],
+      "dc.contributor.controlledby.id" : [
+         ""
+      ],
+      "dc.source" : "https://barium.vgregion.se/barium/link.asp?content=27505",
+      "dc.identifier.version" : "2",
+      "dc.creator.document.id" : [
+         "jenla43"
+      ],
+      "dc.creator.function" : "",
+      "dc.title.filename" : "Handläggning av begäran från IVO i ”Enskilda ärenden”.doc",
+      "dc.identifier.documentid" : "workspace://SpacesStore/805fb454-9845-4001-bf00-a25a5cc2280c",
+      "language" : "Svenska",
+      "dc.subject.authorkeywords" : [
+         ""
+      ],
+      "dc.subject.keywords" : [
+         ""
+      ],
+      "dcterms.audience.id" : [
+         ""
+      ],
+      "dc.contributor.acceptedby.unit.freetext" : [
+         ""
+      ],
+      "dc.contributor.savedby.id" : "svami",
+      "creationdate" : 1464566400000,
+      "format" : [
+         "application/msword"
+      ],
+      "dc.publisher" : "Mikael Svahn  ( svami ) (Informationssystem/Ekonomi och informationssystem/Ledningskansliet/NU-sjukvården)",
+      "dc.relation.replaces" : [
+         ""
+      ],
+      "dc.coverage.hsacode.id" : [
+         ""
+      ],
+      "dc.type.document.structure" : "Riktlinje förvaltning",
+      "dc.contributor.acceptedby.id" : [
+         "magso"
+      ],
+      "archived" : false,
+      "dc.publisher.id" : "svami",
+      "dc.type.record.id" : "950993537",
+      "dc.date.issued" : "2016-05-30T16:21:14Z",
+      "_version_" : 1557064321283915776,
+      "dc.contributor.savedby" : "Mikael Svahn",
+      "dc.contributor.controlledby" : [
+         ""
+      ],
+      "dc.description" : "",
+      "published" : true,
+      "dc.source.documentid" : "27505",
+      "id" : "tag:alfresco.vgregion.se,2011-06-30:805fb454-9845-4001-bf00-a25a5cc2280c",
+      "dc.type.templatename" : [
+         "VGR Grundmall"
+      ],
+      "dc.subject.keywords.id" : [
+         ""
+      ],
+      "url" : "https://alfresco.vgregion.se/alfresco/service/vgr/storage/node/content/27505?a=false&guest=true",
+      "dc.format.extension" : ".doc",
+      "dc.language" : [
+         "swe"
+      ],
+      "dc.type.document.serie" : [
+         "nu/ledningssystem/patientsäkerhet"
+      ],
+      "dc.contributor.controlledby.role" : [
+         ""
+      ],
+      "dc.format.extent.mimetype.native" : "",
+      "dc.format.extension.native" : "",
+      "infotype" : [
+         "Dokument"
+      ],
+      "dc.type.process.name" : [
+         ""
+      ],
+      "url_t" : "https://alfresco.vgregion.se/alfresco/service/vgr/storage/node/content/27505?a=false&guest=true",
+      "dc.type.document.id" : "",
+      "dc.type.file" : [
+         ""
+      ],
+      "dc.creator.recordscreator.id" : "SE2321000131-E000000000106",
+      "dc.source.origin" : "Barium",
+      "dc.contributor.controlledby.freetext" : [
+         ""
+      ],
+      "dc.identifier.location" : [
+         ""
+      ],
+      "dc.creator.project-assignment" : "",
+      "dc.format.extent" : [
+         ""
+      ],
+      "title" : "Handläggning av begäran från IVO i ”Enskilda ärenden”",
+      "dcterms.audience" : [
+         ""
+      ],
+      "dc.creator" : [
+         "Mikael Svahn  ( svami ) (Informationssystem/Ekonomi och informationssystem/Ledningskansliet/NU-sjukvården)"
+      ],
+      "source" : "Dokumentlager",
+      "dc.publisher.forunit.flat" : "Sjukhusgemensamt/Ledningskansliet/NU-sjukvården",
+      "dc.publisher.project-assignment" : [
+         ""
+      ],
+      "dc.title.alternative" : [
+         ""
+      ],
+      "dc.publisher.forunit" : [
+         "Sjukhusgemensamt/Ledningskansliet/NU-sjukvården"
+      ],
+      "dc.date.validfrom" : "2016-05-30T00:00:00Z",
+      "dc.identifier.diarie.id" : "",
+      "dc.contributor.controlledby.unit.freetext" : [
+         ""
+      ],
+      "dc.date.availablefrom" : "2016-05-30T16:21:08Z",
+      "dc.title.filename.native" : "",
+      "dc.date.accepted" : 1464566400000,
+      "version" : "1484932252178",
+      "dc.date.controlled" : 1464566400000,
+      "dc.type.document.structure.id" : "6",
+      "dc.type.record" : "Riktlinjer [Övergripande principer, riktlinjer och direktiv för hälso- och sjukvårds- samt tandvårdsverksamheten/Individinriktad patientverksamhet]",
+      "dc.contributor.acceptedby.freetext" : [
+         ""
+      ],
+      "dc.date.validto" : "2016-12-31T00:00:00Z",
+      "dc.format.extent.mimetype" : "application/msword",
+      "dc.creator.document" : [
+         "Jens Larsson  ( jenla43 ) (Centralarkiv/Kommunikation och kansli/Ledningskansliet/NU-sjukvården)"
+      ],
+      "author" : "Mikael Svahn  ( svami ) (Informationssystem/Ekonomi och informationssystem/Ledningskansliet/NU-sjukvården)",
+      "dc.identifier.checksum" : "",
+      "dc.type.document" : "Regler/Riktlinjer/Rekommendationer",
+      "dcterms.created" : [
+         "2016-05-30T16:21:16Z"
+      ],
+      "dc.type.file.process" : [
+         "journalföring",
+         "sekretess",
+         "avvikelser"
+      ],
+      "dc.publisher.forunit.id" : [
+         "SE2321000131-E000000001234"
+      ],
+      "dc.identifier" : "https://alfresco.vgregion.se/alfresco/service/vgr/storage/node/content/27505?a=false&guest=true",
+      "dc.coverage.hsacode" : [
+         ""
+      ],
+      "dc.title" : "Handläggning av begäran från IVO i ”Enskilda ärenden”",
+      "public" : false,
+      "dc.creator.id" : [
+         "svami"
+      ],
+      "dc.contributor.acceptedby" : [
+         "Magnus Söderbergh  ( magso ) (NU ledning/Ledning/Ledningskansliet/NU-sjukvården)"
+      ],
+      "dc.creator.freetext" : [
+         ""
+      ],
+      "dc.identifier.native" : "",
+      "dc.creator.forunit" : [
+         ""
+      ]
+   },
+   {
+      "dc.language" : [
+         "swe"
+      ],
+      "dc.type.document.serie" : [
+         "nu/ledningssystem/patientsäkerhet"
+      ],
+      "dc.contributor.controlledby.role" : [
+         ""
+      ],
+      "id" : "tag:alfresco.vgregion.se,2011-06-30:61484c20-6294-45a4-8ff0-0047b9e09ef8",
+      "url" : "https://alfresco.vgregion.se/alfresco/service/vgr/storage/node/content/8139?a=false&guest=true",
+      "dc.format.extension" : "pdf",
+      "dc.type.templatename" : [
+         "VGR Grundmall"
+      ],
+      "dc.subject.keywords.id" : [
+         ""
+      ],
+      "published" : true,
+      "dc.contributor.controlledby" : [
+         ""
+      ],
+      "dc.description" : "Att använda ett enhetligt, systematiskt sätt för att utreda oönskade händelser och ta reda på bakomliggande orsaker. Dessutom öka lärandet i syfte att förbättra kvalitet och patientsäkerhet i verksamheten.",
+      "dc.contributor.savedby" : "Anna Wilner",
+      "_version_" : 1557064422276464640,
+      "dc.source.documentid" : "8139",
+      "archived" : false,
+      "dc.contributor.acceptedby.id" : [
+         "magso"
+      ],
+      "dc.date.issued" : "2015-11-10T13:47:17Z",
+      "dc.type.record.id" : "950993537",
+      "dc.publisher.id" : "annwi81",
+      "format" : [
+         "application/pdf"
+      ],
+      "creationdate" : 1447113600000,
+      "dc.contributor.savedby.id" : "annwi81",
+      "dc.type.document.structure" : "Riktlinje förvaltning",
+      "dc.coverage.hsacode.id" : [
+         ""
+      ],
+      "dc.publisher" : "Anna Wilner  ( annwi81 ) (Bibliotek/Utvecklingsenhet/Ledningskansliet/NU-sjukvården)",
+      "dc.relation.replaces" : [
+         ""
+      ],
+      "dc.subject.authorkeywords" : [
+         ""
+      ],
+      "language" : "Svenska",
+      "dc.identifier.documentid" : "workspace://SpacesStore/61484c20-6294-45a4-8ff0-0047b9e09ef8",
+      "dc.contributor.acceptedby.unit.freetext" : [
+         ""
+      ],
+      "dcterms.audience.id" : [
+         ""
+      ],
+      "dc.subject.keywords" : [
+         ""
+      ],
+      "dc.creator.document.id" : [
+         "graca"
+      ],
+      "dc.identifier.version" : "5",
+      "dc.source" : "https://barium.vgregion.se/barium/link.asp?content=8139",
+      "dc.contributor.controlledby.id" : [
+         ""
+      ],
+      "dc.creator.function" : "Utvecklingsledare",
+      "dc.title.filename" : "Händelseanalys.pdf",
+      "dc.rights.accessrights" : [
+         "Intranät"
+      ],
+      "dc.creator.forunit.id" : [
+         ""
+      ],
+      "dc.relation.isversionof" : "",
+      "dc.identifier.checksum.native" : "",
+      "dc.creator.recordscreator" : "",
+      "dc.contributor.acceptedby.role" : [
+         "Chefläkare"
+      ],
+      "processingtime" : 1484932348315,
+      "dc.contributor.acceptedby" : [
+         "Magnus Söderbergh  ( magso ) (NU ledning/Ledning/Ledningskansliet/NU-sjukvården)"
+      ],
+      "dc.creator.freetext" : [
+         ""
+      ],
+      "dc.title" : "Händelseanalys",
+      "public" : false,
+      "dc.creator.id" : [
+         "svami"
+      ],
+      "dc.identifier.native" : "https://alfresco.vgregion.se/alfresco/service/vgr/storage/node/content/8139?a=false&guest=true&native=true",
+      "dc.creator.forunit" : [
+         ""
+      ],
+      "dcterms.created" : [
+         "2015-11-10T13:47:18Z"
+      ],
+      "dc.identifier" : "https://alfresco.vgregion.se/alfresco/service/vgr/storage/node/content/8139?a=false&guest=true",
+      "dc.coverage.hsacode" : [
+         ""
+      ],
+      "dc.publisher.forunit.id" : [
+         "SE2321000131-E000000008791"
+      ],
+      "dc.type.file.process" : [
+         "patientsäkerhet",
+         "avvikelser"
+      ],
+      "dc.contributor.acceptedby.freetext" : [
+         ""
+      ],
+      "dc.type.record" : "Riktlinjer [Övergripande principer, riktlinjer och direktiv för hälso- och sjukvårds- samt tandvårdsverksamheten/Individinriktad patientverksamhet]",
+      "dc.type.document" : "Regler/Riktlinjer/Rekommendationer",
+      "dc.identifier.checksum" : "",
+      "dc.creator.document" : [
+         "Graciela Carlson  ( graca ) (Patientsäkerhet/Vårdbehov o patientsäkerhet/Koncernstab Hälso- och sjukvård/Koncernkontoret/Regionstyrelsen)"
+      ],
+      "author" : "Mikael Svahn  ( svami ) (Informationssystem/Ekonomi och informationssystem/Ledningskansliet/NU-sjukvården)",
+      "dc.date.validto" : "2016-12-02T00:00:00Z",
+      "dc.format.extent.mimetype" : "application/pdf",
+      "version" : "1484932348493",
+      "dc.title.filename.native" : "Händelseanalys.doc",
+      "dc.date.accepted" : 1417478400000,
+      "dc.date.availablefrom" : "2012-12-21T00:00:00Z",
+      "dc.contributor.controlledby.unit.freetext" : [
+         ""
+      ],
+      "dc.type.document.structure.id" : "6",
+      "dc.date.controlled" : 1417478400000,
+      "dc.date.validfrom" : "2014-12-02T00:00:00Z",
+      "dc.title.alternative" : [
+         ""
+      ],
+      "dc.publisher.forunit" : [
+         "NU gemensamt/Sjukhusgemensamt/Ledningskansliet/NU-sjukvården"
+      ],
+      "dc.publisher.project-assignment" : [
+         ""
+      ],
+      "dc.identifier.diarie.id" : "",
+      "title" : "Händelseanalys",
+      "dcterms.audience" : [
+         ""
+      ],
+      "dc.format.extent" : [
+         ""
+      ],
+      "dc.creator.project-assignment" : "",
+      "dc.publisher.forunit.flat" : "NU gemensamt/Sjukhusgemensamt/Ledningskansliet/NU-sjukvården",
+      "source" : "Dokumentlager",
+      "dc.creator" : [
+         "Mikael Svahn  ( svami ) (Informationssystem/Ekonomi och informationssystem/Ledningskansliet/NU-sjukvården)"
+      ],
+      "dc.source.origin" : "Barium",
+      "dc.creator.recordscreator.id" : "",
+      "dc.type.file" : [
+         ""
+      ],
+      "dc.identifier.location" : [
+         ""
+      ],
+      "dc.contributor.controlledby.freetext" : [
+         "SDL"
+      ],
+      "dc.type.process.name" : [
+         ""
+      ],
+      "infotype" : [
+         "Dokument"
+      ],
+      "dc.format.extent.mimetype.native" : "application/msword",
+      "dc.format.extension.native" : "doc",
+      "dc.type.document.id" : "",
+      "url_t" : "https://alfresco.vgregion.se/alfresco/service/vgr/storage/node/content/8139?a=false&guest=true"
+   },
+   {
+      "dc.subject.authorkeywords" : [
+         "patientsäkerhet",
+         "riskhantering",
+         "kvalitetssäkring inom hälso- och sjukvård",
+         "Felbehandling",
+         "behandlingsfel",
+         "socialstyrelsen",
+         "anmälan",
+         "lex maria"
+      ],
+      "dc.identifier.documentid" : "workspace://SpacesStore/e728dab9-adf2-42df-9ce5-0ecc52068173",
+      "language" : "Svenska",
+      "dc.contributor.acceptedby.unit.freetext" : [
+         ""
+      ],
+      "dcterms.audience.id" : [
+         ""
+      ],
+      "dc.subject.keywords" : [
+         ""
+      ],
+      "format" : [
+         "application/pdf"
+      ],
+      "creationdate" : 1472169600000,
+      "dc.contributor.savedby.id" : "annwi81",
+      "dc.type.document.structure" : "Riktlinje förvaltning",
+      "dc.coverage.hsacode.id" : [
+         ""
+      ],
+      "dc.publisher" : "Anna Wilner  ( annwi81 ) (Bibliotek/Utvecklingsenhet/Ledningskansliet/NU-sjukvården)",
+      "dc.relation.replaces" : [
+         ""
+      ],
+      "dc.relation.isversionof" : "",
+      "dc.rights.accessrights" : [
+         "Intranät"
+      ],
+      "dc.creator.forunit.id" : [
+         ""
+      ],
+      "dc.creator.recordscreator" : "NU-sjukvården",
+      "dc.identifier.checksum.native" : "",
+      "dc.contributor.acceptedby.role" : [
+         "Chefläkare"
+      ],
+      "processingtime" : 1484931319048,
+      "dc.creator.document.id" : [
+         "lenmy"
+      ],
+      "dc.identifier.version" : "6",
+      "dc.source" : "https://barium.vgregion.se/barium/link.asp?content=8049",
+      "dc.contributor.controlledby.id" : [
+         "magso"
+      ],
+      "dc.title.filename" : "IVO-ärenden.pdf",
+      "dc.creator.function" : "Utvecklingsledare",
+      "id" : "tag:alfresco.vgregion.se,2011-06-30:e728dab9-adf2-42df-9ce5-0ecc52068173",
+      "dc.format.extension" : "pdf",
+      "url" : "https://alfresco.vgregion.se/alfresco/service/vgr/storage/node/content/8049?a=false&guest=true",
+      "dc.type.templatename" : [
+         "VGR Grundmall"
+      ],
+      "dc.subject.keywords.id" : [
+         ""
+      ],
+      "dc.language" : [
+         "swe"
+      ],
+      "dc.contributor.controlledby.role" : [
+         ""
+      ],
+      "dc.type.document.serie" : [
+         "nu/ledningssystem/patientsäkerhet"
+      ],
+      "archived" : false,
+      "dc.contributor.acceptedby.id" : [
+         "magso"
+      ],
+      "dc.date.issued" : "2016-08-26T15:00:27Z",
+      "dc.publisher.id" : "annwi81",
+      "dc.type.record.id" : "950993537",
+      "published" : true,
+      "dc.contributor.controlledby" : [
+         "Magnus Söderbergh  ( magso ) (NU ledning/Ledning/Ledningskansliet/NU-sjukvården)"
+      ],
+      "dc.description" : "Skapa en enhetlig rutin inom NU-sjukvården för handläggning av ärenden till och från IVO så att hela ärenden finns i NU-sjukvårdens diarium samt kopplas till avvikelsen i avvikelsesystemet MedControl PRO (MCP).",
+      "dc.contributor.savedby" : "Anna Wilner",
+      "_version_" : 1557063342963556352,
+      "dc.source.documentid" : "8049",
+      "title" : "IVO-ärenden",
+      "dcterms.audience" : [
+         ""
+      ],
+      "dc.format.extent" : [
+         ""
+      ],
+      "dc.creator.project-assignment" : "",
+      "dc.publisher.forunit.flat" : "Sjukhusgemensamt/Ledningskansliet/NU-sjukvården",
+      "dc.creator" : [
+         "Mikael Svahn  ( svami ) (Informationssystem/Ekonomi och informationssystem/Ledningskansliet/NU-sjukvården)"
+      ],
+      "source" : "Dokumentlager",
+      "dc.date.validfrom" : "2016-05-30T00:00:00Z",
+      "dc.title.alternative" : [
+         "Handläggning av ärenden från Inspektionen för vård och omsorg.doc"
+      ],
+      "dc.publisher.forunit" : [
+         "Sjukhusgemensamt/Ledningskansliet/NU-sjukvården"
+      ],
+      "dc.publisher.project-assignment" : [
+         ""
+      ],
+      "dc.identifier.diarie.id" : "",
+      "infotype" : [
+         "Dokument"
+      ],
+      "dc.type.process.name" : [
+         ""
+      ],
+      "dc.format.extension.native" : "doc",
+      "dc.format.extent.mimetype.native" : "application/msword",
+      "dc.type.document.id" : "",
+      "url_t" : "https://alfresco.vgregion.se/alfresco/service/vgr/storage/node/content/8049?a=false&guest=true",
+      "dc.source.origin" : "Barium",
+      "dc.creator.recordscreator.id" : "SE2321000131-E000000000106",
+      "dc.type.file" : [
+         ""
+      ],
+      "dc.identifier.location" : [
+         ""
+      ],
+      "dc.contributor.controlledby.freetext" : [
+         ""
+      ],
+      "dcterms.created" : [
+         "2016-08-26T15:00:28Z"
+      ],
+      "dc.coverage.hsacode" : [
+         ""
+      ],
+      "dc.identifier" : "https://alfresco.vgregion.se/alfresco/service/vgr/storage/node/content/8049?a=false&guest=true",
+      "dc.type.file.process" : [
+         "avvikelser",
+         "patientsäkerhet"
+      ],
+      "dc.publisher.forunit.id" : [
+         "SE2321000131-E000000001234"
+      ],
+      "dc.contributor.acceptedby" : [
+         "Magnus Söderbergh  ( magso ) (NU ledning/Ledning/Ledningskansliet/NU-sjukvården)"
+      ],
+      "dc.creator.freetext" : [
+         ""
+      ],
+      "public" : false,
+      "dc.creator.id" : [
+         "svami"
+      ],
+      "dc.title" : "IVO-ärenden",
+      "dc.identifier.native" : "https://alfresco.vgregion.se/alfresco/service/vgr/storage/node/content/8049?a=false&guest=true&native=true",
+      "dc.creator.forunit" : [
+         ""
+      ],
+      "version" : "1484931319183",
+      "dc.title.filename.native" : "IVO-ärenden.doc",
+      "dc.date.accepted" : 1417478400000,
+      "dc.contributor.controlledby.unit.freetext" : [
+         ""
+      ],
+      "dc.date.availablefrom" : "2012-12-20T00:00:00Z",
+      "dc.type.document.structure.id" : "6",
+      "dc.date.controlled" : 1417478400000,
+      "dc.contributor.acceptedby.freetext" : [
+         ""
+      ],
+      "dc.type.record" : "Riktlinjer [Övergripande principer, riktlinjer och direktiv för hälso- och sjukvårds- samt tandvårdsverksamheten/Individinriktad patientverksamhet]",
+      "dc.type.document" : "Regler/Riktlinjer/Rekommendationer",
+      "dc.identifier.checksum" : "",
+      "dc.creator.document" : [
+         "Lena Myrenberg  ( lenmy ) (Verksamhetsutveckling/Utvecklingsenhet/Ledningskansliet/NU-sjukvården)"
+      ],
+      "author" : "Mikael Svahn  ( svami ) (Informationssystem/Ekonomi och informationssystem/Ledningskansliet/NU-sjukvården)",
+      "dc.date.validto" : "2016-12-31T00:00:00Z",
+      "dc.format.extent.mimetype" : "application/pdf"
+   },
+   {
+      "dc.identifier.native" : "https://alfresco.vgregion.se/alfresco/service/vgr/storage/node/content/8194?a=false&guest=true&native=true",
+      "dc.creator.forunit" : [
+         ""
+      ],
+      "dc.contributor.acceptedby" : [
+         "Magnus Söderbergh  ( magso ) (NU ledning/Ledning/Ledningskansliet/NU-sjukvården)"
+      ],
+      "dc.creator.freetext" : [
+         ""
+      ],
+      "dc.creator.id" : [
+         "svami"
+      ],
+      "public" : false,
+      "dc.title" : "Klagomålshantering",
+      "dc.coverage.hsacode" : [
+         ""
+      ],
+      "dc.identifier" : "https://alfresco.vgregion.se/alfresco/service/vgr/storage/node/content/8194?a=false&guest=true",
+      "dc.publisher.forunit.id" : [
+         "SE2321000131-E000000008791"
+      ],
+      "dc.type.file.process" : [
+         "avvikelser"
+      ],
+      "dcterms.created" : [
+         "2015-11-17T15:10:13Z"
+      ],
+      "dc.type.document" : "Regler/Riktlinjer/Rekommendationer",
+      "dc.creator.document" : [
+         "Kerstin Mattsson  ( kerma3 ) (Chefsjuksköterska/Utvecklingsenhet/Ledningskansliet/NU-sjukvården)"
+      ],
+      "author" : "Mikael Svahn  ( svami ) (Informationssystem/Ekonomi och informationssystem/Ledningskansliet/NU-sjukvården)",
+      "dc.identifier.checksum" : "",
+      "dc.format.extent.mimetype" : "application/pdf",
+      "dc.date.validto" : "2017-01-21T00:00:00Z",
+      "dc.contributor.acceptedby.freetext" : [
+         ""
+      ],
+      "dc.type.record" : "Riktlinjer [Övergripande principer, riktlinjer och direktiv för hälso- och sjukvårds- samt tandvårdsverksamheten/Individinriktad patientverksamhet]",
+      "dc.type.document.structure.id" : "6",
+      "dc.date.controlled" : 1362441600000,
+      "version" : "1484930700184",
+      "dc.title.filename.native" : "Klagomålshantering.doc",
+      "dc.contributor.controlledby.unit.freetext" : [
+         ""
+      ],
+      "dc.date.availablefrom" : "2013-01-10T00:00:00Z",
+      "dc.identifier.diarie.id" : "",
+      "dc.date.validfrom" : "2015-01-21T00:00:00Z",
+      "dc.publisher.project-assignment" : [
+         ""
+      ],
+      "dc.title.alternative" : [
+         ""
+      ],
+      "dc.publisher.forunit" : [
+         "NU gemensamt/Sjukhusgemensamt/Ledningskansliet/NU-sjukvården"
+      ],
+      "dc.publisher.forunit.flat" : "NU gemensamt/Sjukhusgemensamt/Ledningskansliet/NU-sjukvården",
+      "source" : "Dokumentlager",
+      "dc.creator" : [
+         "Mikael Svahn  ( svami ) (Informationssystem/Ekonomi och informationssystem/Ledningskansliet/NU-sjukvården)"
+      ],
+      "title" : "Klagomålshantering",
+      "dcterms.audience" : [
+         ""
+      ],
+      "dc.format.extent" : [
+         ""
+      ],
+      "dc.creator.project-assignment" : "",
+      "dc.identifier.location" : [
+         ""
+      ],
+      "dc.contributor.controlledby.freetext" : [
+         ""
+      ],
+      "dc.source.origin" : "Barium",
+      "dc.creator.recordscreator.id" : "",
+      "dc.type.file" : [
+         ""
+      ],
+      "dc.type.document.id" : "",
+      "url_t" : "https://alfresco.vgregion.se/alfresco/service/vgr/storage/node/content/8194?a=false&guest=true",
+      "infotype" : [
+         "Dokument"
+      ],
+      "dc.type.process.name" : [
+         ""
+      ],
+      "dc.format.extent.mimetype.native" : "application/msword",
+      "dc.format.extension.native" : "doc",
+      "dc.type.document.serie" : [
+         "nu/ledningssystem/patientsäkerhet"
+      ],
+      "dc.contributor.controlledby.role" : [
+         "Utvecklingsledare"
+      ],
+      "dc.language" : [
+         "swe"
+      ],
+      "url" : "https://alfresco.vgregion.se/alfresco/service/vgr/storage/node/content/8194?a=false&guest=true",
+      "dc.format.extension" : "pdf",
+      "dc.type.templatename" : [
+         "VGR Grundmall"
+      ],
+      "dc.subject.keywords.id" : [
+         "D010361"
+      ],
+      "id" : "tag:alfresco.vgregion.se,2011-06-30:756db6d6-da23-43b6-9514-1ba84cd1d3aa",
+      "dc.source.documentid" : "8194",
+      "published" : true,
+      "dc.contributor.controlledby" : [
+         "Mikael Svahn  ( svami ) (Informationssystem/Ekonomi och informationssystem/Ledningskansliet/NU-sjukvården)"
+      ],
+      "dc.description" : "Synpunkter och klagomål från patienter och närstående ger oss en möjlighet att förbättra och utveckla vår verksamhet. Syftet med detta dokument är att fastlägga riktlinjer för NU-sjukvårdens patientvägledare, chefer och medarbetare som stöd i arbetet med klagomålshanteringen<br>",
+      "dc.contributor.savedby" : "Anna Wilner",
+      "_version_" : 1557062693901303808,
+      "dc.date.issued" : "2015-11-17T15:10:12Z",
+      "dc.publisher.id" : "annwi81",
+      "dc.type.record.id" : "950993537",
+      "archived" : false,
+      "dc.contributor.acceptedby.id" : [
+         "magso"
+      ],
+      "dc.type.document.structure" : "Riktlinje förvaltning",
+      "dc.coverage.hsacode.id" : [
+         ""
+      ],
+      "dc.publisher" : "Anna Wilner  ( annwi81 ) (Bibliotek/Utvecklingsenhet/Ledningskansliet/NU-sjukvården)",
+      "dc.relation.replaces" : [
+         ""
+      ],
+      "format" : [
+         "application/pdf"
+      ],
+      "creationdate" : 1447718400000,
+      "dc.contributor.savedby.id" : "annwi81",
+      "dc.contributor.acceptedby.unit.freetext" : [
+         ""
+      ],
+      "dcterms.audience.id" : [
+         ""
+      ],
+      "dc.subject.keywords" : [
+         "Patienter"
+      ],
+      "dc.subject.authorkeywords" : [
+         "avvikelse",
+         "medcontrol pro"
+      ],
+      "language" : "Svenska",
+      "dc.identifier.documentid" : "workspace://SpacesStore/756db6d6-da23-43b6-9514-1ba84cd1d3aa",
+      "dc.title.filename" : "Klagomålshantering.pdf",
+      "dc.creator.function" : "",
+      "dc.identifier.version" : "6",
+      "dc.creator.document.id" : [
+         "kerma3"
+      ],
+      "dc.source" : "https://barium.vgregion.se/barium/link.asp?content=8194",
+      "dc.contributor.controlledby.id" : [
+         "svami"
+      ],
+      "dc.contributor.acceptedby.role" : [
+         "Chefläkare"
+      ],
+      "processingtime" : 1484930700078,
+      "dc.relation.isversionof" : "",
+      "dc.rights.accessrights" : [
+         "Intranät"
+      ],
+      "dc.creator.forunit.id" : [
+         ""
+      ],
+      "dc.identifier.checksum.native" : "",
+      "dc.creator.recordscreator" : ""
+   },
+   {
+      "dc.creator.function" : "",
+      "dc.title.filename" : "Riskanalys.pdf",
+      "dc.contributor.controlledby.id" : [
+         ""
+      ],
+      "dc.source" : "https://barium.vgregion.se/barium/link.asp?content=8043",
+      "dc.identifier.version" : "9",
+      "dc.creator.document.id" : [
+         "graca"
+      ],
+      "processingtime" : 1484930635640,
+      "dc.contributor.acceptedby.role" : [
+         "Chefläkare"
+      ],
+      "dc.identifier.checksum.native" : "",
+      "dc.creator.recordscreator" : "",
+      "dc.rights.accessrights" : [
+         "Intranät"
+      ],
+      "dc.relation.isversionof" : "",
+      "dc.creator.forunit.id" : [
+         ""
+      ],
+      "dc.relation.replaces" : [
+         ""
+      ],
+      "dc.publisher" : "Anna Wilner  ( annwi81 ) (Bibliotek/Utvecklingsenhet/Ledningskansliet/NU-sjukvården)",
+      "dc.coverage.hsacode.id" : [
+         ""
+      ],
+      "dc.type.document.structure" : "Riktlinje förvaltning",
+      "dc.contributor.savedby.id" : "annwi81",
+      "creationdate" : 1448928000000,
+      "format" : [
+         "application/pdf"
+      ],
+      "dc.subject.keywords" : [
+         "Riskbedömning"
+      ],
+      "dcterms.audience.id" : [
+         ""
+      ],
+      "dc.contributor.acceptedby.unit.freetext" : [
+         ""
+      ],
+      "dc.identifier.documentid" : "workspace://SpacesStore/8e390234-b643-472c-9071-c5ed83518fc1",
+      "language" : "Svenska",
+      "dc.subject.authorkeywords" : [
+         "riskanalys"
+      ],
+      "dc.source.documentid" : "8043",
+      "_version_" : 1557062626334212096,
+      "dc.contributor.savedby" : "Anna Wilner",
+      "dc.contributor.controlledby" : [
+         ""
+      ],
+      "dc.description" : "Denna rutin styr arbetsgången för riskanalys inom NU-sjukvården med utgångspunkt från Handbok för patientsäkerhet från för analyser finns tillgängliga att ladda ner på patientsäkerhetssidan.<br>Socialstyrelsen, ISBN:978-91-86301-28-6. Handboken och arbetsmaterial/mallar.<br>",
+      "published" : true,
+      "dc.type.record.id" : "950993537",
+      "dc.publisher.id" : "annwi81",
+      "dc.date.issued" : "2015-12-01T13:31:11Z",
+      "dc.contributor.acceptedby.id" : [
+         "magso"
+      ],
+      "archived" : false,
+      "dc.type.document.serie" : [
+         "nu/ledningssystem/patientsäkerhet"
+      ],
+      "dc.contributor.controlledby.role" : [
+         ""
+      ],
+      "dc.language" : [
+         "swe"
+      ],
+      "dc.type.templatename" : [
+         "VGR Grundmall"
+      ],
+      "dc.subject.keywords.id" : [
+         "D018570"
+      ],
+      "url" : "https://alfresco.vgregion.se/alfresco/service/vgr/storage/node/content/8043?a=false&guest=true",
+      "dc.format.extension" : "pdf",
+      "id" : "tag:alfresco.vgregion.se,2011-06-30:8e390234-b643-472c-9071-c5ed83518fc1",
+      "dc.contributor.controlledby.freetext" : [
+         ""
+      ],
+      "dc.identifier.location" : [
+         ""
+      ],
+      "dc.type.file" : [
+         ""
+      ],
+      "dc.creator.recordscreator.id" : "",
+      "dc.source.origin" : "Barium",
+      "url_t" : "https://alfresco.vgregion.se/alfresco/service/vgr/storage/node/content/8043?a=false&guest=true",
+      "dc.type.document.id" : "",
+      "dc.format.extent.mimetype.native" : "application/msword",
+      "dc.format.extension.native" : "doc",
+      "infotype" : [
+         "Dokument"
+      ],
+      "dc.type.process.name" : [
+         ""
+      ],
+      "dc.identifier.diarie.id" : "",
+      "dc.title.alternative" : [
+         ""
+      ],
+      "dc.publisher.forunit" : [
+         "NU gemensamt/Sjukhusgemensamt/Ledningskansliet/NU-sjukvården"
+      ],
+      "dc.publisher.project-assignment" : [
+         ""
+      ],
+      "dc.date.validfrom" : "2015-09-09T00:00:00Z",
+      "source" : "Dokumentlager",
+      "dc.creator" : [
+         "Mikael Svahn  ( svami ) (Informationssystem/Ekonomi och informationssystem/Ledningskansliet/NU-sjukvården)"
+      ],
+      "dc.publisher.forunit.flat" : "NU gemensamt/Sjukhusgemensamt/Ledningskansliet/NU-sjukvården",
+      "dc.creator.project-assignment" : "",
+      "dc.format.extent" : [
+         ""
+      ],
+      "title" : "Riskanalys",
+      "dcterms.audience" : [
+         ""
+      ],
+      "dc.date.validto" : "2015-12-31T00:00:00Z",
+      "dc.format.extent.mimetype" : "application/pdf",
+      "dc.identifier.checksum" : "",
+      "dc.creator.document" : [
+         "Graciela Carlson  ( graca ) (Patientsäkerhet/Vårdbehov o patientsäkerhet/Koncernstab Hälso- och sjukvård/Koncernkontoret/Regionstyrelsen)"
+      ],
+      "author" : "Mikael Svahn  ( svami ) (Informationssystem/Ekonomi och informationssystem/Ledningskansliet/NU-sjukvården)",
+      "dc.type.document" : "Regler/Riktlinjer/Rekommendationer",
+      "dc.type.record" : "Riktlinjer [Övergripande principer, riktlinjer och direktiv för hälso- och sjukvårds- samt tandvårdsverksamheten/Individinriktad patientverksamhet]",
+      "dc.contributor.acceptedby.freetext" : [
+         ""
+      ],
+      "dc.date.controlled" : 1441411200000,
+      "dc.type.document.structure.id" : "6",
+      "dc.date.availablefrom" : "2012-12-20T00:00:00Z",
+      "dc.contributor.controlledby.unit.freetext" : [
+         ""
+      ],
+      "dc.title.filename.native" : "Riskanalys.doc",
+      "version" : "1484930635749",
+      "dc.identifier.native" : "https://alfresco.vgregion.se/alfresco/service/vgr/storage/node/content/8043?a=false&guest=true&native=true",
+      "dc.creator.forunit" : [
+         ""
+      ],
+      "dc.creator.id" : [
+         "svami"
+      ],
+      "public" : false,
+      "dc.title" : "Riskanalys",
+      "dc.contributor.acceptedby" : [
+         "Magnus Söderbergh  ( magso ) (NU ledning/Ledning/Ledningskansliet/NU-sjukvården)"
+      ],
+      "dc.creator.freetext" : [
+         ""
+      ],
+      "dc.type.file.process" : [
+         "avvikelser",
+         "patientsäkerhet"
+      ],
+      "dc.publisher.forunit.id" : [
+         "SE2321000131-E000000008791"
+      ],
+      "dc.coverage.hsacode" : [
+         ""
+      ],
+      "dc.identifier" : "https://alfresco.vgregion.se/alfresco/service/vgr/storage/node/content/8043?a=false&guest=true",
+      "dcterms.created" : [
+         "2015-12-01T13:31:11Z"
+      ]
+   },
+   {
+      "dcterms.audience.id" : [
+         ""
+      ],
+      "dc.contributor.acceptedby.unit.freetext" : [
+         ""
+      ],
+      "dc.subject.keywords" : [
+         ""
+      ],
+      "dc.identifier.documentid" : "workspace://SpacesStore/3d68373f-668a-45ec-ab57-5705872d3150",
+      "language" : "Svenska",
+      "dc.subject.authorkeywords" : [
+         "patientsäkerhet",
+         "riskhantering",
+         "sekretess",
+         "administrativa informationssystem",
+         "felbehandling",
+         "Behandlingsfel",
+         "Socialstyrelsen",
+         "Anmälan",
+         "Lex Maria"
+      ],
+      "dc.type.document.structure" : "Riktlinje förvaltning",
+      "dc.publisher" : "Mikael Svahn  ( svami ) (Informationssystem/Ekonomi och informationssystem/Ledningskansliet/NU-sjukvården)",
+      "dc.relation.replaces" : [
+         ""
+      ],
+      "dc.coverage.hsacode.id" : [
+         ""
+      ],
+      "format" : [
+         "application/pdf"
+      ],
+      "dc.contributor.savedby.id" : "svami",
+      "creationdate" : 1463356800000,
+      "processingtime" : 1484932259659,
+      "dc.contributor.acceptedby.role" : [
+         "Chefläkare"
+      ],
+      "dc.identifier.checksum.native" : "",
+      "dc.creator.recordscreator" : "",
+      "dc.rights.accessrights" : [
+         "Intranät"
+      ],
+      "dc.relation.isversionof" : "",
+      "dc.creator.forunit.id" : [
+         ""
+      ],
+      "dc.creator.function" : "Utvecklingsledare Patientsäkerhet",
+      "dc.title.filename" : "Utlämnande av avvikelserrapporter ur MedControl Pro.pdf",
+      "dc.source" : "https://barium.vgregion.se/barium/link.asp?content=8035",
+      "dc.identifier.version" : "7",
+      "dc.creator.document.id" : [
+         "jenla43"
+      ],
+      "dc.contributor.controlledby.id" : [
+         "jenla43"
+      ],
+      "url" : "https://alfresco.vgregion.se/alfresco/service/vgr/storage/node/content/8035?a=false&guest=true",
+      "dc.format.extension" : "pdf",
+      "dc.type.templatename" : [
+         "VGR Grundmall"
+      ],
+      "dc.subject.keywords.id" : [
+         ""
+      ],
+      "id" : "tag:alfresco.vgregion.se,2011-06-30:3d68373f-668a-45ec-ab57-5705872d3150",
+      "dc.contributor.controlledby.role" : [
+         ""
+      ],
+      "dc.type.document.serie" : [
+         "nu/ledningssystem/patientsäkerhet"
+      ],
+      "dc.language" : [
+         "swe"
+      ],
+      "dc.publisher.id" : "svami",
+      "dc.type.record.id" : "950993537",
+      "dc.date.issued" : "2016-05-16T16:03:16Z",
+      "dc.contributor.acceptedby.id" : [
+         "magso"
+      ],
+      "archived" : false,
+      "dc.source.documentid" : "8035",
+      "dc.contributor.controlledby" : [
+         "Jens Larsson  ( jenla43 ) (Centralarkiv/Kommunikation och kansli/Ledningskansliet/NU-sjukvården)"
+      ],
+      "dc.description" : "Det förekommer att media begär utlämnande av avvikelserapporter från MedControl. Behov finns att ha en enhetlig rutin att tillämpa vid utlämnande av avvikelserapporter från MedControl.",
+      "published" : true,
+      "_version_" : 1557064329300279296,
+      "dc.contributor.savedby" : "Mikael Svahn",
+      "source" : "Dokumentlager",
+      "dc.creator" : [
+         "Mikael Svahn  ( svami ) (Informationssystem/Ekonomi och informationssystem/Ledningskansliet/NU-sjukvården)"
+      ],
+      "dc.publisher.forunit.flat" : "Sjukhusgemensamt/Ledningskansliet/NU-sjukvården",
+      "title" : "Utlämnande av avvikelserrapporter ur MedControl Pro",
+      "dcterms.audience" : [
+         ""
+      ],
+      "dc.creator.project-assignment" : "",
+      "dc.format.extent" : [
+         ""
+      ],
+      "dc.identifier.diarie.id" : "",
+      "dc.date.validfrom" : "2016-05-16T00:00:00Z",
+      "dc.publisher.forunit" : [
+         "Sjukhusgemensamt/Ledningskansliet/NU-sjukvården"
+      ],
+      "dc.title.alternative" : [
+         ""
+      ],
+      "dc.publisher.project-assignment" : [
+         ""
+      ],
+      "dc.type.document.id" : "",
+      "url_t" : "https://alfresco.vgregion.se/alfresco/service/vgr/storage/node/content/8035?a=false&guest=true",
+      "infotype" : [
+         "Dokument"
+      ],
+      "dc.type.process.name" : [
+         ""
+      ],
+      "dc.format.extension.native" : "doc",
+      "dc.format.extent.mimetype.native" : "application/msword",
+      "dc.identifier.location" : [
+         ""
+      ],
+      "dc.contributor.controlledby.freetext" : [
+         ""
+      ],
+      "dc.creator.recordscreator.id" : "",
+      "dc.source.origin" : "Barium",
+      "dc.type.file" : [
+         "medcontrol pro"
+      ],
+      "dc.type.file.process" : [
+         "patientsäkerhet",
+         "avvikelser",
+         "it-.stöd",
+         "telefoni",
+         "journalföring",
+         "sekretess"
+      ],
+      "dc.publisher.forunit.id" : [
+         "SE2321000131-E000000001234"
+      ],
+      "dc.identifier" : "https://alfresco.vgregion.se/alfresco/service/vgr/storage/node/content/8035?a=false&guest=true",
+      "dc.coverage.hsacode" : [
+         ""
+      ],
+      "dcterms.created" : [
+         "2016-05-16T16:03:18Z"
+      ],
+      "dc.identifier.native" : "https://alfresco.vgregion.se/alfresco/service/vgr/storage/node/content/8035?a=false&guest=true&native=true",
+      "dc.creator.forunit" : [
+         ""
+      ],
+      "dc.creator.id" : [
+         "svami"
+      ],
+      "public" : false,
+      "dc.title" : "Utlämnande av avvikelserrapporter ur MedControl Pro",
+      "dc.creator.freetext" : [
+         ""
+      ],
+      "dc.contributor.acceptedby" : [
+         "Magnus Söderbergh  ( magso ) (NU ledning/Ledning/Ledningskansliet/NU-sjukvården)"
+      ],
+      "dc.date.controlled" : 1463356800000,
+      "dc.type.document.structure.id" : "6",
+      "version" : "1484932259826",
+      "dc.date.availablefrom" : "2012-12-20T00:00:00Z",
+      "dc.contributor.controlledby.unit.freetext" : [
+         ""
+      ],
+      "dc.date.accepted" : 1421712000000,
+      "dc.title.filename.native" : "Utlämnande av avvikelserrapporter ur MedControl Pro.doc",
+      "dc.creator.document" : [
+         "Jens Larsson  ( jenla43 ) (Centralarkiv/Kommunikation och kansli/Ledningskansliet/NU-sjukvården)"
+      ],
+      "dc.identifier.checksum" : "",
+      "author" : "Mikael Svahn  ( svami ) (Informationssystem/Ekonomi och informationssystem/Ledningskansliet/NU-sjukvården)",
+      "dc.type.document" : "Regler/Riktlinjer/Rekommendationer",
+      "dc.format.extent.mimetype" : "application/pdf",
+      "dc.date.validto" : "2018-05-16T00:00:00Z",
+      "dc.contributor.acceptedby.freetext" : [
+         ""
+      ],
+      "dc.type.record" : "Riktlinjer [Övergripande principer, riktlinjer och direktiv för hälso- och sjukvårds- samt tandvårdsverksamheten/Individinriktad patientverksamhet]"
+   }
+]

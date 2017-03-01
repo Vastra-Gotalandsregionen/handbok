@@ -1,6 +1,7 @@
 package se.vgregion.handbok.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
 
@@ -17,6 +18,10 @@ public class Document implements Serializable {
     private String url_t;
     private String title;
     private String urlSafeUrl;
+    @JsonProperty(value = "dc.subject.keywords")
+    private String[] dcSubjectKeywords;
+    @JsonProperty(value = "dc.subject.authorkeywords")
+    private String[] dcSubjectAuthorkeywords;
 
     public Document() {
     }
@@ -74,5 +79,21 @@ public class Document implements Serializable {
 
     public void setUrlSafeUrl(String urlSafeUrl) {
         this.urlSafeUrl = urlSafeUrl;
+    }
+
+    public String[] getDcSubjectKeywords() {
+        return dcSubjectKeywords;
+    }
+
+    public void setDcSubjectKeywords(String[] dcSubjectKeywords) {
+        this.dcSubjectKeywords = dcSubjectKeywords;
+    }
+
+    public String[] getDcSubjectAuthorkeywords() {
+        return dcSubjectAuthorkeywords;
+    }
+
+    public void setDcSubjectAuthorkeywords(String[] dcSubjectAuthorkeywords) {
+        this.dcSubjectAuthorkeywords = dcSubjectAuthorkeywords;
     }
 }

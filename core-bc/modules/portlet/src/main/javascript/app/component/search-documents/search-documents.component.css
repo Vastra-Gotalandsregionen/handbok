@@ -55,7 +55,7 @@ search-documents md-input-container.mat-input-container input.mat-input-element 
     background: transparent;
 }
 
-search-documents .mat-autocomplete-panel {
+div.mat-autocomplete-panel {
     max-height: 50vh;
 }
 

@@ -89,6 +89,8 @@ public class ViewRestControllerTest {
 
         // Setup documentFetcherService
         document1 = new Document("ifeed-doc1", "http://url1.com");
+        document1.setDcSubjectAuthorkeywords(new String[]{"subjectAuthorkeyword"});
+        document1.setDcSubjectKeywords(new String[]{"subjectKeyword"});
         Document document2 = new Document("ifeed-doc2", "http://url2.com");
         Document document3 = new Document("ifeed-doc3", "http://url3.com");
         Document document4 = new Document("ifeed-doc4", "http://url4.com");
@@ -130,6 +132,30 @@ public class ViewRestControllerTest {
         }
 
         assertEquals(4, count);
+    }
+
+    @Test
+    public void queryDocumentTitlesSubjectKeywords() throws Exception {
+        ResponseEntity<DocumentQueryResponse> response = viewRestController.queryDocumentTitles("ifeedList1", "ubjectKey");
+
+        int count = 0;
+        for (DocumentQueryResponseEntry responseEntry : response.getBody().getDocumentQueryResponseEntry()) {
+            count += responseEntry.getDocuments().size();
+        }
+
+        assertEquals(1, count);
+    }
+
+    @Test
+    public void queryDocumentTitlesSubjectAuthorkeywords() throws Exception {
+        ResponseEntity<DocumentQueryResponse> response = viewRestController.queryDocumentTitles("ifeedList1", "subjectAuthorkeyword");
+
+        int count = 0;
+        for (DocumentQueryResponseEntry responseEntry : response.getBody().getDocumentQueryResponseEntry()) {
+            count += responseEntry.getDocuments().size();
+        }
+
+        assertEquals(1, count);
     }
 
     @Test
