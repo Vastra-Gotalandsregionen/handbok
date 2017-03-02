@@ -11,12 +11,9 @@
             <a routerLink="/admin"><i class="icon-cog"></i> Administrera</a>
         </span>
 
-        <span class="left-float">
-            <a href="" (click)="toggleSearch()" onclick="return false">{{toggleSearchText}}</a>
-        </span>
     </div>
 
-    <div class="search-row" *ngIf="showSearch">
+    <div class="search-row">
         <search-documents></search-documents>
     </div>
 
@@ -35,7 +32,7 @@
             </div>
 
             <div class="column right-column">
-                <h5>Dokument</h5>
+                <h5>Dokument / Avsnitt</h5>
                 <div *ngIf="needsConfiguration">Denna portlet behöver konfigureras för en handbok i inställningar.</div>
 
                 <router-outlet></router-outlet>

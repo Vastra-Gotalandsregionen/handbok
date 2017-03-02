@@ -1,7 +1,7 @@
 import {AuthHttp, AuthConfig, JwtHelper} from "angular2-jwt";
 import {RequestOptionsArgs, Response, Http, RequestOptions} from "@angular/http";
-import {Observable, Observer} from "rxjs";
-import {IfeedService} from "./ifeed.service";
+import {Observable} from "rxjs";
+import {GlobalStateService} from "./global-state.service";
 
 export class RefreshTokenAuthHttp extends AuthHttp {
 
@@ -12,7 +12,7 @@ export class RefreshTokenAuthHttp extends AuthHttp {
                 http: Http,
                 defOpts: RequestOptions,
                 private jwtHelper: JwtHelper,
-                private ifeedService: IfeedService) {
+                private globalStateService: GlobalStateService) {
         super(options, http, defOpts);
         this.authConfig = options;
         this.baseHttp = http;
@@ -25,7 +25,7 @@ export class RefreshTokenAuthHttp extends AuthHttp {
         if (this.isExpired(decodeToken)) {
             // Expired -> renew
             console.log('JWT has expired. Renew...');
-            return this.baseHttp.get(this.ifeedService.resourceUrl + "&p_p_resource_id=refreshToken")
+            return this.baseHttp.get(this.globalStateService.resourceUrl + "&p_p_resource_id=refreshToken")
                 .map((response: Response) => response.text())
                 .flatMap(jwtToken => {
                     sessionStorage.setItem("jwtToken", jwtToken);

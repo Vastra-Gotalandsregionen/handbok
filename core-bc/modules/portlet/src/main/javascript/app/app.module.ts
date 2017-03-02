@@ -6,7 +6,7 @@ import {AppComponent} from "./app.component";
 import {AppRoutingModule} from "./app-routing.module";
 import {CommonModule} from "@angular/common";
 import {IfeedComponent} from "./view/user/ifeed/ifeed.component";
-import {IfeedService} from "./service/ifeed.service";
+import {GlobalStateService} from "./service/global-state.service";
 import {UserComponent} from "./view/user/user.component";
 import {AdminComponent} from "./view/admin/admin.component";
 import {AdminGuard} from "./service/admin-guard.service";
@@ -25,12 +25,12 @@ import {FeedbackButtonComponent} from "./component/feedback-button/feedback-butt
 import {SearchDocumentsComponent} from "./component/search-documents/search-documents.component";
 import {UtilityService} from "./service/utility.service";
 
-export function authHttpServiceFactory(http: Http, options: RequestOptions, jwtHelper: JwtHelper, ifeedService: IfeedService) {
+export function authHttpServiceFactory(http: Http, options: RequestOptions, jwtHelper: JwtHelper, globalStateService: GlobalStateService) {
     return new RefreshTokenAuthHttp(new AuthConfig({
         tokenName: 'jwtToken',
         tokenGetter: (() => sessionStorage.getItem('jwtToken')),
         globalHeaders: [{'Content-Type':'application/json'}],
-    }), http, options, jwtHelper, ifeedService);
+    }), http, options, jwtHelper, globalStateService);
 }
 
 @NgModule({
@@ -60,7 +60,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions, jwtH
         AdminGuard,
         EditGuard,
         ErrorHandler,
-        IfeedService,
+        GlobalStateService,
         JwtHelper,
         RestService,
         SearchDocumentsComponent,
@@ -69,7 +69,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions, jwtH
         {
             provide: AuthHttp,
             useFactory: authHttpServiceFactory,
-            deps: [Http, RequestOptions, JwtHelper, IfeedService]
+            deps: [Http, RequestOptions, JwtHelper, GlobalStateService]
         }
     ],
     entryComponents: [ErrorDialogComponent, SearchDocumentsComponent],

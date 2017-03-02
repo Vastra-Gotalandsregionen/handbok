@@ -1,6 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import {RestService} from "../../service/RestService";
-import {IfeedService} from "../../service/ifeed.service";
+import {GlobalStateService} from "../../service/global-state.service";
 import {IfeedList} from "../../model/ifeed-list.model";
 import {ErrorHandler} from "../../service/ErrorHandler";
 import {Observable} from "rxjs";
@@ -20,7 +20,7 @@ export class EditComponent implements OnInit {
     ifeedLists: IfeedList[];
 
     constructor(private restService: RestService,
-                private ifeedService: IfeedService,
+                private globalStateService: GlobalStateService,
                 private errorHandler: ErrorHandler) {
 
     }
@@ -28,8 +28,8 @@ export class EditComponent implements OnInit {
     ngOnInit(): void {
         this.loadIfeedLists();
 
-        if (this.ifeedService.bookName) {
-            this.restService.getIfeedList(this.ifeedService.bookName).subscribe((ifeedList: IfeedList) => {
+        if (this.globalStateService.bookName) {
+            this.restService.getIfeedList(this.globalStateService.bookName).subscribe((ifeedList: IfeedList) => {
                 this.ifeedList = ifeedList;
                 setTimeout(() => {
                     // For some reason this must be made async. Otherwise the select component isn't updated with the correct set value.
@@ -84,7 +84,7 @@ export class EditComponent implements OnInit {
     }
 
     getPortletResourcePk(): string {
-        return this.ifeedService.portletResourcePk;
+        return this.globalStateService.portletResourcePk;
     }
 
     saveAllIfeedLists(): Observable<IfeedList[]> {
@@ -96,7 +96,7 @@ export class EditComponent implements OnInit {
     saveSelectedIfeedList(): Observable<PortletSelectedIfeedList> {
         let selectedIfeedList = this.getSelectedIfeedList(this.selectedIfeedListId);
         let portletSelectedIfeedList = new PortletSelectedIfeedList(this.getPortletResourcePk(), selectedIfeedList);
-        this.ifeedService.bookName = selectedIfeedList.name;
+        this.globalStateService.bookName = selectedIfeedList.name;
         return this.restService.saveSelectedIfeedList(portletSelectedIfeedList);
     }
 

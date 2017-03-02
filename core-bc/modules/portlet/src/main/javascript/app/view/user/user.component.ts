@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Http, Response} from "@angular/http";
 import { Observable }     from 'rxjs';
 import 'rxjs/add/operator/map';
-import {IfeedService} from "../../service/ifeed.service";
+import {GlobalStateService} from "../../service/global-state.service";
 import {Ifeed} from "../../model/ifeed.model";
 import {ErrorHandler} from "../../service/ErrorHandler";
 
@@ -15,28 +15,26 @@ export class UserComponent implements OnInit {
     hasAdminPermission: boolean;
     ifeeds: [Ifeed];
     needsConfiguration: boolean;
-    showSearch: boolean;
-    toggleSearchText: string = "Visa sök";
 
     constructor(private http: Http,
-                private ifeedService: IfeedService,
+                private globalStateService: GlobalStateService,
                 private errorHandler: ErrorHandler) {
     }
 
     ngOnInit(): void {
-        this.needsConfiguration = !(this.ifeedService.bookName && this.ifeedService.bookName.length > 0);
+        this.needsConfiguration = !(this.globalStateService.bookName && this.globalStateService.bookName.length > 0);
 
-        this.ifeedService.setCurrentIfeedId(null);
-        this.ifeedService.currentDocumentTitle = null;
+        this.globalStateService.setCurrentIfeedId(null);
+        this.globalStateService.currentDocumentTitle = null;
 
-        this.hasAdminPermission = this.ifeedService.hasAdminPermission;
-        let observableResponse:Observable<Response> = this.http.get(this.ifeedService.ajaxUrl + "/ifeed/" + this.ifeedService.bookName);
+        this.hasAdminPermission = this.globalStateService.hasAdminPermission;
+        let observableResponse:Observable<Response> = this.http.get(this.globalStateService.ajaxUrl + "/ifeed/" + this.globalStateService.bookName);
         observableResponse
             .map(response => response.json())
             .subscribe(
                 json => {
                     this.ifeeds = <[Ifeed]>json.ifeeds;
-                    this.ifeedService.setIfeeds(<[Ifeed]>json.ifeeds);
+                    this.globalStateService.setIfeeds(<[Ifeed]>json.ifeeds);
                 },
                 err => {
                     this.errorHandler.notifyError(err);
@@ -45,29 +43,18 @@ export class UserComponent implements OnInit {
     }
 
     getCurrentIfeedId(): string {
-        return this.ifeedService.getCurrentIfeedId();
+        return this.globalStateService.getCurrentIfeedId();
     }
 
     getCurrentIfeedName(): string {
-        return this.ifeedService.getCurrentIfeedName();
+        return this.globalStateService.getCurrentIfeedName();
     }
 
     getCurrentDocumentTitle(): string {
-        return this.ifeedService.currentDocumentTitle;
+        return this.globalStateService.currentDocumentTitle;
     }
 
     getBookName(): string {
-        return this.ifeedService.bookName;
+        return this.globalStateService.bookName;
     }
-
-    toggleSearch(): void {
-        this.showSearch = !this.showSearch;
-
-        if (this.showSearch === false) {
-            this.toggleSearchText = "Visa sök";
-        } else {
-            this.toggleSearchText = "Göm sök";
-        }
-    }
-
 }

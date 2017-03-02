@@ -1,15 +1,15 @@
 import { Injectable }     from '@angular/core';
 import { CanActivate }    from '@angular/router';
-import {IfeedService} from "./ifeed.service";
+import { GlobalStateService } from "./global-state.service";
 
 @Injectable()
 export class AdminGuard implements CanActivate {
 
 
-    constructor(private ifeedService: IfeedService) {
+    constructor(private globalStateService: GlobalStateService) {
     }
 
     canActivate(): boolean {
-        return this.ifeedService.hasAdminPermission;
+        return this.globalStateService.hasAdminPermission;
     }
 }

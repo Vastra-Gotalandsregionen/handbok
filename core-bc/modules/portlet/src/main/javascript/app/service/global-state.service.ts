@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {Ifeed} from "../model/ifeed.model";
 
 @Injectable()
-export class IfeedService {
+export class GlobalStateService {
 
     private currentIfeedId: string = null;
     private currentIfeedName: string = null;
@@ -15,6 +15,8 @@ export class IfeedService {
     bookId: number;
     hasEditPermission: boolean;
     portletResourcePk: string;
+    searchInputFocused: boolean;
+    isIE: boolean;
 
     setCurrentIfeedId(id: string): void {
         this.currentIfeedId = id;

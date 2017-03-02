@@ -4,7 +4,7 @@ import {Observable, Subscription}     from 'rxjs';
 import {ActivatedRoute} from "@angular/router";
 import 'rxjs/add/operator/map';
 import {DomSanitizer, SafeUrl, SafeResourceUrl} from "@angular/platform-browser";
-import {IfeedService} from "../../../service/ifeed.service";
+import {GlobalStateService} from "../../../service/global-state.service";
 import {Document} from "../../../model/document.model";
 import {RestService} from "../../../service/RestService";
 import {ErrorHandler} from "../../../service/ErrorHandler";
@@ -30,7 +30,7 @@ export class IfeedComponent implements OnInit, OnChanges {
     constructor(private route: ActivatedRoute,
                 private sanitizer: DomSanitizer,
                 private ref: ChangeDetectorRef,
-                private ifeedService: IfeedService,
+                public globalStateService: GlobalStateService,
                 private restService: RestService,
                 private errorHandler: ErrorHandler,
                 private utilityService: UtilityService) {
@@ -62,7 +62,7 @@ export class IfeedComponent implements OnInit, OnChanges {
             if (!match) {
                 this.showingDocument = false;
                 this.currentDocument = null;
-                this.ifeedService.currentDocumentTitle = null;
+                this.globalStateService.currentDocumentTitle = null;
             }
         });
 
@@ -75,7 +75,7 @@ export class IfeedComponent implements OnInit, OnChanges {
 
             if (this.id !== params['id']) {
                 this.id = params['id'] || '';
-                this.ifeedService.setCurrentIfeedId(this.id);
+                this.globalStateService.setCurrentIfeedId(this.id);
 
                 let nameUsedForFetching = this.id;
 
@@ -84,7 +84,7 @@ export class IfeedComponent implements OnInit, OnChanges {
                 let timerSubscription: Subscription = Observable.timer(250).subscribe(undefined, undefined, () => {
                     this.documents = null;
                     this.showingDocument = false;
-                    this.ifeedService.currentDocumentTitle = null;
+                    this.globalStateService.currentDocumentTitle = null;
                     this.documents = null;
                 });
 
@@ -112,7 +112,7 @@ export class IfeedComponent implements OnInit, OnChanges {
                                 if (!match) {
                                     this.showingDocument = false;
                                     this.currentDocument = null;
-                                    this.ifeedService.currentDocumentTitle = null;
+                                    this.globalStateService.currentDocumentTitle = null;
                                 }
 
                             } else {
@@ -129,7 +129,7 @@ export class IfeedComponent implements OnInit, OnChanges {
                             this.documents = null;
                             this.showingDocument = false;
                             this.currentDocument = null;
-                            this.ifeedService.currentDocumentTitle = null;
+                            this.globalStateService.currentDocumentTitle = null;
                         }
                     );
 
@@ -137,7 +137,7 @@ export class IfeedComponent implements OnInit, OnChanges {
             }
         });
 
-        this.documentBaseUrl = this.ifeedService.ajaxUrl + "/document/";
+        this.documentBaseUrl = this.globalStateService.ajaxUrl + "/document/";
     }
 
     ngOnChanges(changes: SimpleChanges): void {
@@ -155,7 +155,7 @@ export class IfeedComponent implements OnInit, OnChanges {
     showDocument(document: Document): void {
         this.showingDocument = true;
         this.currentDocument = document;
-        this.ifeedService.currentDocumentTitle = document.title;
+        this.globalStateService.currentDocumentTitle = document.title;
 
         if (!this.mobileBrowser) {
             let safeResourceUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.documentBaseUrl + this.encodeURI(this.currentDocument.urlSafeUrl) + '/' + this.currentDocument.ifeedIdHmac);
@@ -181,7 +181,7 @@ export class IfeedComponent implements OnInit, OnChanges {
     backToList(): void {
         this.showingDocument = false;
         this.currentDocument = null;
-        this.ifeedService.currentDocumentTitle = null;
+        this.globalStateService.currentDocumentTitle = null;
     }
 
     getDocumentUrl(): string {

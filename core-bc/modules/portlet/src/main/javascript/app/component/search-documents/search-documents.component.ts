@@ -2,7 +2,7 @@ import {FormControl} from "@angular/forms";
 import {Component, OnInit, ViewEncapsulation} from "@angular/core";
 import {Observable} from "rxjs";
 import {RestService} from "../../service/RestService";
-import {IfeedService} from "../../service/ifeed.service";
+import {GlobalStateService} from "../../service/global-state.service";
 import {QueryResponse, QueryResponseEntry} from "../../model/query-response-entries.model";
 import {ErrorHandler} from "../../service/ErrorHandler";
 import {Ifeed} from "../../model/ifeed.model";
@@ -19,30 +19,36 @@ import {UtilityService} from "../../service/utility.service";
 export class SearchDocumentsComponent implements OnInit {
 
     stateCtrl: FormControl;
-    searchResults: Observable<QueryResponseEntry[]>; // todo make typed
+    searchResults: Observable<QueryResponseEntry[]>;
     selectedEntry: DocumentAndIfeedEntry;
     documentBaseUrl: string;
     mobileBrowser: boolean;
+    searchInputFocused: boolean;
 
     constructor(private restService: RestService,
-                private ifeedService: IfeedService,
                 private errorHandler: ErrorHandler,
                 private utilityService: UtilityService,
+                private globalStateService: GlobalStateService,
                 private router: Router) {
         this.stateCtrl = new FormControl();
         this.searchResults = this.stateCtrl.valueChanges
             .startWith(null)
-            .mergeMap(query => this.restService.queryIfeedListDocuments(this.ifeedService.bookName, query))
+            .mergeMap(query => this.restService.queryIfeedListDocuments(this.globalStateService.bookName, query))
             .map((queryResponse: QueryResponse) => queryResponse.queryResponseEntries);
     }
 
     ngOnInit(): void {
-        this.documentBaseUrl = this.ifeedService.ajaxUrl + "/document/";
+        this.documentBaseUrl = this.globalStateService.ajaxUrl + "/document/";
         this.mobileBrowser = this.utilityService.mobileAndTabletCheck();
     }
 
     onFocus(): any {
         this.selectedEntry = null;
+        this.searchInputFocused = this.globalStateService.searchInputFocused = true;
+    }
+
+    onBlur(): void {
+        this.searchInputFocused = this.globalStateService.searchInputFocused = false;
     }
 
     onClick(): any {

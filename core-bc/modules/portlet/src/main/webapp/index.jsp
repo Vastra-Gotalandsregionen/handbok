@@ -8,13 +8,18 @@
     }
 
     @keyframes rotate {
-        from {transform:rotate(0deg);}
-        to {transform:rotate(360deg);}
+        from {
+            transform: rotate(0deg);
+        }
+        to {
+            transform: rotate(360deg);
+        }
     }
 </style>
 
-<app-root ajax-url="${ajaxURL}" book-name="${bookName}" has-admin-permission="${hasAdminPermission}" jwt-token="${jwtToken}" resource-url="${resourceUrl}">
-  Läser in... <span class="loading-indicator"><i class="icon icon-spinner"></i></span>
+<app-root ajax-url="${ajaxURL}" book-name="${bookName}" has-admin-permission="${hasAdminPermission}"
+          jwt-token="${jwtToken}" resource-url="${resourceUrl}">
+    Läser in... <span class="loading-indicator"><i class="icon icon-spinner"></i></span>
 </app-root>
 
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">

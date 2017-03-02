@@ -1,7 +1,7 @@
 import {Component, OnInit, OnDestroy} from "@angular/core";
 import {RequestOptions, Headers} from "@angular/http";
 import "rxjs/add/operator/map";
-import {IfeedService} from "../../service/ifeed.service";
+import {GlobalStateService} from "../../service/global-state.service";
 import {IfeedList} from "../../model/ifeed-list.model";
 import {Ifeed} from "../../model/ifeed.model";
 import {DragulaService} from "ng2-dragula";
@@ -25,7 +25,7 @@ export class AdminComponent implements OnInit, OnDestroy {
     previousIndex: number;
 
     constructor(private http: AuthHttp,
-                private ifeedService: IfeedService,
+                private globalStateService: GlobalStateService,
                 private dragulaService: DragulaService,
                 private errorHandler: ErrorHandler) {
 
@@ -69,7 +69,7 @@ export class AdminComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
 
-        this.http.get(this.ifeedService.ajaxUrl + "/ifeed/" + this.ifeedService.bookName)
+        this.http.get(this.globalStateService.ajaxUrl + "/ifeed/" + this.globalStateService.bookName)
             .map(response => response.json())
             .subscribe(
                 json => {
@@ -80,7 +80,7 @@ export class AdminComponent implements OnInit, OnDestroy {
                 }
             );
 
-        this.bookName = this.ifeedService.bookName;
+        this.bookName = this.globalStateService.bookName;
     }
 
     ngOnDestroy() {
@@ -102,7 +102,7 @@ export class AdminComponent implements OnInit, OnDestroy {
 
         this.saveButtonText = "Sparar...";
         this.saveButtonClass = "btn-primary";
-        this.http.put(this.ifeedService.ajaxUrl + "/ifeed/", JSON.stringify(this.ifeedList), options)
+        this.http.put(this.globalStateService.ajaxUrl + "/ifeed/", JSON.stringify(this.ifeedList), options)
             .map(response => response.json())
             .subscribe(
                 json => {

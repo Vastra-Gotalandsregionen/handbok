@@ -1,6 +1,6 @@
 import {Component, ElementRef, OnInit, ViewEncapsulation} from '@angular/core';
 import 'rxjs/add/operator/map';
-import {IfeedService} from "./service/ifeed.service";
+import {GlobalStateService} from "./service/global-state.service";
 import {Router} from "@angular/router";
 
 @Component({
@@ -16,25 +16,28 @@ export class AppComponent {
 
     constructor(elm: ElementRef,
                 router: Router,
-                private ifeedService: IfeedService) {
+                private globalStateService: GlobalStateService) {
 
-        ifeedService.bookName = elm.nativeElement.attributes['book-name'].value;
+        globalStateService.bookName = elm.nativeElement.attributes['book-name'].value;
 
-        ifeedService.ajaxUrl = elm.nativeElement.attributes['ajax-url'].value;
-        ifeedService.resourceUrl = elm.nativeElement.attributes['resource-url'].value;
-        ifeedService.hasAdminPermission = elm.nativeElement.attributes['has-admin-permission'].value === 'true';
-        ifeedService.bookName = elm.nativeElement.attributes['book-name'].value;
+        globalStateService.ajaxUrl = elm.nativeElement.attributes['ajax-url'].value;
+        globalStateService.resourceUrl = elm.nativeElement.attributes['resource-url'].value;
+        globalStateService.hasAdminPermission = elm.nativeElement.attributes['has-admin-permission'].value === 'true';
+        globalStateService.bookName = elm.nativeElement.attributes['book-name'].value;
 
         let jwtToken = elm.nativeElement.attributes['jwt-token'].value;
         sessionStorage.setItem('jwtToken', jwtToken);
 
         let editModeAttribute = elm.nativeElement.attributes['edit-mode'];
         if (editModeAttribute && editModeAttribute.value === "true") {
-            ifeedService.hasEditPermission = editModeAttribute.value === 'true';
-            ifeedService.portletResourcePk = elm.nativeElement.attributes['portlet-resource-pk'].value;
+            globalStateService.hasEditPermission = editModeAttribute.value === 'true';
+            globalStateService.portletResourcePk = elm.nativeElement.attributes['portlet-resource-pk'].value;
 
             router.navigate(['/edit']);
         }
 
+        let isIE: boolean = !!navigator.userAgent.match(/Trident/g) || !!navigator.userAgent.match(/MSIE/g);
+
+        globalStateService.isIE = isIE;
     }
 }

@@ -1,7 +1,7 @@
 <md-icon>search</md-icon>
 <md-input-container>
     <input mdInput placeholder="Sök" [mdAutocomplete]="auto" [formControl]="stateCtrl" [(ngModel)]="selectedEntry"
-           (focus)="onFocus()" (keyup)="onKeyUp()">
+           (focus)="onFocus()" (blur)="onBlur()" (keyup)="onKeyUp()">
 </md-input-container>
 <md-autocomplete #auto="mdAutocomplete" [displayWith]="displayFn">
     <ul class="search-result-list">
@@ -14,3 +14,7 @@
         </li>
     </ul>
 </md-autocomplete>
+
+<div class="global-tip" *ngIf="mobileBrowser && searchInputFocused">
+    <md-icon>info</md-icon> Vid sökning rekommenderas att ha enheten i porträttläge (på höjden) till skillnad från landskapsläge (på bredden).
+</div>

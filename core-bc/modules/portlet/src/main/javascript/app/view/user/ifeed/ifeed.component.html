@@ -18,7 +18,8 @@
 </div>
 
 <div *ngIf="showingDocument && !mobileBrowser">
-    <iframe [src]="getSafeDocumentUrl()"></iframe>
+    <div *ngIf="globalStateService.searchInputFocused && globalStateService.isIE">Vid sökning göms detta innehåll i Internet Explorer då det annars lägger sig över sökresultaten.</div>
+    <iframe [src]="getSafeDocumentUrl()" [style.visibility]="globalStateService.searchInputFocused && globalStateService.isIE ? 'hidden' : 'visible'"></iframe>
 </div>
 
 <div *ngIf="showingDocument && mobileBrowser">

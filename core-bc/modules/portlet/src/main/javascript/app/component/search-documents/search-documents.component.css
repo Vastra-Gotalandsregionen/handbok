@@ -63,3 +63,22 @@ md-icon {
     position: relative;
     top: 6px;
 }
+
+.global-tip {
+    background: #323232;
+    border-radius: 0 0 3px 3px;
+    color: #fff;
+    display: none;
+    left: calc(50% - 250px);
+    padding: 4px 12px;
+    position: fixed;
+    top: 0;
+    width: 500px;
+    z-index: 1;
+}
+
+@media screen and (orientation: landscape) {
+    .global-tip {
+        display: block;
+    }
+}
