@@ -74,7 +74,6 @@ export class SearchDocumentsComponent implements OnInit {
 
             if (!this.mobileBrowser) {
                 this.router.navigate(['/user/ifeed/' + entry.ifeed.id], extras);
-
             } else {
                 window.location.href = this.getDocumentUrl(entry.document);
             }

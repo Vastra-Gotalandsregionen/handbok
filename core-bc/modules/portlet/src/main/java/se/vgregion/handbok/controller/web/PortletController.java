@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.WebKeys;
+import com.liferay.portal.model.Group;
+import com.liferay.portal.model.Layout;
 import com.liferay.portal.model.User;
 import com.liferay.portal.theme.ThemeDisplay;
 import org.slf4j.Logger;
@@ -63,6 +65,16 @@ public class PortletController {
         model.addAttribute("authenticatedUser", userScreenName);
         model.addAttribute("portletResourcePk", resourcePK);
         model.addAttribute("portletAppContextPath", request.getContextPath() + "/");
+
+        // E.g. /group/guest/handbok
+        Layout layout = themeDisplay.getLayout();
+        Group scopeGroup = themeDisplay.getScopeGroup();
+
+        String basePath = scopeGroup.getPathFriendlyURL(layout.isPrivateLayout(), themeDisplay)
+                + scopeGroup.getFriendlyURL() + layout.getFriendlyURL();
+
+        String angularBase = basePath + "/-/a"; // Careful not to change this in liferay-portlet.xml.
+        model.addAttribute("angularBase", angularBase);
 
         PortletSelectedIfeedList selected = portletSelectedIfeedListRepository.findOne(resourcePK);
 

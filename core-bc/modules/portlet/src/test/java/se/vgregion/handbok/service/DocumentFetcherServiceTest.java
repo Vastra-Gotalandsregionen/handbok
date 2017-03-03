@@ -35,7 +35,7 @@ public class DocumentFetcherServiceTest {
         Spark.get("/", (req, res) -> baos.toString("UTF-8"));
 
         // Give Spark time to spin up the server asynchronously.
-        Thread.sleep(100);
+        Thread.sleep(200);
 
         DocumentFetcherService service = new DocumentFetcherService("http://localhost:9876");
 

@@ -1,15 +1,21 @@
 import { Injectable }     from '@angular/core';
-import { CanActivate }    from '@angular/router';
+import { CanActivate, Router }    from '@angular/router';
 import { GlobalStateService } from "./global-state.service";
 
 @Injectable()
 export class AdminGuard implements CanActivate {
 
 
-    constructor(private globalStateService: GlobalStateService) {
+    constructor(private globalStateService: GlobalStateService,
+                private router: Router) {
     }
 
     canActivate(): boolean {
-        return this.globalStateService.hasAdminPermission;
+        if (this.globalStateService.hasAdminPermission) {
+            return true;
+        } else {
+            this.router.navigate(['/']);
+            return false;
+        }
     }
 }

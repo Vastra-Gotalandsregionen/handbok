@@ -168,20 +168,12 @@ export class IfeedComponent implements OnInit, OnChanges {
         this.showingDocument = true;
     }
 
-    openInNewPage(document: Document, event: Event): boolean {
-        this.currentDocument = document;
-        window.location.href = this.getDocumentUrl();
-        return false;
-    }
-
     getSafeDocumentUrl(): SafeUrl {
         return this.documentUrl;
     }
 
-    backToList(): void {
-        this.showingDocument = false;
-        this.currentDocument = null;
-        this.globalStateService.currentDocumentTitle = null;
+    getDocumentUrlForDocument(document: Document): string {
+        return this.documentBaseUrl + this.encodeURI(document.urlSafeUrl) + '/' + document.ifeedIdHmac;
     }
 
     getDocumentUrl(): string {
