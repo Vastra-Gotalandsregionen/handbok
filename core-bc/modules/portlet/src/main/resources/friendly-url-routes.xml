@@ -4,7 +4,13 @@
 <routes>
 
 	<route>
-		<pattern>/</pattern>
+		<pattern>/view</pattern>
+		<implicit-parameter name="p_p_mode">view</implicit-parameter>
+	</route>
+
+	<route>
+		<pattern>/edit</pattern>
+		<implicit-parameter name="p_p_mode">edit</implicit-parameter>
 	</route>
 
 </routes>

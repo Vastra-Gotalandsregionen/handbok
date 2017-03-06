@@ -1,6 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 
-<base href="${angularBase}">
+<base href="${angularBase}/view">
 <style>
     app-root .icon.icon-spinner {
         animation: rotate .8s infinite;
