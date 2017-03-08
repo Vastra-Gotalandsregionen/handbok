@@ -14,7 +14,9 @@
     </ul>
 </div>
 
-<loading-indicator *ngIf="documents === null || documents.length === 0"></loading-indicator>
+<loading-indicator *ngIf="documents === null"></loading-indicator>
+
+<div *ngIf="documents !== null && documents.length === 0">Kapitlet innehåller inga dokument / avsnitt.</div>
 
 <div *ngIf="showingDocument">
 
