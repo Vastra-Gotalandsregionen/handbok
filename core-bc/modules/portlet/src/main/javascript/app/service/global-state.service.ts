@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Ifeed} from "../model/ifeed.model";
+import {Observable, Subscriber} from "rxjs";
 
 @Injectable()
 export class GlobalStateService {
@@ -17,6 +18,15 @@ export class GlobalStateService {
     portletResourcePk: string;
     searchInputFocused: boolean;
     isIE: boolean;
+
+    resetDocumentObservable$: Observable<void>;
+    observer: Subscriber<void>;
+
+    constructor() {
+        this.resetDocumentObservable$ = Observable.create((observer: any) => {
+            this.observer = observer;
+        });
+    }
 
     setCurrentIfeedId(id: string): void {
         this.currentIfeedId = id;
@@ -51,5 +61,11 @@ export class GlobalStateService {
     setIfeeds(ifeeds: [Ifeed]) {
         this.ifeeds = ifeeds;
         this.updateIfeedName();
+    }
+
+    resetDocument(): void {
+        if (this.observer) {
+            this.observer.next();
+        }
     }
 }

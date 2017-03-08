@@ -16,6 +16,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.portlet.bind.annotation.RenderMapping;
 import org.springframework.web.portlet.bind.annotation.ResourceMapping;
+import se.vgregion.handbok.model.IfeedList;
 import se.vgregion.handbok.model.PortletSelectedIfeedList;
 import se.vgregion.handbok.repository.IfeedListRepository;
 import se.vgregion.handbok.repository.PortletSelectedIfeedListRepository;
@@ -79,8 +80,10 @@ public class PortletController {
         PortletSelectedIfeedList selected = portletSelectedIfeedListRepository.findOne(resourcePK);
 
         if (selected != null) {
-            String bookName = selected.getIfeedList().getName();
+            IfeedList ifeedList = selected.getIfeedList();
+            String bookName = ifeedList.getName();
             model.addAttribute("bookName", bookName);
+            model.addAttribute("bookId", ifeedList.getId());
 
             boolean hasAdminPermission = isHasAdminPermission(themeDisplay, bookName);
             model.addAttribute("hasAdminPermission", hasAdminPermission);

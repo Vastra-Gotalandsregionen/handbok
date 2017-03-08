@@ -52,24 +52,9 @@ export class AdminComponent implements OnInit, OnDestroy {
         });
     }
 
-    /*post(): void {
-        let subscribeToRequest: Observable<Response> = this.http.post(this.ifeedService.ajaxUrl + "/ifeed...", "?data={'key':'value'}");
-
-        let currentSubscription = subscribeToRequest
-            .map(response => response.json())
-            .subscribe(
-                json => {
-                    console.log(json);
-                },
-                err => {
-                    this.errorHandler.notifyError(err);
-                }
-            );
-    }*/
-
     ngOnInit(): void {
 
-        this.http.get(this.globalStateService.ajaxUrl + "/ifeed/" + this.globalStateService.bookName)
+        this.http.get(this.globalStateService.ajaxUrl + "/ifeed/" + this.globalStateService.bookId)
             .map(response => response.json())
             .subscribe(
                 json => {

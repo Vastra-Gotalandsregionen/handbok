@@ -116,15 +116,15 @@ public class ViewRestControllerTest {
 
     @Test
     public void getIfeedList() throws Exception {
-        String name = "ifeedList2";
-        ResponseEntity<IfeedList> ifeedList2 = viewRestController.getIfeedList(name);
+        IfeedList ifeedList = ifeedListRepository.findAll().get(0);
+        ResponseEntity<IfeedList> ifeedList2 = viewRestController.getIfeedList(ifeedList.getId());
 
-        assertEquals(name, ifeedList2.getBody().getName());
+        assertEquals((long) ifeedList.getId(), (long) ifeedList2.getBody().getId());
     }
 
     @Test
     public void queryDocumentTitles() throws Exception {
-        ResponseEntity<DocumentQueryResponse> response = viewRestController.queryDocumentTitles("ifeedList1", "doc");
+        ResponseEntity<DocumentQueryResponse> response = viewRestController.queryDocumentTitles(ifeedList1.getId(), "doc");
 
         int count = 0;
         for (DocumentQueryResponseEntry responseEntry : response.getBody().getDocumentQueryResponseEntry()) {
@@ -136,7 +136,7 @@ public class ViewRestControllerTest {
 
     @Test
     public void queryDocumentTitlesSubjectKeywords() throws Exception {
-        ResponseEntity<DocumentQueryResponse> response = viewRestController.queryDocumentTitles("ifeedList1", "ubjectKey");
+        ResponseEntity<DocumentQueryResponse> response = viewRestController.queryDocumentTitles(ifeedList1.getId(), "ubjectKey");
 
         int count = 0;
         for (DocumentQueryResponseEntry responseEntry : response.getBody().getDocumentQueryResponseEntry()) {
@@ -148,7 +148,7 @@ public class ViewRestControllerTest {
 
     @Test
     public void queryDocumentTitlesSubjectAuthorkeywords() throws Exception {
-        ResponseEntity<DocumentQueryResponse> response = viewRestController.queryDocumentTitles("ifeedList1", "subjectAuthorkeyword");
+        ResponseEntity<DocumentQueryResponse> response = viewRestController.queryDocumentTitles(ifeedList1.getId(), "subjectAuthorkeyword");
 
         int count = 0;
         for (DocumentQueryResponseEntry responseEntry : response.getBody().getDocumentQueryResponseEntry()) {
@@ -173,7 +173,6 @@ public class ViewRestControllerTest {
 
         IOUtils.copy(document.getBody().getInputStream(), output);
         assertEquals("theContent", new String(output.toString("UTF-8")));
-
     }
 
     @Test

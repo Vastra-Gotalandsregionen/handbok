@@ -29,7 +29,7 @@ export class EditComponent implements OnInit {
         this.loadIfeedLists();
 
         if (this.globalStateService.bookName) {
-            this.restService.getIfeedList(this.globalStateService.bookName).subscribe((ifeedList: IfeedList) => {
+            this.restService.getIfeedList(this.globalStateService.bookId).subscribe((ifeedList: IfeedList) => {
                 this.ifeedList = ifeedList;
                 setTimeout(() => {
                     // For some reason this must be made async. Otherwise the select component isn't updated with the correct set value.
@@ -78,11 +78,6 @@ export class EditComponent implements OnInit {
         this.ifeedLists.splice(index, 1);
     }
 
-    changeName(newName: string) {
-        console.log(this.ifeedList.name + " -> " + newName);
-        // this.restService.changeIfeedListName(this.ifeedList.id, newName);
-    }
-
     getPortletResourcePk(): string {
         return this.globalStateService.portletResourcePk;
     }
@@ -97,6 +92,7 @@ export class EditComponent implements OnInit {
         let selectedIfeedList = this.getSelectedIfeedList(this.selectedIfeedListId);
         let portletSelectedIfeedList = new PortletSelectedIfeedList(this.getPortletResourcePk(), selectedIfeedList);
         this.globalStateService.bookName = selectedIfeedList.name;
+        this.globalStateService.bookId = selectedIfeedList.id;
         return this.restService.saveSelectedIfeedList(portletSelectedIfeedList);
     }
 

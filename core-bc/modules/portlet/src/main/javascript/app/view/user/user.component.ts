@@ -5,6 +5,7 @@ import 'rxjs/add/operator/map';
 import {GlobalStateService} from "../../service/global-state.service";
 import {Ifeed} from "../../model/ifeed.model";
 import {ErrorHandler} from "../../service/ErrorHandler";
+import {Router} from "@angular/router";
 
 @Component({
     templateUrl: './user.component.html',
@@ -18,7 +19,8 @@ export class UserComponent implements OnInit {
 
     constructor(private http: Http,
                 private globalStateService: GlobalStateService,
-                private errorHandler: ErrorHandler) {
+                private errorHandler: ErrorHandler,
+                private router: Router) {
     }
 
     ngOnInit(): void {
@@ -28,7 +30,7 @@ export class UserComponent implements OnInit {
         this.globalStateService.currentDocumentTitle = null;
 
         this.hasAdminPermission = this.globalStateService.hasAdminPermission;
-        let observableResponse:Observable<Response> = this.http.get(this.globalStateService.ajaxUrl + "/ifeed/" + this.globalStateService.bookName);
+        let observableResponse:Observable<Response> = this.http.get(this.globalStateService.ajaxUrl + "/ifeed/" + this.globalStateService.bookId);
         observableResponse
             .map(response => response.json())
             .subscribe(
@@ -56,5 +58,16 @@ export class UserComponent implements OnInit {
 
     getBookName(): string {
         return this.globalStateService.bookName;
+    }
+
+    goToIfeed(ifeedId: string): boolean {
+        this.globalStateService.resetDocument();
+
+        setTimeout(() => {
+            this.router.navigate(['/user/ifeed/' + ifeedId]);
+        });
+
+        // Like preventDefault().
+        return false;
     }
 }

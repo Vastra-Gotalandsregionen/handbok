@@ -23,8 +23,8 @@ export class RestService {
         return this.http.get(this.globalStateService.ajaxUrl + "/ifeed").map(response => <IfeedList[]>response.json());
     }
 
-    public getIfeedList(ifeedListName: string): Observable<IfeedList> {
-        return this.http.get(this.globalStateService.ajaxUrl + "/ifeed/" + ifeedListName).map(response => <IfeedList>response.json());
+    public getIfeedList(ifeedListId: number): Observable<IfeedList> {
+        return this.http.get(this.globalStateService.ajaxUrl + "/ifeed/" + ifeedListId).map(response => <IfeedList>response.json());
     }
 
     public saveIfeedList(ifeedList: IfeedList): Observable<IfeedList> {
@@ -49,7 +49,7 @@ export class RestService {
             .map(response => <PortletSelectedIfeedList>response.json());
     }
 
-    public queryIfeedListDocuments(ifeedListName: string, query: string): Observable<QueryResponse> {
+    public queryIfeedListDocuments(ifeedListId: number, query: string): Observable<QueryResponse> {
         if (!query) {
             let queryResponse = new QueryResponse();
             return Observable.of(queryResponse);
@@ -65,6 +65,6 @@ export class RestService {
             search: params
         });
 
-        return this.http.get(this.globalStateService.ajaxUrl + "/ifeedList/" + ifeedListName + "/document", options).map(response => <QueryResponse>response.json());
+        return this.http.get(this.globalStateService.ajaxUrl + "/ifeedList/" + ifeedListId + "/document", options).map(response => <QueryResponse>response.json());
     }
 }

@@ -1,7 +1,7 @@
 import {Component, OnInit, OnChanges, SimpleChanges, ChangeDetectorRef} from '@angular/core';
 import {Response} from "@angular/http";
 import {Observable, Subscription}     from 'rxjs';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, CanDeactivate, Router} from "@angular/router";
 import 'rxjs/add/operator/map';
 import {DomSanitizer, SafeUrl, SafeResourceUrl} from "@angular/platform-browser";
 import {GlobalStateService} from "../../../service/global-state.service";
@@ -27,7 +27,10 @@ export class IfeedComponent implements OnInit, OnChanges {
     documentUrl: SafeResourceUrl;
     mobileBrowser: boolean;
 
+    resetDocumentObservable$: Observable<void>;
+
     constructor(private route: ActivatedRoute,
+                private router: Router,
                 private sanitizer: DomSanitizer,
                 private ref: ChangeDetectorRef,
                 public globalStateService: GlobalStateService,
@@ -39,8 +42,12 @@ export class IfeedComponent implements OnInit, OnChanges {
 
     ngOnInit(): void {
 
-        console.log("params: " + this.route.params);
-        console.log("queryparams: " + this.route.queryParams);
+        this.resetDocumentObservable$ = this.globalStateService.resetDocumentObservable$;
+
+        // Construct to mitigate strange behavior in IE where view turns all white.
+        this.resetDocumentObservable$.subscribe(() => {
+            this.resetIframeUrl();
+        });
 
         let urlSafeUrl: string = null;
         let ifeedIdHmac: string = null;
@@ -158,7 +165,8 @@ export class IfeedComponent implements OnInit, OnChanges {
         this.globalStateService.currentDocumentTitle = document.title;
 
         if (!this.mobileBrowser) {
-            let safeResourceUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.documentBaseUrl + this.encodeURI(this.currentDocument.urlSafeUrl) + '/' + this.currentDocument.ifeedIdHmac);
+            let safeResourceUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.documentBaseUrl
+                + this.encodeURI(this.currentDocument.urlSafeUrl) + '/' + this.currentDocument.ifeedIdHmac);
 
             this.documentUrl = safeResourceUrl;
         } else {
@@ -177,6 +185,21 @@ export class IfeedComponent implements OnInit, OnChanges {
     }
 
     getDocumentUrl(): string {
-        return this.documentBaseUrl + this.encodeURI(this.currentDocument.urlSafeUrl) + '/' + this.currentDocument.ifeedIdHmac;
+        return this.documentBaseUrl + this.encodeURI(this.currentDocument.urlSafeUrl) + '/'
+            + this.currentDocument.ifeedIdHmac;
+    }
+
+    backToList(): void {
+        this.resetIframeUrl();
+
+        // Asynchronous since it mitigates an issue in IE where the screen just turns white for a while
+        setTimeout(() => {
+            this.router.navigate(['/user/ifeed/' + this.globalStateService.getCurrentIfeedId()]);
+        });
+    }
+
+    resetIframeUrl() {
+        console.log('resetting...');
+        this.documentUrl = this.sanitizer.bypassSecurityTrustResourceUrl("about:blank");
     }
 }

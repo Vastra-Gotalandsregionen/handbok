@@ -78,7 +78,10 @@ public class EditController {
         PortletSelectedIfeedList selected = portletSelectedIfeedListRepository.findOne(resourcePK);
 
         if (selected != null) {
-            model.addAttribute("bookName", selected.getIfeedList().getName());
+            IfeedList ifeedList = selected.getIfeedList();
+            String bookName = ifeedList.getName();
+            model.addAttribute("bookName", bookName);
+            model.addAttribute("bookId", ifeedList.getId());
         }
 
         model.addAttribute("editMode", true);

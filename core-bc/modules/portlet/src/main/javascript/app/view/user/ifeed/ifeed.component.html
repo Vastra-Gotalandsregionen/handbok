@@ -1,27 +1,37 @@
-<ul *ngIf="!showingDocument && !mobileBrowser" class="nav nav-pills nav-stacked">
-    <li *ngFor="let document of documents" >
-        <a routerLink="/user/ifeed/{{id}}" [queryParams]="{'urlSafeUrl': document.urlSafeUrl, 'ifeedIdHmac': document.ifeedIdHmac}">{{document.title}}</a>
-    </li>
-</ul>
+<div *ngIf="!showingDocument">
+    <h5>Dokument / Avsnitt</h5>
 
-<ul *ngIf="!showingDocument && mobileBrowser" class="nav nav-pills nav-stacked">
-    <li *ngFor="let document of documents" >
-        <a href="{{getDocumentUrlForDocument(document)}}">{{document.title}}</a>
-    </li>
-</ul>
+    <ul *ngIf="!mobileBrowser" class="nav nav-pills nav-stacked">
+        <li *ngFor="let document of documents">
+            <a routerLink="/user/ifeed/{{id}}" [queryParams]="{'urlSafeUrl': document.urlSafeUrl, 'ifeedIdHmac': document.ifeedIdHmac}"><i class="icon-caret-right"></i> {{document.title}}</a>
+        </li>
+    </ul>
+
+    <ul *ngIf="mobileBrowser" class="nav nav-pills nav-stacked">
+        <li *ngFor="let document of documents">
+            <a href="{{getDocumentUrlForDocument(document)}}"><i class="icon-caret-right"></i>{{document.title}}</a>
+        </li>
+    </ul>
+</div>
 
 <loading-indicator *ngIf="documents === null || documents.length === 0"></loading-indicator>
 
-<div *ngIf="showingDocument" class="button-row">
-    <span><a class="btn btn-primary" routerLink="/user/ifeed/{{id}}" ><i class="icon-arrow-left"></i> Tillbaka</a></span>
-    <span><a class="btn btn-primary" href="{{documentBaseUrl + encodeURI(currentDocument.urlSafeUrl) + '/' + currentDocument.ifeedIdHmac}}"><i class="icon-external-link"></i> Öppna helsida</a></span>
-</div>
+<div *ngIf="showingDocument">
 
-<div *ngIf="showingDocument && !mobileBrowser">
-    <div *ngIf="globalStateService.searchInputFocused && globalStateService.isIE">Vid sökning göms detta innehåll i Internet Explorer då det annars lägger sig över sökresultaten.</div>
-    <iframe [src]="getSafeDocumentUrl()" [style.visibility]="globalStateService.searchInputFocused && globalStateService.isIE ? 'hidden' : 'visible'"></iframe>
-</div>
+    <div class="button-row">
+        <span><a class="btn btn-primary" (click)="backToList()" ><i class="icon-arrow-left"></i> Tillbaka</a></span>
+        <span><a class="btn btn-primary" href="{{documentBaseUrl + encodeURI(currentDocument.urlSafeUrl) + '/' + currentDocument.ifeedIdHmac}}"><i class="icon-external-link"></i> Öppna helsida</a></span>
+    </div>
 
-<div *ngIf="showingDocument && mobileBrowser">
-    <em>{{currentDocument.title}}</em> öppnas i externt program.
+    <h5>{{currentDocument.title}}</h5>
+
+    <div *ngIf="!mobileBrowser">
+        <div *ngIf="globalStateService.searchInputFocused && globalStateService.isIE">Vid sökning göms detta innehåll i Internet Explorer då det annars lägger sig över sökresultaten.</div>
+        <iframe [src]="getSafeDocumentUrl()" [style.visibility]="globalStateService.searchInputFocused && globalStateService.isIE ? 'hidden' : 'visible'"></iframe>
+    </div>
+
+    <div *ngIf="mobileBrowser">
+        <em>{{currentDocument.title}}</em> öppnas i externt program.
+    </div>
+
 </div>

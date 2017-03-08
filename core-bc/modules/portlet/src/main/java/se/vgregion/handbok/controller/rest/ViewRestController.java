@@ -117,38 +117,31 @@ public class ViewRestController {
         return ifeedListRepository.findAll();
     }
 
-    @RequestMapping(value = "/ifeed/{nameOrId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/ifeed/{id}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public ResponseEntity<IfeedList> getIfeedList(@PathVariable("nameOrId") String nameOrId) throws SystemException {
+    public ResponseEntity<IfeedList> getIfeedList(@PathVariable("id") Long id) throws SystemException {
 
-        IfeedList ifeedList = ifeedListRepository.findByName(nameOrId);
+        try {
+            IfeedList ifeedList = ifeedListRepository.findOne(id);
 
-        if (ifeedList == null) {
-            try {
-                long id = Long.parseLong(nameOrId);
-                ifeedList = ifeedListRepository.findOne(id);
-
-                if (ifeedList != null) {
-                    return ResponseEntity.ok(ifeedList);
-                }
-            } catch (NumberFormatException e) {
-                // Not an id = ok
+            if (ifeedList != null) {
+                return ResponseEntity.ok(ifeedList);
             }
-
-            return ResponseEntity.notFound().build();
+        } catch (NumberFormatException e) {
+            LOGGER.error(e.getMessage(), e);
         }
 
-        return ResponseEntity.ok(ifeedList);
+        return ResponseEntity.notFound().build();
     }
 
-    @RequestMapping(value = "/ifeedList/{ifeedName}/document", method = RequestMethod.GET)
+    @RequestMapping(value = "/ifeedList/{ifeedListId}/document", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public ResponseEntity<DocumentQueryResponse> queryDocumentTitles(@PathVariable("ifeedName") String ifeedListName,
+    public ResponseEntity<DocumentQueryResponse> queryDocumentTitles(@PathVariable("ifeedListId") Long ifeedListId,
                                                                      @RequestParam("query") String query) throws SystemException {
 
-        IfeedList ifeedList = ifeedListRepository.findByName(ifeedListName);
+        IfeedList ifeedList = ifeedListRepository.findOne(ifeedListId);
 
         if (ifeedList == null) {
             return ResponseEntity.notFound().build();

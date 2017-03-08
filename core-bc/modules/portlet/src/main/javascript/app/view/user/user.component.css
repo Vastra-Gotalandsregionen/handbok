@@ -3,7 +3,8 @@
     word-wrap: break-word;
 }
 
-.left-column {
+.column.left-column {
+    padding-right: 16px;
     width: 200px;
 }
 

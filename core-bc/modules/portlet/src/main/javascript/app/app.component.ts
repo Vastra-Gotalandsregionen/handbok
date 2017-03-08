@@ -24,6 +24,7 @@ export class AppComponent {
         globalStateService.resourceUrl = elm.nativeElement.attributes['resource-url'].value;
         globalStateService.hasAdminPermission = elm.nativeElement.attributes['has-admin-permission'].value === 'true';
         globalStateService.bookName = elm.nativeElement.attributes['book-name'].value;
+        globalStateService.bookId = elm.nativeElement.attributes['book-id'].value;
 
         let jwtToken = elm.nativeElement.attributes['jwt-token'].value;
         sessionStorage.setItem('jwtToken', jwtToken);

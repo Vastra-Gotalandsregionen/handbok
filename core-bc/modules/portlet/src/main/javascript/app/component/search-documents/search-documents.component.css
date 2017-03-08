@@ -59,9 +59,9 @@ div.mat-autocomplete-panel {
     max-height: 50vh;
 }
 
-md-icon {
+.icon-search {
     position: relative;
-    top: 6px;
+    top: 5px;
 }
 
 .global-tip {

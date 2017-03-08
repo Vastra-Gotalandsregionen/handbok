@@ -33,7 +33,7 @@ export class SearchDocumentsComponent implements OnInit {
         this.stateCtrl = new FormControl();
         this.searchResults = this.stateCtrl.valueChanges
             .startWith(null)
-            .mergeMap(query => this.restService.queryIfeedListDocuments(this.globalStateService.bookName, query))
+            .mergeMap(query => this.restService.queryIfeedListDocuments(this.globalStateService.bookId, query))
             .map((queryResponse: QueryResponse) => queryResponse.queryResponseEntries);
     }
 

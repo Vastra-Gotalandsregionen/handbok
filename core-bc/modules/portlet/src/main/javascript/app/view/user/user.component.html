@@ -2,9 +2,7 @@
 
     <div class="panel-heading clearfix">
         <h4 class="panel-title">
-            {{getBookName()}}&nbsp;&nbsp;<i class="icon-caret-right"></i>&nbsp;&nbsp;<span
-                *ngIf="getCurrentIfeedName() == null">Välj kategori</span> {{getCurrentIfeedName()}} <span
-                *ngIf="getCurrentDocumentTitle() != null">&nbsp;&nbsp;<i class="icon-caret-right"></i>&nbsp;&nbsp;{{getCurrentDocumentTitle()}}</span>
+            {{getBookName()}}
         </h4>
 
         <span class="left-float" *ngIf="hasAdminPermission">
@@ -24,7 +22,10 @@
                 <h5>Kapitel</h5>
                 <ul class="nav nav-pills nav-stacked">
                     <li *ngFor="let ifeed of ifeeds">
-                        <a routerLink="/user/ifeed/{{ifeed.id}}" routerLinkActive="active">
+                        <a *ngIf="!globalStateService.isIE" routerLink="/user/ifeed/{{ifeed.id}}" routerLinkActive="active">
+                            {{ifeed.name}}
+                        </a>
+                        <a *ngIf="globalStateService.isIE" href="" (click)="goToIfeed(ifeed.id);" routerLinkActive="active" class="{{ifeed.id === getCurrentIfeedId() ? 'active' : ''}}">
                             {{ifeed.name}}
                         </a>
                     </li>
@@ -32,7 +33,6 @@
             </div>
 
             <div class="column right-column">
-                <h5>Dokument / Avsnitt</h5>
                 <div *ngIf="needsConfiguration">Denna portlet behöver konfigureras för en handbok i inställningar.</div>
 
                 <router-outlet></router-outlet>
