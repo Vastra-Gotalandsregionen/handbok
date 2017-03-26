@@ -25,7 +25,7 @@ module.exports = {
         'style': './src/main/sass/app.scss'*/
     },
     output: {
-        path: './src/main/webapp',
+        path: __dirname + '/src/main/webapp',
         filename: 'js/[name].js'
         /**filename: 'asset/[name].[hash].js'*/
     },

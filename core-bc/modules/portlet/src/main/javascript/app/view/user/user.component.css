@@ -13,7 +13,7 @@
 }
 
 @media (max-width: 768px) {
-    .left-column {
+    .column.left-column {
         width: 160px;
     }
 
