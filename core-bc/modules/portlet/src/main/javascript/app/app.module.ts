@@ -24,6 +24,7 @@ import {EditGuard} from "./service/edit-guard.service";
 import {FeedbackButtonComponent} from "./component/feedback-button/feedback-button.component";
 import {SearchDocumentsComponent} from "./component/search-documents/search-documents.component";
 import {UtilityService} from "./service/utility.service";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 export function authHttpServiceFactory(http: Http, options: RequestOptions, jwtHelper: JwtHelper, globalStateService: GlobalStateService) {
     return new RefreshTokenAuthHttp(new AuthConfig({
@@ -36,6 +37,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions, jwtH
 @NgModule({
     imports: [
         AppRoutingModule,
+        BrowserAnimationsModule,
         BrowserModule,
         CommonModule,
         DragulaModule,

@@ -1,14 +1,13 @@
 <i class="icon-search"></i>
 <md-input-container>
-    <input mdInput placeholder="Sök" [mdAutocomplete]="auto" [formControl]="stateCtrl" [(ngModel)]="selectedEntry"
-           (focus)="onFocus()" (blur)="onBlur()" (keyup)="onKeyUp()">
+    <input mdInput placeholder="Sök" [mdAutocomplete]="auto" [formControl]="stateCtrl" [(ngModel)]="selectedEntry" (ngModelChange)="onModelChanges($event)"
+           (focus)="onFocus()" (blur)="onBlur()" (keyup)="onKeyUp()" (click)="onClickInput()">
 </md-input-container>
 <md-autocomplete #auto="mdAutocomplete" [displayWith]="displayFn">
     <ul class="search-result-list">
         <li *ngFor="let entry of searchResults | async">
             <div class="search-result-option-section">{{entry.ifeed.name}}</div>
-            <md-option *ngFor="let document of entry.documents" [value]="{'document': document, 'ifeed': entry.ifeed}"
-                       (click)="onClick()">
+            <md-option *ngFor="let document of entry.documents" [value]="{'document': document, 'ifeed': entry.ifeed}">
                 {{ document.title }}
             </md-option>
         </li>

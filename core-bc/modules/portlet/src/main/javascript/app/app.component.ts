@@ -8,7 +8,7 @@ import {Router} from "@angular/router";
     templateUrl: './app.component.html',
     styleUrls: [
         './app.component.css',
-        '../../../../node_modules/@angular/material/core/theming/prebuilt/deeppurple-amber.css'
+        '../../../../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css'
     ],
     encapsulation: ViewEncapsulation.None
 })

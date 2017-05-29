@@ -43,7 +43,6 @@ export class SearchDocumentsComponent implements OnInit {
     }
 
     onFocus(): any {
-        this.selectedEntry = null;
         this.searchInputFocused = this.globalStateService.searchInputFocused = true;
     }
 
@@ -51,8 +50,14 @@ export class SearchDocumentsComponent implements OnInit {
         this.searchInputFocused = this.globalStateService.searchInputFocused = false;
     }
 
-    onClick(): any {
-        this.goto(this.selectedEntry);
+    onModelChanges($event: any): any {
+        if (this.selectedEntry) {
+            this.goto(this.selectedEntry);
+        }
+    }
+
+    onClickInput(): any {
+        this.selectedEntry = null;
     }
 
     toString(object: any): string {
@@ -65,6 +70,9 @@ export class SearchDocumentsComponent implements OnInit {
 
     private goto(entry: DocumentAndIfeedEntry): void {
         if (typeof entry === 'object') {
+            window.focus(); // We don't want the user to continue writing in the search field. If the user wants to search for more he/she clicks in the field to clear it.
+            setTimeout(() => window.focus(), 100); // To be sure it's made.
+
             let extras = {
                 queryParams: {
                     urlSafeUrl: entry.document.urlSafeUrl,
