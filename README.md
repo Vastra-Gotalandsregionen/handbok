@@ -36,18 +36,23 @@ specific portlet instance uses is made.
 
 At the bottom section the users' VGR ID is given in order to give them access to the "Administrera" link and view.
 
+The project is part of the Region of Västra Götaland's commitment to open source software within
+[Öppna Program](http://vastra-gotalandsregionen.github.io/oppna-program/). 
+
 ## Software
 
 The application is a portlet with a small layer of <i>Spring Portlet MVC</i> and <i>Angular</i> as front-end technology.
 The front-end communicates with a Spring Rest back-end. The rest back-end is stateless but is deployed in the portlet
-war file.
+war file. The persistence is kept in a PostgreSQL database.
 
 The major software components/frameworks are listed below:
 
 * Liferay Portal 6.2
 * Spring Portlet MVC 4.3.6
 * Spring Framework 4.3.6
+* Hibernate
 * Angular
+* PostgreSQL 9.5
 
 ## Authentication / authorization
 
