@@ -3,13 +3,19 @@
 
     <ul *ngIf="!mobileBrowser" class="nav nav-pills nav-stacked">
         <li *ngFor="let document of documents">
-            <a routerLink="/user/ifeed/{{id}}" [queryParams]="{'urlSafeUrl': document.urlSafeUrl, 'ifeedIdHmac': document.ifeedIdHmac}"><i class="icon-caret-right"></i> {{document.title}}</a>
+            <a routerLink="/user/ifeed/{{id}}" [queryParams]="{'urlSafeUrl': document.urlSafeUrl, 'ifeedIdHmac': document.ifeedIdHmac}">
+                <i class="icon-caret-right"></i> {{document.title}}
+                <div *ngIf="ifeed.showPublishedFor" class="published-for">{{document['dc.publisher.forunit.flat']}}</div>
+            </a>
         </li>
     </ul>
 
     <ul *ngIf="mobileBrowser" class="nav nav-pills nav-stacked">
         <li *ngFor="let document of documents">
-            <a href="{{getDocumentUrlForDocument(document)}}"><i class="icon-caret-right"></i>{{document.title}}</a>
+            <a href="{{getDocumentUrlForDocument(document)}}">
+                <i class="icon-caret-right"></i>{{document.title}}
+                <div *ngIf="ifeed.showPublishedFor" class="published-for">{{document['dc.publisher.forunit.flat']}}</div>
+            </a>
         </li>
     </ul>
 </div>

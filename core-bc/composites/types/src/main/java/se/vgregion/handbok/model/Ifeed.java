@@ -18,6 +18,8 @@ public class Ifeed {
 
     private String sort;
 
+    private Boolean showPublishedFor;
+
     @ManyToOne
     private IfeedList ifeedList;
 
@@ -73,5 +75,13 @@ public class Ifeed {
 
     public void setSort(String sort) {
         this.sort = sort;
+    }
+
+    public Boolean getShowPublishedFor() {
+        return showPublishedFor;
+    }
+
+    public void setShowPublishedFor(Boolean showPublishedFor) {
+        this.showPublishedFor = showPublishedFor;
     }
 }

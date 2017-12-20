@@ -94,6 +94,14 @@ public class ViewRestController {
     @RequestMapping(value = "/ifeed/{id}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
+    public ResponseEntity<Ifeed> getIfeed(@PathVariable("id") String ifeedId) {
+        Ifeed ifeed = ifeedRepository.findById(ifeedId);
+        return ResponseEntity.ok(ifeed);
+    }
+
+    @RequestMapping(value = "/ifeedList/{id}", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
     public ResponseEntity<IfeedList> getIfeedList(@PathVariable("id") Long id) throws SystemException {
 
         try {

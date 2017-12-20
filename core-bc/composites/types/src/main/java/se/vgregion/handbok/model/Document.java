@@ -25,6 +25,8 @@ public class Document implements Serializable {
     private String[] dcSubjectAuthorkeywords;
     @JsonProperty(value = "dc.date.issued")
     private Date dcDateIssued;
+    @JsonProperty(value = "dc.publisher.forunit.flat")
+    private String dcPublisherForUnitFlat;
 
     public Document() {
     }
@@ -106,5 +108,13 @@ public class Document implements Serializable {
 
     public void setDcDateIssued(Date dcDateIssued) {
         this.dcDateIssued = dcDateIssued;
+    }
+
+    public String getDcPublisherForUnitFlat() {
+        return dcPublisherForUnitFlat;
+    }
+
+    public void setDcPublisherForUnitFlat(String dcPublisherForUnitFlat) {
+        this.dcPublisherForUnitFlat = dcPublisherForUnitFlat;
     }
 }

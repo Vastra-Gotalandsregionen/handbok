@@ -19,6 +19,7 @@
                     <th>Namn</th>
                     <th>Ifeed-ID</th>
                     <th>Sortering</th>
+                    <th>Visa Publicerad för enhet</th>
                     <th><span tooltip="Dra och släpp för att sortera">Sortera</span></th>
                 </tr>
                 </thead>
@@ -29,6 +30,9 @@
                     <td>
                         Titel <input type="radio" name="{{ifeed.id}}-sort" [(ngModel)]="ifeed.sort" value="title"/>
                         Publiceringsdatum <input type="radio" name="{{ifeed.id}}-sort" [(ngModel)]="ifeed.sort" value="issuedDate"/>
+                    </td>
+                    <td>
+                        <input type="checkbox" [(ngModel)]="ifeed.showPublishedFor"/>
                     </td>
                     <td class="center"><i class="icon-move handle"></i></td>
                     <td>

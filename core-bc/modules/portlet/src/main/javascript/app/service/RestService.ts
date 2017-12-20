@@ -15,6 +15,10 @@ export class RestService {
                 private authHttp: AuthHttp) {
     }
 
+    public getIfeed(ifeedId: string): Observable<Response> {
+        return this.http.get(this.globalStateService.ajaxUrl + "/ifeed/" + ifeedId);
+    }
+
     public getDocumentsForIfeed(ifeedId: string): Observable<Response> {
         return this.http.get(this.globalStateService.ajaxUrl + "/ifeed/" + ifeedId + "/document");
     }
@@ -24,7 +28,7 @@ export class RestService {
     }
 
     public getIfeedList(ifeedListId: number): Observable<IfeedList> {
-        return this.http.get(this.globalStateService.ajaxUrl + "/ifeed/" + ifeedListId).map(response => <IfeedList>response.json());
+        return this.http.get(this.globalStateService.ajaxUrl + "/ifeedList/" + ifeedListId).map(response => <IfeedList>response.json());
     }
 
     public saveIfeedList(ifeedList: IfeedList): Observable<IfeedList> {

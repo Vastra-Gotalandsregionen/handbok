@@ -1,4 +1,4 @@
-import {Component, OnInit, OnChanges, SimpleChanges, ChangeDetectorRef} from '@angular/core';
+import {Component, OnInit, OnChanges, SimpleChanges, ChangeDetectorRef, Input} from '@angular/core';
 import {Response} from "@angular/http";
 import {Observable, Subscription}     from 'rxjs';
 import {ActivatedRoute, CanDeactivate, Router} from "@angular/router";
@@ -9,6 +9,7 @@ import {Document} from "../../../model/document.model";
 import {RestService} from "../../../service/RestService";
 import {ErrorHandler} from "../../../service/ErrorHandler";
 import {UtilityService} from "../../../service/utility.service";
+import {Ifeed} from "../../../model/ifeed.model";
 
 @Component({
     selector: 'ifeed',
@@ -20,6 +21,7 @@ export class IfeedComponent implements OnInit, OnChanges {
     sub: Subscription;
     id: string;
     documents: [Document] = null;
+    ifeed: Ifeed;
     documentBaseUrl: string;
     currentSubscription: Subscription = null;
     showingDocument: boolean = false;
@@ -87,6 +89,7 @@ export class IfeedComponent implements OnInit, OnChanges {
                 let nameUsedForFetching = this.id;
 
                 let subscribeToRequest: Observable<Response> = this.restService.getDocumentsForIfeed(this.id);
+                let subscribeToIfeedRequest: Observable<Response> = this.restService.getIfeed(this.id);
 
                 let timerSubscription: Subscription = Observable.timer(250).subscribe(undefined, undefined, () => {
                     this.documents = null;
@@ -95,50 +98,49 @@ export class IfeedComponent implements OnInit, OnChanges {
                     this.documents = null;
                 });
 
-                let currentSubscription = subscribeToRequest
-                    .map(response => response.json())
-                    .subscribe(
-                        json => {
-                            timerSubscription.unsubscribe();
+                let currentSubscription = Observable.forkJoin(subscribeToRequest, subscribeToIfeedRequest)
+                    .subscribe(join => {
+                        timerSubscription.unsubscribe();
 
-                            // Check if if we got the response for the current request and that the client hasn't already requested another feed.
-                            if (nameUsedForFetching === this.id) {
-                                this.documents = <[Document]>json;
+                        // Check if if we got the response for the current request and that the client hasn't already requested another feed.
+                        if (nameUsedForFetching === this.id) {
+                            this.documents = <[Document]>join[0].json();
+                            this.ifeed = <Ifeed>join[1].json();
 
-                                let match: boolean = false;
+                            let match: boolean = false;
 
-                                if (urlSafeUrl !== null) {
-                                    for (let document of this.documents) {
-                                        if (document.urlSafeUrl === urlSafeUrl) {
-                                            match = true;
-                                            this.showDocument(document);
-                                        }
+                            if (urlSafeUrl !== null) {
+                                for (let document of this.documents) {
+                                    if (document.urlSafeUrl === urlSafeUrl) {
+                                        match = true;
+                                        this.showDocument(document);
                                     }
                                 }
-
-                                if (!match) {
-                                    this.showingDocument = false;
-                                    this.currentDocument = null;
-                                    this.globalStateService.currentDocumentTitle = null;
-                                }
-
-                            } else {
-                                console.log("Name has changed after request was made and request is therefore not relevant anymore.");
                             }
 
-                            this.currentSubscription = null;
-                        },
-                        err => {
-                            timerSubscription.unsubscribe();
+                            if (!match) {
+                                this.showingDocument = false;
+                                this.currentDocument = null;
+                                this.globalStateService.currentDocumentTitle = null;
+                            }
 
-                            this.errorHandler.notifyError(err);
-
-                            this.documents = null;
-                            this.showingDocument = false;
-                            this.currentDocument = null;
-                            this.globalStateService.currentDocumentTitle = null;
+                        } else {
+                            console.log("Name has changed after request was made and request is therefore not relevant anymore.");
                         }
-                    );
+
+                        this.currentSubscription = null;
+                    },
+                    err => {
+                        timerSubscription.unsubscribe();
+
+                        this.errorHandler.notifyError(err);
+
+                        this.documents = null;
+                        this.showingDocument = false;
+                        this.currentDocument = null;
+                        this.globalStateService.currentDocumentTitle = null;
+                    }
+                );
 
                 this.currentSubscription = currentSubscription;
             }

@@ -30,7 +30,7 @@ export class UserComponent implements OnInit {
         this.globalStateService.currentDocumentTitle = null;
 
         this.hasAdminPermission = this.globalStateService.hasAdminPermission;
-        let observableResponse:Observable<Response> = this.http.get(this.globalStateService.ajaxUrl + "/ifeed/" + this.globalStateService.bookId);
+        let observableResponse:Observable<Response> = this.http.get(this.globalStateService.ajaxUrl + "/ifeedList/" + this.globalStateService.bookId);
         observableResponse
             .map(response => response.json())
             .subscribe(

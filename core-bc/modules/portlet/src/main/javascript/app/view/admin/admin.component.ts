@@ -7,6 +7,7 @@ import {Ifeed} from "../../model/ifeed.model";
 import {DragulaService} from "ng2-dragula";
 import {ErrorHandler} from "../../service/ErrorHandler";
 import {AuthHttp} from "angular2-jwt";
+import {RestService} from "../../service/RestService";
 
 @Component({
     templateUrl: './admin.component.html',
@@ -27,7 +28,8 @@ export class AdminComponent implements OnInit, OnDestroy {
     constructor(private http: AuthHttp,
                 private globalStateService: GlobalStateService,
                 private dragulaService: DragulaService,
-                private errorHandler: ErrorHandler) {
+                private errorHandler: ErrorHandler,
+                private restService: RestService) {
 
         dragulaService.setOptions('ifeed-rows', {
             moves: function (el: any, container: any, handle: any) {
@@ -54,8 +56,7 @@ export class AdminComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
 
-        this.http.get(this.globalStateService.ajaxUrl + "/ifeed/" + this.globalStateService.bookId)
-            .map(response => response.json())
+        this.restService.getIfeedList(this.globalStateService.bookId)
             .subscribe(
                 json => {
                     this.ifeedList = <IfeedList> json;
