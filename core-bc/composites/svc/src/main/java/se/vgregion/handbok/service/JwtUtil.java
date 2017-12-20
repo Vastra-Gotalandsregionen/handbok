@@ -16,6 +16,8 @@ import java.util.UUID;
  */
 public class JwtUtil {
 
+    // TODO Improvement: take the secret from properties to make it fixed across multiple cluster nodes. Now we are
+    // dependent on the client being served to the same cluster node as issued the JWT.
     private static final String secret = UUID.randomUUID().toString();
     private static int MINUTES_AGE = 5;
 

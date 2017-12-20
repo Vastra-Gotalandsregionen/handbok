@@ -36,3 +36,7 @@ td i[class^="icon"] {
 .panel-body {
     padding: 10px;
 }
+
+input[type="radio"] {
+    margin: 0 12px 4px 2px !important;
+}

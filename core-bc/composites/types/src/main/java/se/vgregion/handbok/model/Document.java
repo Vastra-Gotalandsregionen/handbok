@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @author Patrik Björk
@@ -22,6 +23,8 @@ public class Document implements Serializable {
     private String[] dcSubjectKeywords;
     @JsonProperty(value = "dc.subject.authorkeywords")
     private String[] dcSubjectAuthorkeywords;
+    @JsonProperty(value = "dc.date.issued")
+    private Date dcDateIssued;
 
     public Document() {
     }
@@ -95,5 +98,13 @@ public class Document implements Serializable {
 
     public void setDcSubjectAuthorkeywords(String[] dcSubjectAuthorkeywords) {
         this.dcSubjectAuthorkeywords = dcSubjectAuthorkeywords;
+    }
+
+    public Date getDcDateIssued() {
+        return dcDateIssued;
+    }
+
+    public void setDcDateIssued(Date dcDateIssued) {
+        this.dcDateIssued = dcDateIssued;
     }
 }

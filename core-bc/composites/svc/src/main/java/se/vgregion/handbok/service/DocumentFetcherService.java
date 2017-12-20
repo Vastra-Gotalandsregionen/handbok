@@ -36,12 +36,10 @@ public class DocumentFetcherService {
         this.ifeedDocumentsUrl = ifeedDocumentsUrl;
     }
 
-    @CacheEvict(cacheNames = "default")
     public void evictCache() {
 
     }
 
-    @Cacheable(cacheNames = "default")
     public Document[] fetchDocuments(String feedId) throws IOException {
         URL url = new URL(String.format(ifeedDocumentsUrl, feedId));
 
@@ -55,12 +53,10 @@ public class DocumentFetcherService {
         return JSON_MAPPER.readValue(inputStream, Document[].class);
     }
 
-    @CachePut(cacheNames = "default")
     public Document[] fetchDocumentsPutCache(String feedId) throws IOException {
         return fetchDocuments(feedId);
     }
 
-    @Cacheable(cacheNames = "default")
     public DocumentResponse fetchDocument(String documentUrl) throws IOException {
 
         try {
@@ -85,7 +81,6 @@ public class DocumentFetcherService {
         }
     }
 
-    @CachePut(cacheNames = "default")
     public DocumentResponse fetchDocumentPutCache(String documentUrl) throws IOException {
         return fetchDocument(documentUrl);
     }

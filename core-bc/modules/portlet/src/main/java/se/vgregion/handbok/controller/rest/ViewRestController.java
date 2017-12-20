@@ -34,7 +34,6 @@ import se.vgregion.handbok.repository.IfeedListRepository;
 import se.vgregion.handbok.repository.IfeedRepository;
 
 import javax.annotation.PostConstruct;
-import javax.servlet.http.HttpServletRequest;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -43,8 +42,10 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SignatureException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Controller
@@ -83,38 +84,11 @@ public class ViewRestController {
         documentFetcherService.evictCache();
     }
 
-    @Scheduled(fixedDelay = 600_000, initialDelay = 60_000)
-    public void renewCache() throws IOException, SignatureException, NoSuchAlgorithmException, InvalidKeyException, SystemException {
-        List<IfeedList> all = ifeedListRepository.findAll();
-
-        for (IfeedList ifeedList : all) {
-            List<Ifeed> ifeeds = ifeedList.getIfeeds();
-
-            for (Ifeed ifeed : ifeeds) {
-                Document[] documents;
-                try {
-                    documents = documentFetcherService.fetchDocumentsPutCache(ifeed.getFeedId());
-                } catch (Exception e) {
-                    LOGGER.warn("Failed to fetch documents with ifeedId=" + ifeed.getFeedId() + ".", e.getMessage());
-                    continue;
-                }
-
-                for (Document document : documents) {
-                    try {
-                        documentFetcherService.fetchDocumentPutCache(document.getUrl());
-                    } catch (Exception e) {
-                        LOGGER.warn("Failed to fetch document with url=" + document.getUrl() + ".", e.getMessage());
-                    }
-                }
-            }
-        }
-    }
-
     @RequestMapping(value = "/ifeed", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public List<IfeedList> getAllIfeedLists() throws SystemException {
-        return ifeedListRepository.findAll();
+        return ifeedListRepository.findAllByOrderById();
     }
 
     @RequestMapping(value = "/ifeed/{id}", method = RequestMethod.GET)
@@ -152,9 +126,9 @@ public class ViewRestController {
         DocumentQueryResponse documentQueryResponse = new DocumentQueryResponse();
         for (Ifeed ifeed : ifeeds) {
             try {
-                Document[] documentsArray = getDocumentsArray(ifeed.getId());
+                List<Document> documents = getDocumentsArray(ifeed.getId());
 
-                List<Document> filteredDocuments = Arrays.asList(documentsArray).stream()
+                List<Document> filteredDocuments = documents.stream()
                         .filter(document -> {
                             if (document.getTitle().toLowerCase().contains(query.toLowerCase())) {
                                 return true;
@@ -199,9 +173,9 @@ public class ViewRestController {
     @RequestMapping(value = "/ifeed/{id}/document", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public ResponseEntity<Document[]> getDocuments(@PathVariable("id") String ifeedId) {
+    public ResponseEntity<List<Document>> getDocuments(@PathVariable("id") String ifeedId) {
 
-        Document[] documentList = new Document[0];
+        List<Document> documentList;
         try {
             documentList = getDocumentsArray(ifeedId);
         } catch (IOException | SignatureException | NoSuchAlgorithmException | InvalidKeyException e) {
@@ -212,12 +186,25 @@ public class ViewRestController {
         return ResponseEntity.ok(documentList);
     }
 
-    private Document[] getDocumentsArray(@PathVariable("id") String ifeedId)
+    private List<Document> getDocumentsArray(@PathVariable("id") String ifeedId)
             throws IOException, SignatureException, NoSuchAlgorithmException, InvalidKeyException {
 
         Ifeed ifeed = ifeedRepository.findById(ifeedId);
 
-        Document[] documentList = documentFetcherService.fetchDocuments(ifeed.getFeedId());
+        List<Document> documentList = Arrays.asList(documentFetcherService.fetchDocuments(ifeed.getFeedId()));
+
+        String sort = ifeed.getSort();
+
+        if (sort != null) {
+            switch (sort) {
+                case "title":
+                    documentList.sort(Comparator.comparing(Function.identity(), Comparator.nullsLast(Comparator.comparing(Document::getTitle))));
+                    break;
+                case "issuedDate":
+                    documentList.sort(Comparator.comparing(Function.identity(), Comparator.nullsLast(Comparator.comparing(Document::getDcDateIssued))));
+                    break;
+            }
+        }
 
         for (Document document : documentList) {
             document.setIfeedIdHmac(HmacUtil.calculateRFC2104HMAC(document.getUrl()));

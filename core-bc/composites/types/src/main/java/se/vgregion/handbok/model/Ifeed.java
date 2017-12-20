@@ -16,6 +16,8 @@ public class Ifeed {
 
     private String feedId;
 
+    private String sort;
+
     @ManyToOne
     private IfeedList ifeedList;
 
@@ -63,5 +65,13 @@ public class Ifeed {
 
     public void setIfeedList(IfeedList ifeedList) {
         this.ifeedList = ifeedList;
+    }
+
+    public String getSort() {
+        return sort;
+    }
+
+    public void setSort(String sort) {
+        this.sort = sort;
     }
 }

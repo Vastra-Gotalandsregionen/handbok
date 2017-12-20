@@ -26,6 +26,8 @@ public class IfeedList {
 
     private String name;
 
+    private String area;
+
     @OrderColumn
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Ifeed> ifeeds = new ArrayList<>();
@@ -51,6 +53,14 @@ public class IfeedList {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getArea() {
+        return area;
+    }
+
+    public void setArea(String area) {
+        this.area = area;
     }
 
     public List<Ifeed> getIfeeds() {

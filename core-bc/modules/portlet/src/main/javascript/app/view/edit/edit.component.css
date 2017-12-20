@@ -10,3 +10,7 @@ table td, table th {
 .separated-section {
     border-bottom: 1px solid #aaa;
 }
+
+md-select {
+    width: 360px;
+}

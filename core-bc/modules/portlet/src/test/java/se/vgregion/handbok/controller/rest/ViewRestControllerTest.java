@@ -160,9 +160,9 @@ public class ViewRestControllerTest {
 
     @Test
     public void getDocuments() throws Exception {
-        ResponseEntity<Document[]> responseEntity = viewRestController.getDocuments("ifeedId1_1");
+        ResponseEntity<List<Document>> responseEntity = viewRestController.getDocuments("ifeedId1_1");
 
-        assertEquals(2, responseEntity.getBody().length);
+        assertEquals(2, responseEntity.getBody().size());
     }
 
     @Test

@@ -5,12 +5,20 @@
         <h4>Globala inställningar för alla handböcker</h4>
 
         <table>
+
+            <tr>
+                <th>ID</th>
+                <th>Område</th>
+                <th>Titel</th>
+                <th>Radera</th>
+            </tr>
             <tr *ngFor="let ifeedList of ifeedLists">
                 <td>{{ifeedList.id}}</td>
                 <td>
-                    <!--<md-input-container class="example-full-width">-->
+                    <input placeholder="Område" [(ngModel)]="ifeedList.area" type="text"/>
+                </td>
+                <td>
                     <input placeholder="Namn" [(ngModel)]="ifeedList.name" type="text"/>
-                    <!--</md-input-container>-->
                 </td>
                 <td>
                     <button class="btn btn-danger" (click)="deleteIfeedList(ifeedList)"><i class="icon-trash"></i>
@@ -44,7 +52,7 @@
         <div>
             <md-select placeholder="Handbok" [(ngModel)]="selectedIfeedListId">
                 <md-option *ngFor="let ifeedList of ifeedLists" [(value)]="ifeedList.id">
-                    {{ifeedList.name}}
+                    {{ifeedList.id}} - {{ifeedList.area}} - {{ifeedList.name}}
                 </md-option>
             </md-select>
 
