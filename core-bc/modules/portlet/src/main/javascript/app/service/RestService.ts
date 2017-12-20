@@ -24,7 +24,7 @@ export class RestService {
     }
 
     public getAllIfeedLists(): Observable<IfeedList[]> {
-        return this.http.get(this.globalStateService.ajaxUrl + "/ifeed").map(response => <IfeedList[]>response.json());
+        return this.http.get(this.globalStateService.ajaxUrl + "/ifeedList").map(response => <IfeedList[]>response.json());
     }
 
     public getIfeedList(ifeedListId: number): Observable<IfeedList> {

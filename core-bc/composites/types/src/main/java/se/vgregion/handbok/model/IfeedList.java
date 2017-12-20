@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Entity representing a "handbok".
+ *
  * @author Patrik Björk
  */
 @Entity

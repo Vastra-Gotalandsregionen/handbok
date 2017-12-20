@@ -84,7 +84,7 @@ public class ViewRestController {
         documentFetcherService.evictCache();
     }
 
-    @RequestMapping(value = "/ifeed", method = RequestMethod.GET)
+    @RequestMapping(value = "/ifeedList", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public List<IfeedList> getAllIfeedLists() throws SystemException {
@@ -99,13 +99,13 @@ public class ViewRestController {
         return ResponseEntity.ok(ifeed);
     }
 
-    @RequestMapping(value = "/ifeedList/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/ifeedList/{bookId}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public ResponseEntity<IfeedList> getIfeedList(@PathVariable("id") Long id) throws SystemException {
+    public ResponseEntity<IfeedList> getIfeedList(@PathVariable("bookId") Long bookId) throws SystemException {
 
         try {
-            IfeedList ifeedList = ifeedListRepository.findOne(id);
+            IfeedList ifeedList = ifeedListRepository.findOne(bookId);
 
             if (ifeedList != null) {
                 return ResponseEntity.ok(ifeedList);
