@@ -91,3 +91,5 @@ Clone the Git repository and run `mvn package` and deploy `core-bc/modules/portl
 directory of Liferay. Building the application has no prior dependency of Node or NPM; they are downloaded during the
 Maven build.
 
+To build with ahead-of-time (AOT) and minification compilation, run `mvn package -Pprod`.
+

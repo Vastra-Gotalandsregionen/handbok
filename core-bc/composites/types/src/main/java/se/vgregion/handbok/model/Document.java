@@ -115,6 +115,10 @@ public class Document implements Serializable {
     }
 
     public void setDcPublisherForUnitFlat(String dcPublisherForUnitFlat) {
+        if (dcPublisherForUnitFlat != null) {
+            dcPublisherForUnitFlat = dcPublisherForUnitFlat.split("/")[0];
+        }
+
         this.dcPublisherForUnitFlat = dcPublisherForUnitFlat;
     }
 }
