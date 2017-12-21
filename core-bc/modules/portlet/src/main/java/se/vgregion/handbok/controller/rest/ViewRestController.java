@@ -209,7 +209,7 @@ public class ViewRestController {
                     documentList.sort(Comparator.comparing(Function.identity(), Comparator.nullsLast(Comparator.comparing(Document::getTitle))));
                     break;
                 case "issuedDate":
-                    documentList.sort(Comparator.comparing(Function.identity(), Comparator.nullsLast(Comparator.comparing(Document::getDcDateIssued))));
+                    documentList.sort(Comparator.comparing(Function.identity(), Comparator.nullsLast(Comparator.comparing(Document::getDcDateIssued))).reversed());
                     break;
             }
         }
