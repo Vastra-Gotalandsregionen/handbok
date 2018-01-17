@@ -32,13 +32,11 @@
 
     <properties>
         <apache.cxf.version>3.1.8</apache.cxf.version>
-        <compileSource>1.7</compileSource>
-        <compileTarget>1.7</compileTarget>
-        <jsf.version>2.2.13</jsf.version>
+        <compileSource>1.8</compileSource>
+        <compileTarget>1.8</compileTarget>
         <jstl.version>1.2</jstl.version>
         <junit.version>4.8.1</junit.version>
-        <liferay.version>6.2.10.15</liferay.version>
-        <liferay.faces.version>4.2.5-ga6</liferay.faces.version>
+        <liferay.version>7.0.0</liferay.version>
         <log4j.version>1.2.16</log4j.version>
         <portlet-api.version>2.0</portlet-api.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

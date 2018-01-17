@@ -1,0 +1,10 @@
+ifeed.documents.url=http://ifeed.vgregion.se/iFeed-web/documentlists/%s/metadata.json?by=&dir=asc
+
+jdbc.driver=org.postgresql.Driver
+jdbc.url=
+jdbc.user=
+jdbc.password=
+
+hibernate.dialect=org.hibernate.dialect.PostgreSQL9Dialect
+
+jwt.secret=alksjfalsjwqi4oevalkfje3245

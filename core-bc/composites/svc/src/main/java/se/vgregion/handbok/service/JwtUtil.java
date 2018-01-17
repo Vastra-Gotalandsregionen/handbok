@@ -4,22 +4,31 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.io.UnsupportedEncodingException;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
-import java.util.UUID;
 
 /**
  * @author Patrik Björk
  */
+@Service
 public class JwtUtil {
 
-    // TODO Improvement: take the secret from properties to make it fixed across multiple cluster nodes. Now we are
-    // dependent on the client being served to the same cluster node as issued the JWT.
-    private static final String secret = UUID.randomUUID().toString();
+    private static String secret;
     private static int MINUTES_AGE = 5;
+
+    @Value("${jwt.secret}")
+    private String injectedSecret;
+
+    @PostConstruct
+    public void init() {
+        secret = injectedSecret;
+    }
 
     public static String createToken(Long userId, String... roles) {
         try {

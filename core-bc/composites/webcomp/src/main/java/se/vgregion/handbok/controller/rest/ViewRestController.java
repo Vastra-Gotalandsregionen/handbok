@@ -1,6 +1,5 @@
 package se.vgregion.handbok.controller.rest;
 
-import com.liferay.portal.kernel.exception.SystemException;
 import org.apache.commons.codec.binary.Base64;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,7 +9,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -87,7 +85,7 @@ public class ViewRestController {
     @RequestMapping(value = "/ifeedList", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public List<IfeedList> getAllIfeedLists() throws SystemException {
+    public List<IfeedList> getAllIfeedLists() {
         return ifeedListRepository.findAllByOrderById();
     }
 
@@ -102,7 +100,7 @@ public class ViewRestController {
     @RequestMapping(value = "/ifeedList/{bookId}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public ResponseEntity<IfeedList> getIfeedList(@PathVariable("bookId") Long bookId) throws SystemException {
+    public ResponseEntity<IfeedList> getIfeedList(@PathVariable("bookId") Long bookId) {
 
         try {
             IfeedList ifeedList = ifeedListRepository.findOne(bookId);
@@ -121,7 +119,7 @@ public class ViewRestController {
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public ResponseEntity<DocumentQueryResponse> queryDocumentTitles(@PathVariable("ifeedListId") Long ifeedListId,
-                                                                     @RequestParam("query") String query) throws SystemException {
+                                                                     @RequestParam("query") String query) {
 
         IfeedList ifeedList = ifeedListRepository.findOne(ifeedListId);
 
@@ -252,7 +250,7 @@ public class ViewRestController {
     @RequestMapping(value = "/ifeed", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public IfeedList putIfeedList(@RequestBody IfeedList ifeedList) throws SystemException {
+    public IfeedList putIfeedList(@RequestBody IfeedList ifeedList) {
         IfeedList one = ifeedListRepository.findOne(ifeedList.getId());
         one.setIfeeds(new ArrayList<>());
         ifeedListRepository.saveAndFlush(one);
@@ -269,14 +267,14 @@ public class ViewRestController {
     @RequestMapping(value = "/edit/saveIfeedList", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public IfeedList saveIfeedList(@RequestBody IfeedList ifeedList) throws SystemException {
+    public IfeedList saveIfeedList(@RequestBody IfeedList ifeedList) {
         return ifeedListRepository.saveAndFlush(ifeedList);
     }
 
     @RequestMapping(value = "/edit/saveAllIfeedLists", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public IfeedList[] saveAllIfeedLists(@RequestBody List<IfeedList> ifeedLists) throws SystemException {
+    public IfeedList[] saveAllIfeedLists(@RequestBody List<IfeedList> ifeedLists) {
 
         List<IfeedList> all = ifeedListRepository.findAll();
         for (IfeedList currentlyPersisted : all) {
@@ -297,7 +295,7 @@ public class ViewRestController {
     @RequestMapping(value = "/edit/saveSelectedIfeedList", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public PortletSelectedIfeedList saveSelectedIfeedList(@RequestBody PortletSelectedIfeedList portletSelectedIfeedList) throws SystemException {
+    public PortletSelectedIfeedList saveSelectedIfeedList(@RequestBody PortletSelectedIfeedList portletSelectedIfeedList) {
         return portletSelectedIfeedListRepository.saveAndFlush(portletSelectedIfeedList);
     }
 }
