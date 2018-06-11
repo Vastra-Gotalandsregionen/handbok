@@ -3,9 +3,6 @@ package se.vgregion.handbok.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.CachePut;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import se.vgregion.handbok.model.Document;
 import se.vgregion.handbok.model.DocumentResponse;
@@ -16,6 +13,8 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.SocketTimeoutException;
 import java.net.URL;
+import java.net.URLDecoder;
+import java.util.regex.Pattern;
 
 /**
  * @author Patrik Björk
@@ -57,12 +56,35 @@ public class DocumentFetcherService {
         return fetchDocuments(feedId);
     }
 
+    private HttpURLConnection open(String url) throws IOException {
+        HttpURLConnection urlConnection = (HttpURLConnection) new URL(url).openConnection();
+        System.out.println("Url: " + url);
+        System.out.println("Result: " + urlConnection.getResponseCode());
+        switch (urlConnection.getResponseCode()) {
+            case HttpURLConnection.HTTP_MOVED_PERM:
+            case HttpURLConnection.HTTP_MOVED_TEMP:
+                String location = urlConnection.getHeaderField("Location");
+                location = URLDecoder.decode(location, "UTF-8");
+                URL base = new URL(url);
+                URL next = new URL(base, location);  // Deal with relative URLs
+                String externalForm = next.toExternalForm();
+                if (url.contains("?") && !externalForm.contains("?")) {
+                    url = externalForm + "?" + url.split(Pattern.quote("?"))[1];
+                } else {
+                    url = externalForm;
+                }
+                return open(url);
+            // return (HttpURLConnection) next.openConnection();
+        }
+        return urlConnection;
+    }
+
     public DocumentResponse fetchDocument(String documentUrl) throws IOException {
 
         try {
-            URL url = new URL(documentUrl);
+            // URL url = new URL(documentUrl);
 
-            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+            HttpURLConnection urlConnection = open(documentUrl);
 
             urlConnection.setConnectTimeout(TIMEOUT);
             urlConnection.setReadTimeout(TIMEOUT);

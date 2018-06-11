@@ -239,7 +239,11 @@ public class ViewRestController {
             InputStream inputStream = new ByteArrayInputStream(documentResponse.getBytes());
 
             HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(MediaType.valueOf(documentResponse.getContentType()));
+            String ct = documentResponse.getContentType();
+            if (ct == null) {
+                ct = "application/pdf";
+            }
+            headers.setContentType(MediaType.valueOf(ct));
 
             return new ResponseEntity<>(new InputStreamResource(inputStream), headers, HttpStatus.OK);
         } catch (IOException | SignatureException | NoSuchAlgorithmException | InvalidKeyException e) {
