@@ -1,44 +1,44 @@
-button.btn, a.btn {
+.handbok-portlet button.btn, a.btn {
     font-weight: bold;
 }
 
-tooltip-content {
+.handbok-portlet tooltip-content {
     font-size: 1.2em;
     font-weight: bold;
 }
 
-section {
+.handbok-portlet section {
     margin: 12px 0 24px 0;
 }
-
+/*
 .portlet-body a:not(.btn) {
     color: #333333;
     font-size: 16px;
     font-family: "Arial";
-}
+}*/
 
-ul.nav.nav-stacked>li>a, ul.nav.nav-stacked>li>a:focus {
+.handbok-portlet ul.nav.nav-stacked>li>a, .handbok-portlet ul.nav.nav-stacked>li>a:focus {
     color: #333;
     background: transparent;
     padding: 16px 8px;
 }
 
-ul.nav.nav-stacked>li>a.active, ul.nav.nav-stacked>li>a.active:focus {
+.handbok-portlet ul.nav.nav-stacked>li>a.active, .handbok-portlet ul.nav.nav-stacked>li>a.active:focus {
     color: #ffffff;
     background-color: #035295;
     font-weight: bold;
 }
 
-ul.nav.nav-stacked>li>a:not(.active):hover {
+.handbok-portlet ul.nav.nav-stacked>li>a:not(.active):hover {
     background-color: #fcffdf;
 }
 
-.padding-top-bottom {
+.handbok-portlet .padding-top-bottom {
     padding-top: 12px;
     padding-bottom: 12px;
 }
 
-.panel-heading .panel-title {
+.handbok-portlet .panel-heading .panel-title {
     color: inherit;
     float: left;
     font-size: 16px;
@@ -46,11 +46,11 @@ ul.nav.nav-stacked>li>a:not(.active):hover {
     margin-top: 0;
 }
 
-.panel.panel-default {
+.handbok-portlet .panel.panel-default {
     border-color: #ddd;
 }
 
-.panel {
+.handbok-portlet .panel {
     margin-bottom: 20px;
     background-color: #fff;
     border: 1px solid transparent;
@@ -59,17 +59,17 @@ ul.nav.nav-stacked>li>a:not(.active):hover {
     box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
 }
 
-.panel-default > .panel-heading {
+.handbok-portlet .panel-default > .panel-heading {
     color: #ffffff;
     background-color: #035295;
     border-color: #ddd;
 }
 
-.panel-default > .panel-heading a {
+.handbok-portlet .panel-default > .panel-heading a {
     color: #ffffff;
 }
 
-.panel-heading {
+.handbok-portlet .panel-heading {
     padding: 10px 15px;
     border-bottom: 1px solid transparent;
     border-top-left-radius: 3px;
