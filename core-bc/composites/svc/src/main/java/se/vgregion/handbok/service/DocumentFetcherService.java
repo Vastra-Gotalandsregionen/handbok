@@ -58,8 +58,7 @@ public class DocumentFetcherService {
 
     private HttpURLConnection open(String url) throws IOException {
         HttpURLConnection urlConnection = (HttpURLConnection) new URL(url).openConnection();
-        System.out.println("Url: " + url);
-        System.out.println("Result: " + urlConnection.getResponseCode());
+
         switch (urlConnection.getResponseCode()) {
             case HttpURLConnection.HTTP_MOVED_PERM:
             case HttpURLConnection.HTTP_MOVED_TEMP:
