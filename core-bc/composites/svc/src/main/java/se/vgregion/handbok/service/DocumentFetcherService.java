@@ -63,7 +63,6 @@ public class DocumentFetcherService {
             case HttpURLConnection.HTTP_MOVED_PERM:
             case HttpURLConnection.HTTP_MOVED_TEMP:
                 String location = urlConnection.getHeaderField("Location");
-                location = URLDecoder.decode(location, "UTF-8");
                 URL base = new URL(url);
                 URL next = new URL(base, location);  // Deal with relative URLs
                 String externalForm = next.toExternalForm();
@@ -73,7 +72,6 @@ public class DocumentFetcherService {
                     url = externalForm;
                 }
                 return open(url);
-            // return (HttpURLConnection) next.openConnection();
         }
         return urlConnection;
     }
