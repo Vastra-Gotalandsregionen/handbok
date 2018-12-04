@@ -12,7 +12,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
  */
 @Configuration
 @EnableScheduling
-@PropertySource(value = "file:${user.home}/.app/handbok/application.properties")
+@PropertySource(value = "file:${user.home}/.hotell/handbok/application.properties")
 @Import(JpaConfig.class)
 public class AppConfig {
 

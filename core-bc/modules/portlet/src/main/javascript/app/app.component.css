@@ -20,7 +20,8 @@
 .handbok-portlet ul.nav.nav-stacked>li>a, .handbok-portlet ul.nav.nav-stacked>li>a:focus {
     color: #333;
     background: transparent;
-    padding: 16px 8px;
+    padding: 12px 8px;
+    line-height: 20px;
 }
 
 .handbok-portlet ul.nav.nav-stacked>li>a.active, .handbok-portlet ul.nav.nav-stacked>li>a.active:focus {
