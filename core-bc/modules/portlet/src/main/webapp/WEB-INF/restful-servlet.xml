@@ -11,8 +11,6 @@
 
     <task:annotation-driven />
 
-    <bean class="se.vgregion.handbok.spring.SwaggerConfiguration"/>
-
     <mvc:annotation-driven />
 
     <mvc:interceptors>
@@ -58,8 +56,5 @@
 
 
     <bean id="jacksonObjectMapper" class="se.vgregion.handbok.json.LiferayObjectMapper" />
-
-    <mvc:resources mapping="swagger-ui.html" location="classpath:/META-INF/resources/"/>
-    <mvc:resources mapping="/webjars/**" location="classpath:/META-INF/resources/webjars/"/>
 
 </beans>
