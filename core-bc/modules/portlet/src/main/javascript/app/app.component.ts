@@ -1,7 +1,7 @@
 import {Component, ElementRef, OnInit, ViewEncapsulation} from '@angular/core';
 import 'rxjs/add/operator/map';
 import {GlobalStateService} from "./service/global-state.service";
-import {Router} from "@angular/router";
+import {NavigationEnd, Router} from "@angular/router";
 
 @Component({
     selector: 'app-root',
@@ -40,5 +40,22 @@ export class AppComponent {
         let isIE: boolean = !!navigator.userAgent.match(/Trident/g) || !!navigator.userAgent.match(/MSIE/g);
 
         globalStateService.isIE = isIE;
+
+        router.events.subscribe( (event) => {
+
+            // Add page to cache so it can be loaded offline if hitting the address directly in browser.
+            if (event instanceof NavigationEnd) {
+                // Hide loading indicator
+                caches.keys().then((keys: string[]) => {
+                    keys.filter((k: string) => k.indexOf('handbok') > -1).forEach(key => {
+                        caches.open(key).then(function (cache) {
+                            cache.add(document.location.href);
+                            // console.log('added: ' + document.location.href);
+                        });
+                    });
+                });
+            }
+        });
+
     }
 }

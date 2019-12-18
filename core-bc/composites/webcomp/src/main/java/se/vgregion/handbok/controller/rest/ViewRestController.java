@@ -25,11 +25,12 @@ import se.vgregion.handbok.model.DocumentResponse;
 import se.vgregion.handbok.model.Ifeed;
 import se.vgregion.handbok.model.IfeedList;
 import se.vgregion.handbok.model.PortletSelectedIfeedList;
-import se.vgregion.handbok.repository.PortletSelectedIfeedListRepository;
-import se.vgregion.handbok.service.DocumentFetcherService;
-import se.vgregion.handbok.service.HmacUtil;
 import se.vgregion.handbok.repository.IfeedListRepository;
 import se.vgregion.handbok.repository.IfeedRepository;
+import se.vgregion.handbok.repository.PortletSelectedIfeedListRepository;
+import se.vgregion.handbok.service.CacheHelperService;
+import se.vgregion.handbok.service.DocumentFetcherService;
+import se.vgregion.handbok.service.HmacUtil;
 
 import javax.annotation.PostConstruct;
 import java.io.ByteArrayInputStream;
@@ -48,6 +49,7 @@ import java.util.stream.Collectors;
 
 @Controller
 @Transactional
+@RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 public class ViewRestController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ViewRestController.class);
@@ -63,6 +65,9 @@ public class ViewRestController {
 
     @Autowired
     private DocumentFetcherService documentFetcherService;
+
+    @Autowired
+    private CacheHelperService cacheHelperService;
 
     public ViewRestController() {
     }
@@ -195,7 +200,15 @@ public class ViewRestController {
     private List<Document> getDocumentsArray(@PathVariable("id") String ifeedId)
             throws IOException, SignatureException, NoSuchAlgorithmException, InvalidKeyException {
 
+        if (ifeedId == null || "null".equals(ifeedId)) {
+            return new ArrayList<>();
+        }
+
         Ifeed ifeed = ifeedRepository.findById(ifeedId);
+
+        if (ifeed.getFeedId() == null) {
+            return new ArrayList<>();
+        }
 
         List<Document> documentList = Arrays.asList(documentFetcherService.fetchDocuments(ifeed.getFeedId()));
 
@@ -302,5 +315,20 @@ public class ViewRestController {
     public PortletSelectedIfeedList saveSelectedIfeedList(@RequestBody PortletSelectedIfeedList portletSelectedIfeedList) {
         return portletSelectedIfeedListRepository.saveAndFlush(portletSelectedIfeedList);
     }
+/*
+    @RequestMapping(value = "/cache-manifest", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public ResponseEntity<ByteArrayResource> getCacheManifest() {
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.valueOf("text/cache-manifest"));
+
+        return new ResponseEntity<>(
+                new ByteArrayResource(cacheHelperService.composeCacheManifest()),
+                headers,
+                HttpStatus.OK
+        );
+    }*/
 }
 

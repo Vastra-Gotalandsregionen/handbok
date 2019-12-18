@@ -5,6 +5,9 @@
             {{getBookName()}}
         </h4>
 
+        <span class="left-float">
+            <a href="" (click)="cacheIfeeds()">Aktivera offline-åtkomst</a>
+        </span>
         <span class="left-float" *ngIf="hasAdminPermission">
             <a routerLink="/admin"><i class="icon-cog"></i> Administrera</a>
         </span>
