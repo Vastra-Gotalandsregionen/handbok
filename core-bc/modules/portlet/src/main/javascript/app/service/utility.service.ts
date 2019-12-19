@@ -1,7 +1,14 @@
 import {Injectable} from "@angular/core";
+import {Document} from "../model/document.model";
+import {GlobalStateService} from "./global-state.service";
 
 @Injectable()
 export class UtilityService {
+
+    constructor(private globalStateService: GlobalStateService) {
+
+    }
+
 
     mobileAndTabletCheck(): boolean {
         let check = false;
@@ -11,4 +18,12 @@ export class UtilityService {
         return check;
     };
 
+    getDocumentUri(document: Document): string {
+        return this.globalStateService.ajaxUrl + "/document/" + this.encodeURI(document.urlSafeUrl) + '/'
+            + document.ifeedIdHmac;
+    }
+
+    encodeURI(input: string): string {
+        return encodeURIComponent(input);
+    }
 }

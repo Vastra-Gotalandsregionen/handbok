@@ -6,7 +6,7 @@
         </h4>
 
         <span class="left-float">
-            <a href="" (click)="cacheIfeeds()">Aktivera offline-åtkomst</a>
+            <i [ngClass]="(cacheUpdateInProgress ? 'spinning' : '') + ' icon-refresh'"></i> <a href="" (click)="cacheIfeeds()">Aktivera offline-åtkomst</a>
         </span>
         <span class="left-float" *ngIf="hasAdminPermission">
             <a routerLink="/admin"><i class="icon-cog"></i> Administrera</a>

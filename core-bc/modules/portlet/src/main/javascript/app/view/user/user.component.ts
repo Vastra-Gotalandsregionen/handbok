@@ -11,6 +11,7 @@ import {Document} from "../../model/document.model";
 import {DomSanitizer} from "@angular/platform-browser";
 import {UtilityService} from "../../service/utility.service";
 import {Location} from "@angular/common";
+import {CacheService} from "../../service/cache.service";
 
 @Component({
     templateUrl: './user.component.html',
@@ -21,11 +22,13 @@ export class UserComponent implements OnInit {
     hasAdminPermission: boolean;
     ifeeds: [Ifeed];
     needsConfiguration: boolean;
+    cacheUpdateInProgress: boolean;
 
     constructor(private http: Http,
                 private globalStateService: GlobalStateService,
                 private sanitizer: DomSanitizer,
                 private restService: RestService,
+                private cacheService: CacheService,
                 private errorHandler: ErrorHandler,
                 private router: Router,
                 private location: Location,
@@ -81,80 +84,56 @@ export class UserComponent implements OnInit {
     }
 
     cacheIfeeds() {
-        for (const ifeed of <[Ifeed]>this.ifeeds) {
-            let subscribeToRequest: Observable<Response> = this.restService.getDocumentsForIfeed(ifeed.id);
-            let subscribeToIfeedRequest: Observable<Response> = this.restService.getIfeed(ifeed.id);
+        this.cacheUpdateInProgress = true;
+        const promiseFullIfeeds = <Promise<any>[]>[];
 
-            let currentSubscription = Observable.forkJoin(subscribeToRequest, subscribeToIfeedRequest)
-                .subscribe(join => {
+        Observable.of(...this.ifeeds).flatMap(ifeed => {
+            let subscribeToRequest$: Observable<Response> = this.restService.getDocumentsForIfeed(ifeed.id);
+            let subscribeToIfeedRequest$: Observable<Response> = this.restService.getIfeed(ifeed.id);
+            let cache$ = this.cacheService.getCache();
 
-                        // Check if if we got the response for the current request and that the client hasn't already requested another feed.
-                        const documents = <[Document]>join[0].json();
-                        const ifeed = <Ifeed>join[1].json();
+            return Observable.forkJoin(subscribeToRequest$, subscribeToIfeedRequest$, cache$);
+        }).do(join => {
 
-                        // const ifeedUrl = this.globalStateService.ajaxUrl + 'ifeed/' + ifeed.id; don't need to add to cache since it is already fetched
+            const documents = <[Document]>join[0].json();
+            const ifeed = <Ifeed>join[1].json();
+            const cache = <Cache>join[2];
 
-                        const self = this;
-                        caches.keys().then((keys: string[]) => {
-                            keys.filter((k: string) => k.indexOf('handbok') > -1).forEach(key => {
-                                caches.open(key).then(function (cache) {
-                                    const ifeedWebPageUrl = self.location.prepareExternalUrl('/user/ifeed/' + ifeed.id);
-                                    cache.add(ifeedWebPageUrl);
+            // this.cacheService.getCache().do(cache => {
+            const ifeedWebPageUrl = this.location.prepareExternalUrl('/user/ifeed/' + ifeed.id);
 
-                                    documents.forEach(doc => {
-                                        console.log('should cache: ' + self.getDocumentUrl(doc));
-                                        /*if (!this.utilityService.mobileAndTabletCheck()) {
-                                                          let safeResourceUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.globalStateService.ajaxUrl + "/document/"
-                                                              + this.encodeURI(document.urlSafeUrl) + '/' + document.ifeedIdHmac);
+            const promises = <Promise<void>[]>[];
+            promises.push(cache.add(ifeedWebPageUrl));
 
-                                                          this.documentUrl = safeResourceUrl;
-                                                      } else {*/
+            documents.forEach(doc => {
+                /*if (!this.utilityService.mobileAndTabletCheck()) {
+                                  let safeResourceUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.globalStateService.ajaxUrl + "/document/"
+                                      + this.encodeURI(document.urlSafeUrl) + '/' + document.ifeedIdHmac);
 
-                                        cache.add(self.getDocumentUrl(doc));
+                                  this.documentUrl = safeResourceUrl;
+                              } else {*/
 
-                                        const documentWebPageUrl = self.location.prepareExternalUrl('/user/ifeed/' + ifeed.id + '?urlSafeUrl=' + doc.urlSafeUrl + '&ifeedIdHmac=' + doc.ifeedIdHmac);//'//self.router.url
-                                        cache.add(documentWebPageUrl);
-                                        // console.log('added: ' + document.location.href);
+                promises.push(cache.add(this.utilityService.getDocumentUri(doc)));
 
-                                        // }
-                                    });
-                                });
-                            });
-                        });
-                        /*
-                                                    if (urlSafeUrl !== null) {
-                                                        for (let document of this.documents) {
-                                                            if (document.urlSafeUrl === urlSafeUrl) {
-                                                                match = true;
-                                                                this.showDocument(document);
-                                                            }
-                                                        }
-                                                    }
+                const documentWebPageUrl = this.location.prepareExternalUrl('/user/ifeed/' + ifeed.id + '?urlSafeUrl=' + doc.urlSafeUrl + '&ifeedIdHmac=' + doc.ifeedIdHmac);//'//self.router.url
+                promises.push(cache.add(documentWebPageUrl));
+            });
 
-                                                    if (!match) {
-                                                        this.showingDocument = false;
-                                                        this.currentDocument = null;
-                                                        this.globalStateService.currentDocumentTitle = null;
-                                                    }*/
+            let promiseFullIfeed = Promise.all(promises).then(() => {
+                this.cacheService.notifyCacheStatusUpdate(ifeed.id);
+            });
 
-                    },
-                    err => {
+            promiseFullIfeeds.push(promiseFullIfeed);
+        }, err => {
 
 //                        this.errorHandler.notifyError(err);
 
-                    }
-                );
-        }
+        }).toArray().subscribe(x => {
+            Promise.all(promiseFullIfeeds).then(() => this.cacheUpdateInProgress = false);
+        });
 
         return false;
     }
 
-    getDocumentUrl(document: Document): string {
-        return this.globalStateService.ajaxUrl + "/document/" + this.encodeURI(document.urlSafeUrl) + '/'
-            + document.ifeedIdHmac;
-    }
 
-    encodeURI(input: string): string {
-        return encodeURIComponent(input);
-    }
 }

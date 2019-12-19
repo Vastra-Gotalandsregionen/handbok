@@ -25,6 +25,7 @@ import {FeedbackButtonComponent} from "./component/feedback-button/feedback-butt
 import {SearchDocumentsComponent} from "./component/search-documents/search-documents.component";
 import {UtilityService} from "./service/utility.service";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {CacheService} from "./service/cache.service";
 
 export function authHttpServiceFactory(http: Http, options: RequestOptions, jwtHelper: JwtHelper, globalStateService: GlobalStateService) {
     return new RefreshTokenAuthHttp(new AuthConfig({
@@ -65,6 +66,7 @@ export function authHttpServiceFactory(http: Http, options: RequestOptions, jwtH
         GlobalStateService,
         JwtHelper,
         RestService,
+        CacheService,
         SearchDocumentsComponent,
         ErrorDialogComponent,
         UtilityService,

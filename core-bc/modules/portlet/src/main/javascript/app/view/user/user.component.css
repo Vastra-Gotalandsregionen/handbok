@@ -55,3 +55,9 @@ search-documents {
 h5 {
     margin-bottom: 0;
 }
+
+.spinning {
+    animation: rotate 1s infinite;
+    animation-timing-function: cubic-bezier(0.495, 0.405, 0.495, 0.635);
+    display: inline-block;
+}

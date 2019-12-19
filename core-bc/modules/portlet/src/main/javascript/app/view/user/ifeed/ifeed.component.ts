@@ -10,6 +10,7 @@ import {RestService} from "../../../service/RestService";
 import {ErrorHandler} from "../../../service/ErrorHandler";
 import {UtilityService} from "../../../service/utility.service";
 import {Ifeed} from "../../../model/ifeed.model";
+import {CacheService} from "../../../service/cache.service";
 
 @Component({
     selector: 'ifeed',
@@ -30,6 +31,7 @@ export class IfeedComponent implements OnInit, OnChanges {
     mobileBrowser: boolean;
 
     resetDocumentObservable$: Observable<void>;
+    documentsCached = {};
 
     constructor(private route: ActivatedRoute,
                 private router: Router,
@@ -38,7 +40,8 @@ export class IfeedComponent implements OnInit, OnChanges {
                 public globalStateService: GlobalStateService,
                 private restService: RestService,
                 private errorHandler: ErrorHandler,
-                private utilityService: UtilityService) {
+                private utilityService: UtilityService,
+                private cacheService: CacheService) {
         this.mobileBrowser = this.utilityService.mobileAndTabletCheck();
     }
 
@@ -124,6 +127,7 @@ export class IfeedComponent implements OnInit, OnChanges {
                                 this.globalStateService.currentDocumentTitle = null;
                             }
 
+                            this.updateDocumentsCacheStatus();
                         } else {
                             console.log("Name has changed after request was made and request is therefore not relevant anymore.");
                         }
@@ -147,6 +151,30 @@ export class IfeedComponent implements OnInit, OnChanges {
         });
 
         this.documentBaseUrl = this.globalStateService.ajaxUrl + "/document/";
+
+        this.cacheService.cacheStatusEvent$.subscribe(ifeedId => {
+            if (this.ifeed.id === ifeedId) {
+                this.updateDocumentsCacheStatus();
+            }
+        });
+    }
+
+    private updateDocumentsCacheStatus() {
+        const documentsCachedTemp = {};
+        const promises = <Promise<any>[]>[];
+
+        this.cacheService.getCache().subscribe(cache => {
+            this.documents.forEach(doc => {
+                let uri = this.utilityService.getDocumentUri(doc);
+                let promise = cache.match(uri);
+                promise.then(cached => {
+                    documentsCachedTemp[doc.id] = !!cached;
+                });
+                promises.push(promise);
+            });
+
+            Promise.all(promises).then(() => this.documentsCached = documentsCachedTemp);
+        });
     }
 
     ngOnChanges(changes: SimpleChanges): void {
@@ -198,10 +226,16 @@ export class IfeedComponent implements OnInit, OnChanges {
         setTimeout(() => {
             this.router.navigate(['/user/ifeed/' + this.globalStateService.getCurrentIfeedId()]);
         });
+
+        // Possibly we have a new cache entry so we want to reflect that in the list.
+        this.updateDocumentsCacheStatus();
     }
 
     resetIframeUrl() {
-        console.log('resetting...');
         this.documentUrl = this.sanitizer.bypassSecurityTrustResourceUrl("about:blank");
+    }
+
+    isCached(document: Document) {
+        return this.documentsCached[document.id];
     }
 }
