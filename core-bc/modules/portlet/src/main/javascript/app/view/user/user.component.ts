@@ -20,7 +20,7 @@ import {CacheService} from "../../service/cache.service";
 export class UserComponent implements OnInit {
 
     hasAdminPermission: boolean;
-    ifeeds: [Ifeed];
+    ifeeds: Ifeed[] = [];
     needsConfiguration: boolean;
     cacheUpdateInProgress: boolean;
 
@@ -47,13 +47,17 @@ export class UserComponent implements OnInit {
             .map(response => response.json())
             .subscribe(
                 json => {
-                    this.ifeeds = <[Ifeed]>json.ifeeds;
+                    this.ifeeds = <[Ifeed]>json.ifeeds || [];
                     this.globalStateService.setIfeeds(<[Ifeed]>json.ifeeds);
                 },
                 err => {
                     this.errorHandler.notifyError(err);
                 }
             );
+
+        this.globalStateService.getCachingEnabled().subscribe(enabled => {
+            this.ifeeds.forEach(ifeed => this.cacheService.notifyCacheStatusUpdate(ifeed.ifeedId));
+        });
     }
 
     getCurrentIfeedId(): string {
@@ -87,6 +91,9 @@ export class UserComponent implements OnInit {
         this.cacheUpdateInProgress = true;
         const promiseFullIfeeds = <Promise<any>[]>[];
 
+        // To delete the icons showing whether the document is cached when new "sync" is started.
+
+
         Observable.of(...this.ifeeds).flatMap(ifeed => {
             let subscribeToRequest$: Observable<Response> = this.restService.getDocumentsForIfeed(ifeed.id);
             let subscribeToIfeedRequest$: Observable<Response> = this.restService.getIfeed(ifeed.id);
@@ -97,7 +104,12 @@ export class UserComponent implements OnInit {
 
             const documents = <[Document]>join[0].json();
             const ifeed = <Ifeed>join[1].json();
-            const cache = <Cache>join[2];
+            let cache = <Cache>join[2];
+
+            if (!cache) {
+                // Set to a dummy cache to keep the logic afterwards.
+                cache = new Cache();
+            }
 
             // this.cacheService.getCache().do(cache => {
             const ifeedWebPageUrl = this.location.prepareExternalUrl('/user/ifeed/' + ifeed.id);
@@ -106,14 +118,17 @@ export class UserComponent implements OnInit {
             promises.push(cache.add(ifeedWebPageUrl));
 
             documents.forEach(doc => {
-                /*if (!this.utilityService.mobileAndTabletCheck()) {
-                                  let safeResourceUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.globalStateService.ajaxUrl + "/document/"
-                                      + this.encodeURI(document.urlSafeUrl) + '/' + document.ifeedIdHmac);
+                let documentUri = this.utilityService.getDocumentUri(doc);
 
-                                  this.documentUrl = safeResourceUrl;
-                              } else {*/
-
-                promises.push(cache.add(this.utilityService.getDocumentUri(doc)));
+                // First delete to be able to show that the document is NOT cached for a moment.
+                promises.push(cache.delete(documentUri)
+                    .then(() => {
+                        this.cacheService.notifyCacheStatusUpdate(ifeed.id);
+                        return cache.add(documentUri);
+                    })
+                    .then(() => {
+                        this.cacheService.notifyCacheStatusUpdate(ifeed.id);
+                    }));
 
                 const documentWebPageUrl = this.location.prepareExternalUrl('/user/ifeed/' + ifeed.id + '?urlSafeUrl=' + doc.urlSafeUrl + '&ifeedIdHmac=' + doc.ifeedIdHmac);//'//self.router.url
                 promises.push(cache.add(documentWebPageUrl));
@@ -135,5 +150,7 @@ export class UserComponent implements OnInit {
         return false;
     }
 
-
+    cachingEnabled() {
+        return this.globalStateService.getCachingEnabled();
+    }
 }

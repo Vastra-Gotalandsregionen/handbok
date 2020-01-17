@@ -21,7 +21,7 @@ export class IfeedComponent implements OnInit, OnChanges {
 
     sub: Subscription;
     id: string;
-    documents: [Document] = null;
+    documents: Document[] = [];
     ifeed: Ifeed;
     documentBaseUrl: string;
     currentSubscription: Subscription = null;
@@ -95,10 +95,9 @@ export class IfeedComponent implements OnInit, OnChanges {
                 let subscribeToIfeedRequest: Observable<Response> = this.restService.getIfeed(this.id);
 
                 let timerSubscription: Subscription = Observable.timer(250).subscribe(undefined, undefined, () => {
-                    this.documents = null;
                     this.showingDocument = false;
                     this.globalStateService.currentDocumentTitle = null;
-                    this.documents = null;
+                    this.documents = [];
                 });
 
                 let currentSubscription = Observable.forkJoin(subscribeToRequest, subscribeToIfeedRequest)
@@ -139,7 +138,7 @@ export class IfeedComponent implements OnInit, OnChanges {
 
                         this.errorHandler.notifyError(err);
 
-                        this.documents = null;
+                        this.documents = [];
                         this.showingDocument = false;
                         this.currentDocument = null;
                         this.globalStateService.currentDocumentTitle = null;
@@ -157,6 +156,8 @@ export class IfeedComponent implements OnInit, OnChanges {
                 this.updateDocumentsCacheStatus();
             }
         });
+
+        this.globalStateService.getCachingEnabled().subscribe(enabled => this.updateDocumentsCacheStatus());
     }
 
     private updateDocumentsCacheStatus() {
@@ -164,6 +165,11 @@ export class IfeedComponent implements OnInit, OnChanges {
         const promises = <Promise<any>[]>[];
 
         this.cacheService.getCache().subscribe(cache => {
+            if (!cache) {
+                this.documentsCached = [];
+                return;
+            }
+
             this.documents.forEach(doc => {
                 let uri = this.utilityService.getDocumentUri(doc);
                 let promise = cache.match(uri);

@@ -5,8 +5,8 @@
             {{getBookName()}}
         </h4>
 
-        <span class="left-float">
-            <i [ngClass]="(cacheUpdateInProgress ? 'spinning' : '') + ' icon-refresh'"></i> <a href="" (click)="cacheIfeeds()">Aktivera offline-åtkomst</a>
+        <span class="left-float" *ngIf="cachingEnabled() | async">
+            <i [ngClass]="(cacheUpdateInProgress ? 'spinning' : '') + ' icon-refresh'"></i> <a href="" (click)="cacheIfeeds()">Hämta för offline-åtkomst</a>
         </span>
         <span class="left-float" *ngIf="hasAdminPermission">
             <a routerLink="/admin"><i class="icon-cog"></i> Administrera</a>

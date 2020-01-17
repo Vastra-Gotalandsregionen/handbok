@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Ifeed} from "../model/ifeed.model";
-import {Observable, Subscriber} from "rxjs";
+import {BehaviorSubject, Observable, Subscriber} from "rxjs";
 
 @Injectable()
 export class GlobalStateService {
@@ -18,6 +18,7 @@ export class GlobalStateService {
     portletResourcePk: string;
     searchInputFocused: boolean;
     isIE: boolean;
+    _cachingEnabled = new BehaviorSubject<boolean>(false);
 
     resetDocumentObservable$: Observable<void>;
     observer: Subscriber<void>;
@@ -67,5 +68,13 @@ export class GlobalStateService {
         if (this.observer) {
             this.observer.next();
         }
+    }
+
+    getCachingEnabled() {
+        return this._cachingEnabled;
+    }
+
+    setCachingEnabled(enabled: boolean) {
+        this._cachingEnabled.next(enabled);
     }
 }
