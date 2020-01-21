@@ -7,6 +7,10 @@ export class CacheService {
     public cacheStatusEvent$: Subject<string> = new Subject<string>();
 
     getCache(): Observable<Cache> {
+        if (!('serviceWorker' in navigator)) {
+            return Observable.of(null);
+        }
+
         let keysPromise = <Promise<string[]>> caches.keys();
         return Observable.fromPromise(keysPromise)
             .concatMap(x => x)

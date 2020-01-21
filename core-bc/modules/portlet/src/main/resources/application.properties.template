@@ -8,3 +8,5 @@ jdbc.password=
 hibernate.dialect=org.hibernate.dialect.PostgreSQL9Dialect
 
 jwt.secret=alksjfalsjwqi4oevalkfje3245
+
+hmac.key=asdfasdfsdafasdfasd

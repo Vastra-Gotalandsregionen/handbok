@@ -43,19 +43,21 @@ export class AppComponent implements OnInit {
 
         globalStateService.isIE = isIE;
 
-        router.events.subscribe( (event) => {
+        if ('serviceWorker' in navigator) {
+            router.events.subscribe((event) => {
 
-            // Add page to cache so it can be loaded offline if hitting the address directly in browser.
-            if (event instanceof NavigationEnd) {
-                caches.keys().then((keys: string[]) => {
-                    keys.filter((k: string) => k.indexOf('handbok') > -1).forEach(key => {
-                        caches.open(key).then(function (cache) {
-                            cache.add(document.location.href);
+                // Add page to cache so it can be loaded offline if hitting the address directly in browser.
+                if (event instanceof NavigationEnd) {
+                    caches.keys().then((keys: string[]) => {
+                        keys.filter((k: string) => k.indexOf('handbok') > -1).forEach(key => {
+                            caches.open(key).then(function (cache) {
+                                cache.add(document.location.href);
+                            });
                         });
                     });
-                });
-            }
-        });
+                }
+            });
+        }
     }
 
     ngOnInit(): void {
