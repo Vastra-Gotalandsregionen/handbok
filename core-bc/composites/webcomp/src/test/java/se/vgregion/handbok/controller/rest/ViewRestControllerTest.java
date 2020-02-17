@@ -26,6 +26,7 @@ import se.vgregion.handbok.service.HmacUtil;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -49,6 +50,9 @@ public class ViewRestControllerTest {
 
     @Autowired
     private PortletSelectedIfeedListRepository portletSelectedIfeedListRepository;
+
+    @Autowired
+    private HmacUtil hmacUtil;
 
     private DocumentFetcherService documentFetcherService;
 
@@ -203,6 +207,24 @@ public class ViewRestControllerTest {
         viewRestController.saveSelectedIfeedList(portletSelectedIfeedList);
 
         assertEquals(1, portletSelectedIfeedListRepository.findAll().size());
+    }
+
+    @Test
+    public void sort() {
+        List<Document> documents = new ArrayList<>();
+
+        Document d1 = new Document();
+        d1.setDcDateIssued(null);
+
+        Document d2 = new Document();
+        d2.setDcDateIssued(new Date());
+
+        documents.add(d1);
+        documents.add(d2);
+
+        viewRestController.sortByDcDateIssued(documents);
+
+        assertEquals(documents.get(0), d2);
     }
 
 }

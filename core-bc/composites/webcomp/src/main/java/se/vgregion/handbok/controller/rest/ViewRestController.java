@@ -28,7 +28,6 @@ import se.vgregion.handbok.model.PortletSelectedIfeedList;
 import se.vgregion.handbok.repository.IfeedListRepository;
 import se.vgregion.handbok.repository.IfeedRepository;
 import se.vgregion.handbok.repository.PortletSelectedIfeedListRepository;
-import se.vgregion.handbok.service.CacheHelperService;
 import se.vgregion.handbok.service.DocumentFetcherService;
 import se.vgregion.handbok.service.HmacUtil;
 
@@ -36,12 +35,14 @@ import javax.annotation.PostConstruct;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SignatureException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 import java.util.function.Function;
@@ -65,9 +66,6 @@ public class ViewRestController {
 
     @Autowired
     private DocumentFetcherService documentFetcherService;
-
-    @Autowired
-    private CacheHelperService cacheHelperService;
 
     public ViewRestController() {
     }
@@ -217,19 +215,37 @@ public class ViewRestController {
         if (sort != null) {
             switch (sort) {
                 case "title":
-                    documentList.sort(Comparator.comparing(Function.identity(), Comparator.nullsLast(Comparator.comparing(Document::getTitle))));
+                    documentList.sort(
+                            Comparator.comparing(
+                                    Function.identity(),
+                                    Comparator.nullsLast(Comparator.comparing(Document::getTitle))
+                            )
+                    );
+
                     break;
                 case "issuedDate":
-                    documentList.sort(Comparator.comparing(Function.identity(), Comparator.nullsLast(Comparator.comparing(Document::getDcDateIssued))).reversed());
+                    sortByDcDateIssued(documentList);
                     break;
             }
         }
 
         for (Document document : documentList) {
             document.setIfeedIdHmac(HmacUtil.calculateRFC2104HMAC(document.getUrl()));
-            document.setUrlSafeUrl(Base64.encodeBase64URLSafeString(document.getUrl().getBytes("UTF-8")));
+            document.setUrlSafeUrl(Base64.encodeBase64URLSafeString(document.getUrl().getBytes(StandardCharsets.UTF_8)));
         }
         return documentList;
+    }
+
+    void sortByDcDateIssued(List<Document> documentList) {
+        Function<Document, Date> getDcDateIssued = d -> d.getDcDateIssued() != null
+                ? d.getDcDateIssued() : new Date(0);
+
+        Comparator<Document> comparator = Comparator.comparing(
+                Function.identity(),
+                Comparator.nullsLast(Comparator.comparing(getDcDateIssued))
+        );
+
+        documentList.sort(comparator.reversed());
     }
 
     @RequestMapping(value = "/document/{urlSafeUrl}/{urlHmac}", method = RequestMethod.GET)
@@ -257,7 +273,7 @@ public class ViewRestController {
             headers.setContentType(MediaType.valueOf(ct));
 
             return new ResponseEntity<>(new InputStreamResource(inputStream), headers, HttpStatus.OK);
-        } catch (IOException | SignatureException | NoSuchAlgorithmException | InvalidKeyException e) {
+        } catch (IOException | NoSuchAlgorithmException | InvalidKeyException e) {
             LOGGER.error(e.getMessage(), e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }

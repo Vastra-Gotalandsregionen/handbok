@@ -90,10 +90,7 @@ export class UserComponent implements OnInit {
     cacheIfeeds() {
         this.cacheUpdateInProgress = true;
         const promiseFullIfeeds = <Promise<any>[]>[];
-
-        // To delete the icons showing whether the document is cached when new "sync" is started.
-
-
+        
         Observable.of(...this.ifeeds).flatMap(ifeed => {
             let subscribeToRequest$: Observable<Response> = this.restService.getDocumentsForIfeed(ifeed.id);
             let subscribeToIfeedRequest$: Observable<Response> = this.restService.getIfeed(ifeed.id);

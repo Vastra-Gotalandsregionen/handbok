@@ -8,7 +8,11 @@
 
     <import resource="dbContext-test.xml"/>
 
+    <context:property-placeholder location="application-test.properties"/>
+
     <jpa:repositories base-package="se.vgregion.handbok.repository" />
+
+    <bean class="se.vgregion.handbok.service.HmacUtil" />
 
     <tx:annotation-driven />
 
