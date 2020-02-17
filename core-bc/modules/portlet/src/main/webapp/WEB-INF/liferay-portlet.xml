@@ -14,7 +14,7 @@
         <private-session-attributes>true</private-session-attributes>
 
         <requires-namespaced-parameters>false</requires-namespaced-parameters>
-        <header-portlet-javascript>/js/polyfills.js</header-portlet-javascript>
+        <footer-portlet-javascript>/js/polyfills.js</footer-portlet-javascript>
         <footer-portlet-javascript>/js/app.js</footer-portlet-javascript>
         <css-class-wrapper>handbok-portlet</css-class-wrapper>
     </portlet>
