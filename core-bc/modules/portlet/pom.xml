@@ -101,7 +101,7 @@ Generation time : 2017-02-01 09:32:10 CET
             </build>
         </profile>
         <profile>
-            <id>prod</id>
+            <id>aot</id>
             <build>
                 <plugins>
                     <plugin>
