@@ -21,7 +21,7 @@ export class IfeedComponent implements OnInit, OnChanges {
 
     sub: Subscription;
     id: string;
-    documents: Document[] = [];
+    documents: Document[] = null;
     ifeed: Ifeed;
     documentBaseUrl: string;
     currentSubscription: Subscription = null;
@@ -97,7 +97,7 @@ export class IfeedComponent implements OnInit, OnChanges {
                 let timerSubscription: Subscription = Observable.timer(250).subscribe(undefined, undefined, () => {
                     this.showingDocument = false;
                     this.globalStateService.currentDocumentTitle = null;
-                    this.documents = [];
+                    this.documents = null;
                 });
 
                 let currentSubscription = Observable.forkJoin(subscribeToRequest, subscribeToIfeedRequest)
@@ -170,7 +170,9 @@ export class IfeedComponent implements OnInit, OnChanges {
                 return;
             }
 
-            this.documents.forEach(doc => {
+            const documents = this.documents || [];
+
+            documents.forEach(doc => {
                 let uri = this.utilityService.getDocumentUri(doc);
                 let promise = cache.match(uri);
                 promise.then(cached => {
