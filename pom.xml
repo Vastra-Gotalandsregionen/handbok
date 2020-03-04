@@ -36,7 +36,7 @@
         <compileTarget>11</compileTarget>
         <jstl.version>1.2</jstl.version>
         <junit.version>4.12</junit.version>
-        <liferay.version>7.0.0</liferay.version>
+        <liferay.version>7.2.1</liferay.version>
         <log4j.version>1.2.16</log4j.version>
         <portlet-api.version>2.0</portlet-api.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -44,5 +44,17 @@
         <slf4j.version>1.6.1</slf4j.version>
         <spring.fw.version>4.3.25.RELEASE</spring.fw.version>
     </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.liferay.portal</groupId>
+                <artifactId>release.portal.bom</artifactId>
+                <version>${liferay.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
 </project>
