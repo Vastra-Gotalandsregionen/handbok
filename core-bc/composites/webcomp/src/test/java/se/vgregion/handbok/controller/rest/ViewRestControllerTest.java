@@ -222,7 +222,7 @@ public class ViewRestControllerTest {
         documents.add(d1);
         documents.add(d2);
 
-        viewRestController.sortByDcDateIssued(documents);
+        viewRestController.sortByDateIssued(documents);
 
         assertEquals(documents.get(0), d2);
     }

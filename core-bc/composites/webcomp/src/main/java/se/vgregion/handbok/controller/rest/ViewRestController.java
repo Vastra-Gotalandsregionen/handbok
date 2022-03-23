@@ -224,7 +224,7 @@ public class ViewRestController {
 
                     break;
                 case "issuedDate":
-                    sortByDcDateIssued(documentList);
+                    sortByDateIssued(documentList);
                     break;
             }
         }
@@ -236,13 +236,20 @@ public class ViewRestController {
         return documentList;
     }
 
-    void sortByDcDateIssued(List<Document> documentList) {
-        Function<Document, Date> getDcDateIssued = d -> d.getDcDateIssued() != null
-                ? d.getDcDateIssued() : new Date(0);
+    void sortByDateIssued(List<Document> documentList) {
+        Function<Document, Date> getDateIssued = d -> {
+            Date dateIssued = d.getDcDateIssued();
+
+            if (dateIssued == null) {
+                dateIssued = d.getCreatedDateTime();
+            }
+
+            return dateIssued != null ? dateIssued : new Date(0);
+        };
 
         Comparator<Document> comparator = Comparator.comparing(
                 Function.identity(),
-                Comparator.nullsLast(Comparator.comparing(getDcDateIssued))
+                Comparator.nullsLast(Comparator.comparing(getDateIssued))
         );
 
         documentList.sort(comparator.reversed());
