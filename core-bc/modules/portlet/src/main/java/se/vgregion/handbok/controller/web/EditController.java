@@ -1,11 +1,13 @@
 package se.vgregion.handbok.controller.web;
 
-import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.Layout;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.theme.PortletDisplay;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
+import com.liferay.portal.kernel.util.WebKeys;
+import com.liferay.portletmvc4spring.bind.annotation.ActionMapping;
+import com.liferay.portletmvc4spring.bind.annotation.RenderMapping;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,23 +15,13 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.portlet.bind.annotation.ActionMapping;
-import org.springframework.web.portlet.bind.annotation.RenderMapping;
 import se.vgregion.handbok.model.IfeedList;
 import se.vgregion.handbok.model.PortletSelectedIfeedList;
 import se.vgregion.handbok.repository.IfeedListRepository;
 import se.vgregion.handbok.repository.PortletSelectedIfeedListRepository;
 import se.vgregion.handbok.service.JwtUtil;
 
-import javax.portlet.ActionRequest;
-import javax.portlet.ActionResponse;
-import javax.portlet.PortletPreferences;
-import javax.portlet.PortletRequest;
-import javax.portlet.ReadOnlyException;
-import javax.portlet.RenderRequest;
-import javax.portlet.RenderResponse;
-import javax.portlet.ResourceURL;
-import javax.portlet.ValidatorException;
+import javax.portlet.*;
 import java.io.IOException;
 
 @Component
