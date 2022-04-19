@@ -29,6 +29,10 @@ public class SecureRequestHandlerInterceptorTest {
         minutesAgeField.setAccessible(true);
         minutesAgeField.setInt(null, 5);
 
+        Field secretField = JwtUtil.class.getDeclaredField("secret");
+        secretField.setAccessible(true);
+        secretField.set(null, "secret");
+
         interceptor = new SecureRequestHandlerInterceptor();
     }
 
