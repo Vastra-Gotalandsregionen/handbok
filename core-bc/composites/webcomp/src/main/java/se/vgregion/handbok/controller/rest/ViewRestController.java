@@ -39,12 +39,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SignatureException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -106,10 +101,10 @@ public class ViewRestController {
     public ResponseEntity<IfeedList> getIfeedList(@PathVariable("bookId") Long bookId) {
 
         try {
-            IfeedList ifeedList = ifeedListRepository.findOne(bookId);
+            Optional<IfeedList> ifeedList = ifeedListRepository.findById(bookId);
 
-            if (ifeedList != null) {
-                return ResponseEntity.ok(ifeedList);
+            if (ifeedList.isPresent()) {
+                return ResponseEntity.ok(ifeedList.get());
             }
         } catch (NumberFormatException e) {
             LOGGER.error(e.getMessage(), e);
@@ -124,13 +119,13 @@ public class ViewRestController {
     public ResponseEntity<DocumentQueryResponse> queryDocumentTitles(@PathVariable("ifeedListId") Long ifeedListId,
                                                                      @RequestParam("query") String query) {
 
-        IfeedList ifeedList = ifeedListRepository.findOne(ifeedListId);
+        Optional<IfeedList> ifeedList = ifeedListRepository.findById(ifeedListId);
 
-        if (ifeedList == null) {
+        if (ifeedList.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
 
-        List<Ifeed> ifeeds = ifeedList.getIfeeds();
+        List<Ifeed> ifeeds = ifeedList.get().getIfeeds();
 
         DocumentQueryResponse documentQueryResponse = new DocumentQueryResponse();
         for (Ifeed ifeed : ifeeds) {
@@ -291,7 +286,7 @@ public class ViewRestController {
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public IfeedList putIfeedList(@RequestBody IfeedList ifeedList) {
-        IfeedList one = ifeedListRepository.findOne(ifeedList.getId());
+        IfeedList one = ifeedListRepository.findById(ifeedList.getId()).orElseThrow();
         one.setIfeeds(new ArrayList<>());
         ifeedListRepository.saveAndFlush(one);
 

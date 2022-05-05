@@ -24,6 +24,7 @@ import se.vgregion.handbok.service.JwtUtil;
 
 import javax.portlet.*;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 @RequestMapping("view")
@@ -73,15 +74,16 @@ public class PortletController {
         String angularBase = basePath + "/-/a"; // Careful not to change this in liferay-portlet.xml.
         model.addAttribute("angularBase", angularBase);
 
-        PortletSelectedIfeedList selected = portletSelectedIfeedListRepository.findOne(resourcePK);
+        Optional<PortletSelectedIfeedList> selected = portletSelectedIfeedListRepository.findById(resourcePK);
 
-        if (selected != null) {
-            IfeedList ifeedList = selected.getIfeedList();
+        if (selected.isPresent()) {
+            IfeedList ifeedList = selected.get().getIfeedList();
             String bookName = ifeedList.getName();
+            Long bookId = ifeedList.getId();
             model.addAttribute("bookName", bookName);
-            model.addAttribute("bookId", ifeedList.getId());
+            model.addAttribute("bookId", bookId);
 
-            boolean hasAdminPermission = isHasAdminPermission(themeDisplay, bookName);
+            boolean hasAdminPermission = isHasAdminPermission(themeDisplay, bookId);
             model.addAttribute("hasAdminPermission", hasAdminPermission);
             String jwtToken = JwtUtil.createToken(user == null ? null : user.getUserId(), hasAdminPermission ? "admin" : "guest");
             model.addAttribute("jwtToken", jwtToken);
@@ -90,10 +92,10 @@ public class PortletController {
         return "index";
     }
 
-    private boolean isHasAdminPermission(ThemeDisplay themeDisplay, String bookName)
+    private boolean isHasAdminPermission(ThemeDisplay themeDisplay, Long bookId)
             throws SystemException, PortalException {
 
-        List<String> preferencesUserIds = ifeedListRepository.findByName(bookName).getPreferencesUserIds();
+        List<String> preferencesUserIds = ifeedListRepository.findById(bookId).orElseThrow().getPreferencesUserIds();
 
         boolean hasPreferencesPermission = false;
         if (preferencesUserIds.contains(themeDisplay.getUser().getScreenName())) {
@@ -111,10 +113,10 @@ public class PortletController {
         ThemeDisplay themeDisplay = (ThemeDisplay) request.getAttribute(WebKeys.THEME_DISPLAY);
 
         String resourcePK = themeDisplay.getPortletDisplay().getResourcePK();
-        PortletSelectedIfeedList selected = portletSelectedIfeedListRepository.findOne(resourcePK);
-        String bookName = selected.getIfeedList().getName();
+        PortletSelectedIfeedList selected = portletSelectedIfeedListRepository.findById(resourcePK).orElseThrow();
+        Long bookId = selected.getIfeedList().getId();
 
-        boolean hasAdminPermission = isHasAdminPermission(themeDisplay, bookName);
+        boolean hasAdminPermission = isHasAdminPermission(themeDisplay, bookId);
 
         User user = (User) request.getAttribute(WebKeys.USER);
 

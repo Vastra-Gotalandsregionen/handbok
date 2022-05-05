@@ -23,6 +23,7 @@ import se.vgregion.handbok.service.JwtUtil;
 
 import javax.portlet.*;
 import java.io.IOException;
+import java.util.Optional;
 
 @Component
 @RequestMapping("edit")
@@ -67,10 +68,10 @@ public class EditController {
         String jwtToken = JwtUtil.createToken(user == null ? null : user.getUserId(), "edit");
         model.addAttribute("jwtToken", jwtToken);
 
-        PortletSelectedIfeedList selected = portletSelectedIfeedListRepository.findOne(resourcePK);
+        Optional<PortletSelectedIfeedList> selected = portletSelectedIfeedListRepository.findById(resourcePK);
 
-        if (selected != null) {
-            IfeedList ifeedList = selected.getIfeedList();
+        if (selected.isPresent()) {
+            IfeedList ifeedList = selected.get().getIfeedList();
             String bookName = ifeedList.getName();
             model.addAttribute("bookName", bookName);
             model.addAttribute("bookId", ifeedList.getId());
