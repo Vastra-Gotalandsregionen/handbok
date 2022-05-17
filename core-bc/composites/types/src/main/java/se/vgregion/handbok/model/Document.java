@@ -31,7 +31,7 @@ public class Document implements Serializable {
     private String dcPublisherForUnitFlat;
 
     @JsonProperty(value = "vgr:VgrExtension.vgr:PublishedForUnit")
-    private String vgrExtensionPublishedForUnit;
+    private String[] vgrExtensionPublishedForUnit;
 
     public Document() {
     }
@@ -135,11 +135,11 @@ public class Document implements Serializable {
         this.dcPublisherForUnitFlat = dcPublisherForUnitFlat;
     }
 
-    public String getVgrExtensionPublishedForUnit() {
+    public String[] getVgrExtensionPublishedForUnit() {
         return vgrExtensionPublishedForUnit;
     }
 
-    public void setVgrExtensionPublishedForUnit(String vgrExtensionPublishedForUnit) {
+    public void setVgrExtensionPublishedForUnit(String[] vgrExtensionPublishedForUnit) {
         this.vgrExtensionPublishedForUnit = vgrExtensionPublishedForUnit;
     }
 }
