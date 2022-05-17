@@ -5,7 +5,7 @@
         <li *ngFor="let document of documents">
             <a routerLink="/user/ifeed/{{id}}" [queryParams]="{'urlSafeUrl': document.urlSafeUrl, 'ifeedIdHmac': document.ifeedIdHmac}">
                 <i class="icon-caret-right"></i> {{document.title}}<span *ngIf="isCached(document)"> <i class="icon-refresh"></i></span>
-                <div *ngIf="ifeed.showPublishedFor" class="published-for">{{document['dc.publisher.forunit.flat']}}</div>
+                <div *ngIf="ifeed.showPublishedFor" class="published-for">{{ getPublisher(document) }}</div>
             </a>
         </li>
     </ul>
@@ -13,7 +13,7 @@
     <ul *ngIf="mobileBrowser" class="nav nav-pills nav-stacked">
         <li *ngFor="let document of documents">
             <a href="{{getDocumentUrlForDocument(document)}}">
-                <i class="icon-caret-right"></i>{{document.title}}
+                <i class="icon-caret-right"></i>{{document.title}}<span *ngIf="isCached(document)"> <i class="icon-refresh"></i></span>
                 <div *ngIf="ifeed.showPublishedFor" class="published-for">{{document['dc.publisher.forunit.flat']}}</div>
             </a>
         </li>

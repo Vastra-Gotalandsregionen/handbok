@@ -246,4 +246,15 @@ export class IfeedComponent implements OnInit, OnChanges {
     isCached(document: Document) {
         return this.documentsCached[document.id];
     }
+
+    getPublisher(document: Document): string {
+        let publisher = document['dc.publisher.forunit.flat'];
+
+        let alternativePublisherArray = document['vgr:VgrExtension.vgr:PublishedForUnit'];
+        if (!publisher && alternativePublisherArray && alternativePublisherArray.length > 0) {
+            publisher = alternativePublisherArray[0];
+        }
+
+        return publisher;
+    }
 }
