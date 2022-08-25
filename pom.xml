@@ -31,16 +31,17 @@
     </scm>
 
     <properties>
-        <apache.cxf.version>3.1.8</apache.cxf.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <compileSource>11</compileSource>
         <compileTarget>11</compileTarget>
+
+        <apache.cxf.version>3.1.8</apache.cxf.version>
         <jstl.version>1.2</jstl.version>
         <junit.version>4.12</junit.version>
-        <liferay.version>7.0.0</liferay.version>
+        <liferay.version>7.3.0</liferay.version>
         <slf4j.version>1.7.36</slf4j.version>
         <log4j.version>2.17.2</log4j.version>
         <portlet-api.version>2.0</portlet-api.version>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <servlet-api.version>3.0.1</servlet-api.version>
         <spring.fw.version>5.3.18</spring.fw.version>
     </properties>
@@ -68,4 +69,16 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.liferay.portal</groupId>
+                <artifactId>release.portal.bom</artifactId>
+                <version>${liferay.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 </project>
