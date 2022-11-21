@@ -36,7 +36,7 @@
         <compileTarget>11</compileTarget>
         <jstl.version>1.2</jstl.version>
         <junit.version>4.12</junit.version>
-        <liferay.version>7.2.1</liferay.version>
+        <liferay.version>7.4.3.48</liferay.version>
         <slf4j.version>1.7.36</slf4j.version>
         <log4j.version>2.17.2</log4j.version>
         <portlet-api.version>2.0</portlet-api.version>
