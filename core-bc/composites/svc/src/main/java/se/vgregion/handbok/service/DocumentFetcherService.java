@@ -47,9 +47,9 @@ public class DocumentFetcherService {
         urlConnection.setConnectTimeout(TIMEOUT);
         urlConnection.setReadTimeout(TIMEOUT);
 
-        InputStream inputStream = urlConnection.getInputStream();
-
-        return JSON_MAPPER.readValue(inputStream, Document[].class);
+        try (InputStream inputStream = urlConnection.getInputStream()) {
+            return JSON_MAPPER.readValue(inputStream, Document[].class);
+        }
     }
 
     public Document[] fetchDocumentsPutCache(String feedId) throws IOException {
