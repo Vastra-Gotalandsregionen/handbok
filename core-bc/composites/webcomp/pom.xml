@@ -36,6 +36,12 @@ Generation time : 2017-02-01 09:32:10 CET
         </dependency>
 
         <dependency>
+            <groupId>com.rometools</groupId>
+            <artifactId>rome</artifactId>
+            <version>1.15.0</version>
+        </dependency>
+
+        <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
             <version>3.0.1</version>
